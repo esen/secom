@@ -1,35 +1,46 @@
-<h1>Listing ort_exams</h1>
-
-<table>
-  <tr>
-    <th>Was at</th>
-    <th>Cost</th>
-    <th>Ort exam type1</th>
-    <th>Ort exam type2</th>
-    <th>Ort exam type3</th>
-    <th>Ort exam type4</th>
-    <th>Ort exam type5</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ort_exams.each do |ort_exam| %>
-  <tr>
-    <td><%= ort_exam.was_at %></td>
-    <td><%= ort_exam.cost %></td>
-    <td><%= ort_exam.ort_exam_type1 %></td>
-    <td><%= ort_exam.ort_exam_type2_id %></td>
-    <td><%= ort_exam.ort_exam_type3_id %></td>
-    <td><%= ort_exam.ort_exam_type4_id %></td>
-    <td><%= ort_exam.ort_exam_type5_id %></td>
-    <td><%= link_to 'Show', ort_exam %></td>
-    <td><%= link_to 'Edit', edit_ort_exam_path(ort_exam) %></td>
-    <td><%= link_to 'Destroy', ort_exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Ort::Exam -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:cost) %></th>
+      <th><%= model_class.human_attribute_name(:exam_type1_id) %></th>
+      <th><%= model_class.human_attribute_name(:exam_type2_id) %></th>
+      <th><%= model_class.human_attribute_name(:exam_type3_id) %></th>
+      <th><%= model_class.human_attribute_name(:exam_type4_id) %></th>
+      <th><%= model_class.human_attribute_name(:exam_type5_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exams.each do |exam| %>
+      <tr>
+        <td><%= link_to exam.id, ort_exam_path(exam) %></td>
+        <td><%= exam.cost %></td>
+        <td><%= exam.exam_type1_id %></td>
+        <td><%= exam.exam_type2_id %></td>
+        <td><%= exam.exam_type3_id %></td>
+        <td><%= exam.exam_type4_id %></td>
+        <td><%= exam.exam_type5_id %></td>
+        <td><%=l exam.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_ort_exam_path(exam), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      ort_exam_path(exam),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Exam', new_ort_exam_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_ort_exam_path,
+            :class => 'btn btn-primary' %>

@@ -1,37 +1,48 @@
-<h1>Listing ort_cheques</h1>
-
-<table>
-  <tr>
-    <th>Ort participant</th>
-    <th>Ort exam</th>
-    <th>Enrolled at</th>
-    <th>Mark1</th>
-    <th>Mark2</th>
-    <th>Mark3</th>
-    <th>Mark4</th>
-    <th>Mark5</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ort_cheques.each do |ort_cheque| %>
-  <tr>
-    <td><%= ort_cheque.ort_participant_id %></td>
-    <td><%= ort_cheque.ort_exam_id %></td>
-    <td><%= ort_cheque.enrolled_at %></td>
-    <td><%= ort_cheque.mark1 %></td>
-    <td><%= ort_cheque.mark2 %></td>
-    <td><%= ort_cheque.mark3 %></td>
-    <td><%= ort_cheque.mark4 %></td>
-    <td><%= ort_cheque.mark5 %></td>
-    <td><%= link_to 'Show', ort_cheque %></td>
-    <td><%= link_to 'Edit', edit_ort_cheque_path(ort_cheque) %></td>
-    <td><%= link_to 'Destroy', ort_cheque, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Ort::Cheque -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:participant_id) %></th>
+      <th><%= model_class.human_attribute_name(:exam_id) %></th>
+      <th><%= model_class.human_attribute_name(:mark1) %></th>
+      <th><%= model_class.human_attribute_name(:mark2) %></th>
+      <th><%= model_class.human_attribute_name(:mark3) %></th>
+      <th><%= model_class.human_attribute_name(:mark4) %></th>
+      <th><%= model_class.human_attribute_name(:mark5) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @cheques.each do |cheque| %>
+      <tr>
+        <td><%= link_to cheque.id, ort_cheque_path(cheque) %></td>
+        <td><%= cheque.participant_id %></td>
+        <td><%= cheque.exam_id %></td>
+        <td><%= cheque.mark1 %></td>
+        <td><%= cheque.mark2 %></td>
+        <td><%= cheque.mark3 %></td>
+        <td><%= cheque.mark4 %></td>
+        <td><%= cheque.mark5 %></td>
+        <td><%=l cheque.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_ort_cheque_path(cheque), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      ort_cheque_path(cheque),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Cheque', new_ort_cheque_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_ort_cheque_path,
+            :class => 'btn btn-primary' %>

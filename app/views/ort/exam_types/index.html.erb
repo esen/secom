@@ -1,25 +1,38 @@
-<h1>Listing ort_exam_types</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Cost</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @ort_exam_types.each do |ort_exam_type| %>
-  <tr>
-    <td><%= ort_exam_type.name %></td>
-    <td><%= ort_exam_type.cost %></td>
-    <td><%= link_to 'Show', ort_exam_type %></td>
-    <td><%= link_to 'Edit', edit_ort_exam_type_path(ort_exam_type) %></td>
-    <td><%= link_to 'Destroy', ort_exam_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Ort::ExamType -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:cost) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exam_types.each do |exam_type| %>
+      <tr>
+        <td><%= link_to exam_type.id, ort_exam_type_path(exam_type) %></td>
+        <td><%= exam_type.name %></td>
+        <td><%= exam_type.cost %></td>
+        <td><%=l exam_type.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_ort_exam_type_path(exam_type), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      ort_exam_type_path(exam_type),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Exam type', new_ort_exam_type_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_ort_exam_type_path,
+            :class => 'btn btn-primary' %>
