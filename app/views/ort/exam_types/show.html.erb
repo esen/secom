@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @ort_exam_type.name %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @ort_exam_type.cost %>
+</p>
+
+
+<%= link_to 'Edit', edit_ort_exam_type_path(@ort_exam_type) %> |
+<%= link_to 'Back', ort_exam_types_path %>

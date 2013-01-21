@@ -1,0 +1,49 @@
+<%= form_for(@ort_cheque) do |f| %>
+  <% if @ort_cheque.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ort_cheque.errors.count, "error") %> prohibited this ort_cheque from being saved:</h2>
+
+      <ul>
+      <% @ort_cheque.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ort_participant_id %><br />
+    <%= f.number_field :ort_participant_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_id %><br />
+    <%= f.number_field :ort_exam_id %>
+  </div>
+  <div class="field">
+    <%= f.label :enrolled_at %><br />
+    <%= f.datetime_select :enrolled_at %>
+  </div>
+  <div class="field">
+    <%= f.label :mark1 %><br />
+    <%= f.text_field :mark1 %>
+  </div>
+  <div class="field">
+    <%= f.label :mark2 %><br />
+    <%= f.text_field :mark2 %>
+  </div>
+  <div class="field">
+    <%= f.label :mark3 %><br />
+    <%= f.text_field :mark3 %>
+  </div>
+  <div class="field">
+    <%= f.label :mark4 %><br />
+    <%= f.text_field :mark4 %>
+  </div>
+  <div class="field">
+    <%= f.label :mark5 %><br />
+    <%= f.text_field :mark5 %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

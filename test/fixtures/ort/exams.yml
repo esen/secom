@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  was_at: 2013-01-21 21:05:01
+  cost: 1.5
+  ort_exam_type1: MyString
+  ort_exam_type2_id: 1
+  ort_exam_type3_id: 1
+  ort_exam_type4_id: 1
+  ort_exam_type5_id: 1
+
+two:
+  was_at: 2013-01-21 21:05:01
+  cost: 1.5
+  ort_exam_type1: MyString
+  ort_exam_type2_id: 1
+  ort_exam_type3_id: 1
+  ort_exam_type4_id: 1
+  ort_exam_type5_id: 1

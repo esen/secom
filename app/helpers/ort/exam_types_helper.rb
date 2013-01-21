@@ -1,0 +1,2 @@
+module Ort::ExamTypesHelper
+end

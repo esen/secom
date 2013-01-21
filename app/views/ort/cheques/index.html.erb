@@ -1,0 +1,37 @@
+<h1>Listing ort_cheques</h1>
+
+<table>
+  <tr>
+    <th>Ort participant</th>
+    <th>Ort exam</th>
+    <th>Enrolled at</th>
+    <th>Mark1</th>
+    <th>Mark2</th>
+    <th>Mark3</th>
+    <th>Mark4</th>
+    <th>Mark5</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ort_cheques.each do |ort_cheque| %>
+  <tr>
+    <td><%= ort_cheque.ort_participant_id %></td>
+    <td><%= ort_cheque.ort_exam_id %></td>
+    <td><%= ort_cheque.enrolled_at %></td>
+    <td><%= ort_cheque.mark1 %></td>
+    <td><%= ort_cheque.mark2 %></td>
+    <td><%= ort_cheque.mark3 %></td>
+    <td><%= ort_cheque.mark4 %></td>
+    <td><%= ort_cheque.mark5 %></td>
+    <td><%= link_to 'Show', ort_cheque %></td>
+    <td><%= link_to 'Edit', edit_ort_cheque_path(ort_cheque) %></td>
+    <td><%= link_to 'Destroy', ort_cheque, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Cheque', new_ort_cheque_path %>

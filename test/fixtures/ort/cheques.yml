@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ort_participant_id: 1
+  ort_exam_id: 1
+  enrolled_at: 2013-01-21 21:12:56
+  mark1: 1.5
+  mark2: 1.5
+  mark3: 1.5
+  mark4: 1.5
+  mark5: 1.5
+
+two:
+  ort_participant_id: 1
+  ort_exam_id: 1
+  enrolled_at: 2013-01-21 21:12:56
+  mark1: 1.5
+  mark2: 1.5
+  mark3: 1.5
+  mark4: 1.5
+  mark5: 1.5

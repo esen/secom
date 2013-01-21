@@ -1,0 +1,45 @@
+<%= form_for(@ort_exam) do |f| %>
+  <% if @ort_exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ort_exam.errors.count, "error") %> prohibited this ort_exam from being saved:</h2>
+
+      <ul>
+      <% @ort_exam.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :was_at %><br />
+    <%= f.datetime_select :was_at %>
+  </div>
+  <div class="field">
+    <%= f.label :cost %><br />
+    <%= f.text_field :cost %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_type1 %><br />
+    <%= f.text_field :ort_exam_type1 %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_type2_id %><br />
+    <%= f.number_field :ort_exam_type2_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_type3_id %><br />
+    <%= f.number_field :ort_exam_type3_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_type4_id %><br />
+    <%= f.number_field :ort_exam_type4_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ort_exam_type5_id %><br />
+    <%= f.number_field :ort_exam_type5_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ort participant:</b>
+  <%= @ort_cheque.ort_participant_id %>
+</p>
+
+<p>
+  <b>Ort exam:</b>
+  <%= @ort_cheque.ort_exam_id %>
+</p>
+
+<p>
+  <b>Enrolled at:</b>
+  <%= @ort_cheque.enrolled_at %>
+</p>
+
+<p>
+  <b>Mark1:</b>
+  <%= @ort_cheque.mark1 %>
+</p>
+
+<p>
+  <b>Mark2:</b>
+  <%= @ort_cheque.mark2 %>
+</p>
+
+<p>
+  <b>Mark3:</b>
+  <%= @ort_cheque.mark3 %>
+</p>
+
+<p>
+  <b>Mark4:</b>
+  <%= @ort_cheque.mark4 %>
+</p>
+
+<p>
+  <b>Mark5:</b>
+  <%= @ort_cheque.mark5 %>
+</p>
+
+
+<%= link_to 'Edit', edit_ort_cheque_path(@ort_cheque) %> |
+<%= link_to 'Back', ort_cheques_path %>

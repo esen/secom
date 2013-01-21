@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @ort_participant.name %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @ort_participant.password %>
+</p>
+
+<p>
+  <b>Registered at:</b>
+  <%= @ort_participant.registered_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_ort_participant_path(@ort_participant) %> |
+<%= link_to 'Back', ort_participants_path %>

@@ -1,0 +1,35 @@
+<h1>Listing ort_exams</h1>
+
+<table>
+  <tr>
+    <th>Was at</th>
+    <th>Cost</th>
+    <th>Ort exam type1</th>
+    <th>Ort exam type2</th>
+    <th>Ort exam type3</th>
+    <th>Ort exam type4</th>
+    <th>Ort exam type5</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ort_exams.each do |ort_exam| %>
+  <tr>
+    <td><%= ort_exam.was_at %></td>
+    <td><%= ort_exam.cost %></td>
+    <td><%= ort_exam.ort_exam_type1 %></td>
+    <td><%= ort_exam.ort_exam_type2_id %></td>
+    <td><%= ort_exam.ort_exam_type3_id %></td>
+    <td><%= ort_exam.ort_exam_type4_id %></td>
+    <td><%= ort_exam.ort_exam_type5_id %></td>
+    <td><%= link_to 'Show', ort_exam %></td>
+    <td><%= link_to 'Edit', edit_ort_exam_path(ort_exam) %></td>
+    <td><%= link_to 'Destroy', ort_exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Exam', new_ort_exam_path %>

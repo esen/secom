@@ -1,0 +1,29 @@
+<h1>Listing ort_payments</h1>
+
+<table>
+  <tr>
+    <th>Ort participant</th>
+    <th>Ort exam</th>
+    <th>Amount</th>
+    <th>Payed at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ort_payments.each do |ort_payment| %>
+  <tr>
+    <td><%= ort_payment.ort_participant_id %></td>
+    <td><%= ort_payment.ort_exam_id %></td>
+    <td><%= ort_payment.amount %></td>
+    <td><%= ort_payment.payed_at %></td>
+    <td><%= link_to 'Show', ort_payment %></td>
+    <td><%= link_to 'Edit', edit_ort_payment_path(ort_payment) %></td>
+    <td><%= link_to 'Destroy', ort_payment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment', new_ort_payment_path %>

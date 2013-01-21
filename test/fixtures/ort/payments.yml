@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ort_participant_id: 1
+  ort_exam_id: 1
+  amount: 1.5
+  payed_at: 2013-01-21 21:13:42
+
+two:
+  ort_participant_id: 1
+  ort_exam_id: 1
+  amount: 1.5
+  payed_at: 2013-01-21 21:13:42

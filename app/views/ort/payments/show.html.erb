@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ort participant:</b>
+  <%= @ort_payment.ort_participant_id %>
+</p>
+
+<p>
+  <b>Ort exam:</b>
+  <%= @ort_payment.ort_exam_id %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @ort_payment.amount %>
+</p>
+
+<p>
+  <b>Payed at:</b>
+  <%= @ort_payment.payed_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_ort_payment_path(@ort_payment) %> |
+<%= link_to 'Back', ort_payments_path %>

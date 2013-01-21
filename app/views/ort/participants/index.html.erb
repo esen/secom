@@ -1,0 +1,27 @@
+<h1>Listing ort_participants</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Password</th>
+    <th>Registered at</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ort_participants.each do |ort_participant| %>
+  <tr>
+    <td><%= ort_participant.name %></td>
+    <td><%= ort_participant.password %></td>
+    <td><%= ort_participant.registered_at %></td>
+    <td><%= link_to 'Show', ort_participant %></td>
+    <td><%= link_to 'Edit', edit_ort_participant_path(ort_participant) %></td>
+    <td><%= link_to 'Destroy', ort_participant, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Participant', new_ort_participant_path %>

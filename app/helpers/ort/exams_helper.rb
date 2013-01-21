@@ -1,0 +1,2 @@
+module Ort::ExamsHelper
+end

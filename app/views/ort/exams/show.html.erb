@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Was at:</b>
+  <%= @ort_exam.was_at %>
+</p>
+
+<p>
+  <b>Cost:</b>
+  <%= @ort_exam.cost %>
+</p>
+
+<p>
+  <b>Ort exam type1:</b>
+  <%= @ort_exam.ort_exam_type1 %>
+</p>
+
+<p>
+  <b>Ort exam type2:</b>
+  <%= @ort_exam.ort_exam_type2_id %>
+</p>
+
+<p>
+  <b>Ort exam type3:</b>
+  <%= @ort_exam.ort_exam_type3_id %>
+</p>
+
+<p>
+  <b>Ort exam type4:</b>
+  <%= @ort_exam.ort_exam_type4_id %>
+</p>
+
+<p>
+  <b>Ort exam type5:</b>
+  <%= @ort_exam.ort_exam_type5_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ort_exam_path(@ort_exam) %> |
+<%= link_to 'Back', ort_exams_path %>
