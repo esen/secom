@@ -1,6 +1,4 @@
 class Ort::ExamsController < ApplicationController
-  # GET /ort/exams
-  # GET /ort/exams.json
   def index
     @exams = Ort::Exam.all
 
@@ -10,8 +8,6 @@ class Ort::ExamsController < ApplicationController
     end
   end
 
-  # GET /ort/exams/1
-  # GET /ort/exams/1.json
   def show
     @exam = Ort::Exam.find(params[:id])
 
@@ -21,10 +17,9 @@ class Ort::ExamsController < ApplicationController
     end
   end
 
-  # GET /ort/exams/new
-  # GET /ort/exams/new.json
   def new
     @exam = Ort::Exam.new
+    @exam_types = Ort::ExamType.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,15 +27,16 @@ class Ort::ExamsController < ApplicationController
     end
   end
 
-  # GET /ort/exams/1/edit
   def edit
     @exam = Ort::Exam.find(params[:id])
+    @exam_types = Ort::ExamType.all
   end
 
-  # POST /ort/exams
-  # POST /ort/exams.json
   def create
     @exam = Ort::Exam.new(params[:ort_exam])
+    @exam_types = Ort::ExamType.all
+
+    @exam.cost = @exam.total_cost unless params[:set_cost].to_i == 1
 
     respond_to do |format|
       if @exam.save
@@ -53,10 +49,10 @@ class Ort::ExamsController < ApplicationController
     end
   end
 
-  # PUT /ort/exams/1
-  # PUT /ort/exams/1.json
   def update
+    puts params[:ort_exam]
     @exam = Ort::Exam.find(params[:id])
+    @exam_types = Ort::ExamType.all
 
     respond_to do |format|
       if @exam.update_attributes(params[:ort_exam])
@@ -69,8 +65,6 @@ class Ort::ExamsController < ApplicationController
     end
   end
 
-  # DELETE /ort/exams/1
-  # DELETE /ort/exams/1.json
   def destroy
     @exam = Ort::Exam.find(params[:id])
     @exam.destroy

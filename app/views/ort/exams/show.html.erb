@@ -1,31 +1,43 @@
 <%- model_class = Ort::Exam -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+  <h1><%= t '.title', :default => model_class.model_name.human %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:cost) %>:</strong></dt>
+  <dt><strong>Starts at :</strong></dt>
+  <dd><%= l @exam.start_date %></dd>
+  <dt><strong>Cost :</strong></dt>
   <dd><%= @exam.cost %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_type1_id) %>:</strong></dt>
-  <dd><%= @exam.exam_type1_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_type2_id) %>:</strong></dt>
-  <dd><%= @exam.exam_type2_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_type3_id) %>:</strong></dt>
-  <dd><%= @exam.exam_type3_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_type4_id) %>:</strong></dt>
-  <dd><%= @exam.exam_type4_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_type5_id) %>:</strong></dt>
-  <dd><%= @exam.exam_type5_id %></dd>
+  <% if @exam.exam_type1_id %>
+      <dt><strong>First Exam Type :</strong></dt>
+      <dd><%= @exam.name %></dd>
+  <% end %>
+  <% if @exam.exam_type2_id %>
+      <dt><strong>Second Exam Type :</strong></dt>
+      <dd><%= @exam.exam_type2.name %></dd>
+  <% end %>
+  <% if @exam.exam_type3_id %>
+      <dt><strong>Third Exam Type :</strong></dt>
+      <dd><%= @exam.exam_type3.name %></dd>
+  <% end %>
+  <% if @exam.exam_type4_id %>
+      <dt><strong>Fourth Exam Type :</strong></dt>
+      <dd><%= @exam.exam_type4.name %></dd>
+  <% end %>
+  <% if @exam.exam_type5_id %>
+      <dt><strong>Fifth Exam Type :</strong></dt>
+      <dd><%= @exam.exam_type5.name %></dd>
+  <% end %>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              ort_exams_path, :class => 'btn'  %>
+              ort_exams_path, :class => 'btn' %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_ort_exam_path(@exam), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               ort_exam_path(@exam),
               :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
               :class => 'btn btn-danger' %>
 </div>

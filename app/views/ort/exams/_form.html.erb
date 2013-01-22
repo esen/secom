@@ -1,44 +1,39 @@
-<%= form_for @exam, :html => { :class => 'form-horizontal' } do |f| %>
-  <div class="control-group">
-    <%= f.label :cost, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :cost, :class => 'text_field' %>
+<%= form_for @exam, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="control-group">
+      <%= label_tag :ort_exam_type1_id, "Exam Types", :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :exam_types, @exam_types.collect { |et| [et.name, et.id] },
+                     {:selected => @exam.exam_types.collect { |et| et.id }},
+                     {:class => 'select_field', :multiple => "multiple"} %>
+      </div>
     </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :exam_type1_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :exam_type1_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :exam_type2_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :exam_type2_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :exam_type3_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :exam_type3_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :exam_type4_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :exam_type4_id, :class => 'number_field' %>
-    </div>
-  </div>
-  <div class="control-group">
-    <%= f.label :exam_type5_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.number_field :exam_type5_id, :class => 'number_field' %>
-    </div>
-  </div>
 
-  <div class="form-actions">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                ort_exams_path, :class => 'btn' %>
-  </div>
+    <% if @exam.new_record? %>
+        <div class="control-group">
+          <%= label_tag :set_cost, "Set Cost", :class => 'control-label' %>
+          <div class="controls">
+            <%= check_box_tag :set_cost %>
+            <br/>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="control-group" style="<%= "display:none;" if @exam.new_record? %>" id="cost_div">
+      <%= f.label :cost, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :cost, :class => 'text_field' %>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <%= f.label :start_date, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :start_date %>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")), ort_exams_path, :class => 'btn' %>
+    </div>
 <% end %>

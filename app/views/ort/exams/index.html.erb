@@ -5,28 +5,26 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:cost) %></th>
-      <th><%= model_class.human_attribute_name(:exam_type1_id) %></th>
-      <th><%= model_class.human_attribute_name(:exam_type2_id) %></th>
-      <th><%= model_class.human_attribute_name(:exam_type3_id) %></th>
-      <th><%= model_class.human_attribute_name(:exam_type4_id) %></th>
-      <th><%= model_class.human_attribute_name(:exam_type5_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>Name</th>
+      <th>Name</th>
+      <th>Name</th>
+      <th>Name</th>
+      <th>Name</th>
+      <th>Cost</th>
+      <th>Start Date</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @exams.each do |exam| %>
       <tr>
-        <td><%= link_to exam.id, ort_exam_path(exam) %></td>
+        <td><%= link_to exam.name, ort_exam_path(exam) %></td>
+        <td><%= exam.exam_type2.name if exam.exam_type2_id %></td>
+        <td><%= exam.exam_type3.name if exam.exam_type3_id %></td>
+        <td><%= exam.exam_type4.name if exam.exam_type4_id %></td>
+        <td><%= exam.exam_type5.name if exam.exam_type5_id %></td>
         <td><%= exam.cost %></td>
-        <td><%= exam.exam_type1_id %></td>
-        <td><%= exam.exam_type2_id %></td>
-        <td><%= exam.exam_type3_id %></td>
-        <td><%= exam.exam_type4_id %></td>
-        <td><%= exam.exam_type5_id %></td>
-        <td><%=l exam.created_at %></td>
+        <td><%=l exam.start_date %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ort_exam_path(exam), :class => 'btn btn-mini' %>
