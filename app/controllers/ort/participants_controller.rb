@@ -2,11 +2,15 @@ class Ort::ParticipantsController < ApplicationController
   # GET /ort/participants
   # GET /ort/participants.json
   def index
-    @participants = Ort::Participant.all
+    if params[:q].nil?
+      @participants = Ort::Participant.all
+    else
+      @participants = Ort::Participant.where("name LIKE '%#{params[:q]}%'")
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @participants }
+      format.json { render json: @participants.collect { |p| p.name } }
     end
   end
 
