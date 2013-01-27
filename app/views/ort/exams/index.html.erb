@@ -14,7 +14,7 @@
   <tbody>
     <% @exams.each do |exam| %>
       <tr>
-        <td><%= link_to exam.name, ort_exam_path(exam) %></td>
+        <td><%= link_to exam.exam_name, ort_exam_path(exam) %></td>
         <td><%= exam.cost %></td>
         <td><%=l exam.start_date %></td>
         <td>

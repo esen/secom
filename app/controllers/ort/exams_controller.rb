@@ -2,19 +2,18 @@ class Ort::ExamsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @exams = Ort::Exam.all
+        @exams = Ort::Exam.joins(:exam_type).select("ort_exams.*, ort_exam_types.name AS exam_name")
       }
 
       format.json {
-        # TODO: Make join request in order to avoid calling for exam_type.name for each exam
         exams = Ort::Exam.where("ort_exams.start_date > ?", Date.today)
 
         case params[:parameter]
           when "name" then
-            @exams = exams.joins(:exam_type).where("ort_exam_types.name LIKE ?", "%#{params[:q]}%").group(:name)
+            @exams = exams.joins(:exam_type).where("ort_exam_types.name LIKE ?", "%#{params[:q]}%").group(:name).limit(10)
             @exams.collect! { |e| "#{e.name}" }
           when "date" then
-            @exams = exams.where("start_date LIKE ?", "%#{params[:q]}%").group(:start_date)
+            @exams = exams.where("start_date LIKE ?", "%#{params[:q]}%").group(:start_date).limit(10)
             @exams.collect! { |e| "#{e.start_date}" }
         end
 
