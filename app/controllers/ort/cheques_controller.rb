@@ -1,4 +1,6 @@
 class Ort::ChequesController < ApplicationController
+  before_filter :find_participant
+
   def index
     @cheques = Ort::Cheque.all
 
@@ -34,7 +36,7 @@ class Ort::ChequesController < ApplicationController
     msg = []
     @cheque = Ort::Cheque.new
     @cheque.participant = Ort::Participant.find_or_create_by_name(params[:participant])
-    msg << "Participant not found and can't be created'" if @payment.participant.nil?
+    msg << "Participant not found and can't be created'" if @cheque.participant.nil?
 
     exam_type = Ort::ExamType.find_by_name(params[:exam_name])
     exams = Ort::Exam.where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
@@ -42,7 +44,10 @@ class Ort::ChequesController < ApplicationController
     if exams.count == 1
       @cheque.exam = exams.first
 
-      if @cheque.save
+      # TODO: implement method #is_enrolled_to
+      if !Ort::Cheque.where(:exam_id => @cheque.exam_id, :participant_id => @cheque.participant_id).first.nil?
+        msg << "This participant is already enrolled to this exam"
+      elsif @cheque.save
         if params[:payment_amount]
           unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount])
             msg << "Payment could not be created!!!"
@@ -51,7 +56,7 @@ class Ort::ChequesController < ApplicationController
 
         redirect_to @cheque, notice: 'Cheque was successfully created. '
         return
-      else
+      else        payments.where(:exam_id => @cheque.exam_id)
         msg << "Could not be saved"
       end
     else
@@ -78,11 +83,19 @@ class Ort::ChequesController < ApplicationController
 
   def destroy
     @cheque = Ort::Cheque.find(params[:id])
-    @cheque.destroy
-
-    respond_to do |format|
-      format.html { redirect_to ort_cheques_url }
-      format.json { head :no_content }
+    unless @cheque.participant.has_payment_for(@cheque.exam)
+      @cheque.destroy
+    else
+      flash[:error] = "You can't delete this cheque, because the participant has paid #{@cheque.participant.paid_for(@cheque.exam)} soms for this exam."
     end
+
+    path = @participant.nil? ? ort_participants_url : exams_ort_participant_url(@participant)
+    redirect_to path
+  end
+
+  private
+
+  def find_participant
+    @participant = Ort::Participant.find(params[:participant_id]) if params[:participant_id]
   end
 end

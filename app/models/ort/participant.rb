@@ -23,4 +23,16 @@ class Ort::Participant < ActiveRecord::Base
       self.errors.add(:password, "length must be in 5 - 10 range") unless password.length > 5 && password.length < 10
     end
   end
+
+  def is_enrolled_to(exam)
+    self.cheques.where(:exam_id => exam.id).first.nil?
+  end
+
+  def has_payment_for(exam)
+    self.payments.where(:exam_id => exam.id).count > 0
+  end
+
+  def paid_for(exam)
+    self.payments.where(:exam_id => exam.id).collect { |p| p.amount }.inject(0) { |a, b| a += b }
+  end
 end

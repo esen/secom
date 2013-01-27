@@ -5,12 +5,20 @@
 </div>
 
 <%= form_for @cheque, :html => {:class => 'form-horizontal'} do |f| %>
-    <div class="control-group">
-      <%= label_tag :participant, "Participant", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
-      </div>
-    </div>
+    <% if @participant.nil? %>
+        <div class="control-group">
+          <%= label_tag :participant, "Participant", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
+          </div>
+        </div>
+    <% else %>
+        <dl class="dl-horizontal">
+          <dt><strong>Participant:</strong></dt>
+          <dd><%= @participant.name %></dd>
+        </dl>
+        <%= hidden_field_tag :participant, @participant.name, :class => 'hidden_field' %>
+    <% end %>
 
 
     <div class="control-group">
