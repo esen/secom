@@ -47,7 +47,7 @@ class Ort::PaymentsController < ApplicationController
       @payment.exam = exams.first
       @payment.amount = params[:amount]
 
-      if Ort::Cheque.where(:exam_id => @payment.exam_id, :participant_id => @payment.participant_id).first.nil?
+      if !@payment.participant.is_enrolled_to(@payment.exam)
         msg << "The participant is not enrolled yet"
         @enroll_link = true
       elsif @payment.save

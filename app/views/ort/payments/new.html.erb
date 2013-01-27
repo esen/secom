@@ -39,6 +39,6 @@
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   ort_payments_path, :class => 'btn' %>
-      <%= link_to "Enroll this participant", ort_payments_path, :class => 'btn' if @enroll_link %>
+      <%= link_to "Enroll this participant", new_ort_participant_cheque_path(@payment.participant), :class => 'btn' if @enroll_link %>
     </div>
 <% end %>

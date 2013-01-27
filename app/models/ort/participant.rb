@@ -25,7 +25,7 @@ class Ort::Participant < ActiveRecord::Base
   end
 
   def is_enrolled_to(exam)
-    self.cheques.where(:exam_id => exam.id).first.nil?
+    !self.cheques.where(:exam_id => exam.id).first.nil?
   end
 
   def has_payment_for(exam)

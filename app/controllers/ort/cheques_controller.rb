@@ -44,8 +44,7 @@ class Ort::ChequesController < ApplicationController
     if exams.count == 1
       @cheque.exam = exams.first
 
-      # TODO: implement method #is_enrolled_to
-      if !Ort::Cheque.where(:exam_id => @cheque.exam_id, :participant_id => @cheque.participant_id).first.nil?
+      if @cheque.participant.is_enrolled_to(@cheque.exam)
         msg << "This participant is already enrolled to this exam"
       elsif @cheque.save
         if params[:payment_amount]
