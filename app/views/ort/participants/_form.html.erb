@@ -5,16 +5,11 @@
       <%= f.text_field :name, :class => 'text_field' %>
     </div>
   </div>
-  <div class="control-group">
-    <%= f.label :password, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :password, :class => 'text_field' %>
-    </div>
-  </div>
 
   <div class="form-actions">
     <%= f.submit nil, :class => 'btn btn-primary' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 ort_participants_path, :class => 'btn' %>
+    <%= link_to "Change password", password_ort_participant_path(@participant), :class => 'btn' %>
   </div>
 <% end %>

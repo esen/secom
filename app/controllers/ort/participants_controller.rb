@@ -76,4 +76,23 @@ class Ort::ParticipantsController < ApplicationController
     @participant = Ort::Participant.find(params[:id])
     @cheques = @participant.cheques
   end
+
+  def password
+    @participant = Ort::Participant.find(params[:id])
+
+    if request.post?
+      @participant.password = params[:password]
+      @participant.password_confirmation = params[:password_confirmation]
+
+      if @participant.valid?
+        if @participant.save
+          flash[:notice] = "Successfully changed password"
+        else
+          flash[:error] = "Could not change password"
+        end
+      else
+        flash[:error] = @participant.errors.full_messages.join(". ")
+      end
+    end
+  end
 end

@@ -6,6 +6,8 @@ Secom::Application.routes.draw do
 
     resources :participants do
       get 'exams', :on => :member
+      get 'password', :on => :member
+      post 'password', :on => :member
 
       resources :cheques
     end
