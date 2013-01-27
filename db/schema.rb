@@ -11,16 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122152359) do
+ActiveRecord::Schema.define(:version => 20130127075205) do
 
   create_table "ort_cheques", :force => true do |t|
     t.integer  "participant_id"
     t.integer  "exam_id"
-    t.float    "mark1"
-    t.float    "mark2"
-    t.float    "mark3"
-    t.float    "mark4"
-    t.float    "mark5"
+    t.float    "mark"
     t.datetime "created_at"
   end
 
@@ -33,13 +29,9 @@ ActiveRecord::Schema.define(:version => 20130122152359) do
 
   create_table "ort_exams", :force => true do |t|
     t.float    "cost"
-    t.integer  "exam_type1_id"
-    t.integer  "exam_type2_id"
-    t.integer  "exam_type3_id"
-    t.integer  "exam_type4_id"
-    t.integer  "exam_type5_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "exam_type_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.date     "start_date"
   end
 
