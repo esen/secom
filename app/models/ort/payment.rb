@@ -4,6 +4,6 @@ class Ort::Payment < ActiveRecord::Base
   belongs_to :participant
   belongs_to :exam
 
-  validates_presence_of :participant
-  validates_presence_of :exam
+  validates_presence_of :participant, :exam, :amount
+  validates_numericality_of :amount
 end

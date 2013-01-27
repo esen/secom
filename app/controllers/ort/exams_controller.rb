@@ -6,15 +6,18 @@ class Ort::ExamsController < ApplicationController
       }
 
       format.json {
-        qs = params[:q].split(' ')
-        q_date = qs.pop
-        q_name = qs.join(' ')
+        exams = Ort::Exam.where("ort_exams.start_date > ?", Date.today)
 
-        @exams = Ort::Exam.joins(:exam_type1).
-            where("ort_exam_types.name LIKE ? OR ort_exams.start_date LIKE ?", "%#{q_name}%", "%#{q_date}%")
-        puts @exams.inspect
-        puts @exams.collect { |e| "#{e.name} #{e.start_date}" }.inspect
-        render json: @exams.collect { |e| "#{e.name} #{e.start_date}" }
+        case params[:parameter]
+          when "name" then
+            @exams = exams.joins(:exam_type).where("ort_exam_types.name LIKE ?", "%#{params[:q]}%").group(:name)
+            @exams.collect! { |e| "#{e.name}" }
+          when "date" then
+            @exams = exams.where("start_date LIKE ?", "%#{params[:q]}%").group(:start_date)
+            @exams.collect! { |e| "#{e.start_date}" }
+        end
+
+        render json: @exams
       }
     end
   end
@@ -45,15 +48,14 @@ class Ort::ExamsController < ApplicationController
 
   def create
     @exam = Ort::Exam.new(params[:ort_exam])
-    @exam_types = Ort::ExamType.all
-
-    @exam.cost = @exam.total_cost unless params[:set_cost].to_i == 1
+    @exam.cost = @exam.exam_type.cost unless params[:set_cost].to_i == 1
 
     respond_to do |format|
       if @exam.save
         format.html { redirect_to @exam, notice: 'Exam was successfully created.' }
         format.json { render json: @exam, status: :created, location: @exam }
       else
+        @exam_types = Ort::ExamType.all
         format.html { render action: "new" }
         format.json { render json: @exam.errors, status: :unprocessable_entity }
       end
@@ -61,15 +63,14 @@ class Ort::ExamsController < ApplicationController
   end
 
   def update
-    puts params[:ort_exam]
     @exam = Ort::Exam.find(params[:id])
-    @exam_types = Ort::ExamType.all
 
     respond_to do |format|
       if @exam.update_attributes(params[:ort_exam])
         format.html { redirect_to @exam, notice: 'Exam was successfully updated.' }
         format.json { head :no_content }
       else
+        @exam_types = Ort::ExamType.all
         format.html { render action: "edit" }
         format.json { render json: @exam.errors, status: :unprocessable_entity }
       end

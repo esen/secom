@@ -4,25 +4,17 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:participant_id) %>:</strong></dt>
-  <dd><%= @cheque.participant_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:exam_id) %>:</strong></dt>
-  <dd><%= @cheque.exam_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mark1) %>:</strong></dt>
-  <dd><%= @cheque.mark1 %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mark2) %>:</strong></dt>
-  <dd><%= @cheque.mark2 %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mark3) %>:</strong></dt>
-  <dd><%= @cheque.mark3 %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mark4) %>:</strong></dt>
-  <dd><%= @cheque.mark4 %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:mark5) %>:</strong></dt>
-  <dd><%= @cheque.mark5 %></dd>
+  <dt><strong>Participant:</strong></dt>
+  <dd><%= link_to @cheque.participant.name, @cheque.participant %></dd>
+  <dt><strong>Exam:</strong></dt>
+  <dd><%= link_to "#{@cheque.exam.name} (#{@cheque.exam.start_date})", @cheque.exam %></dd>
+  <dt><strong>Mark:</strong></dt>
+  <dd><%= @cheque.mark %></dd>
 </dl>
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              ort_cheques_path, :class => 'btn'  %>
+              exams_ort_participant_path(@cheque.participant), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_ort_cheque_path(@cheque), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

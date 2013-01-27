@@ -1,6 +1,4 @@
 class Ort::ChequesController < ApplicationController
-  # GET /ort/cheques
-  # GET /ort/cheques.json
   def index
     @cheques = Ort::Cheque.all
 
@@ -10,8 +8,6 @@ class Ort::ChequesController < ApplicationController
     end
   end
 
-  # GET /ort/cheques/1
-  # GET /ort/cheques/1.json
   def show
     @cheque = Ort::Cheque.find(params[:id])
 
@@ -21,8 +17,6 @@ class Ort::ChequesController < ApplicationController
     end
   end
 
-  # GET /ort/cheques/new
-  # GET /ort/cheques/new.json
   def new
     @cheque = Ort::Cheque.new
 
@@ -32,29 +26,39 @@ class Ort::ChequesController < ApplicationController
     end
   end
 
-  # GET /ort/cheques/1/edit
   def edit
     @cheque = Ort::Cheque.find(params[:id])
   end
 
-  # POST /ort/cheques
-  # POST /ort/cheques.json
   def create
-    @cheque = Ort::Cheque.new(params[:ort_cheque])
+    @cheque = Ort::Cheque.new
+    @cheque.participant = Ort::Participant.find_or_create_by_name(params[:ort_cheque][:participant])
 
-    respond_to do |format|
+    exam_type = Ort::ExamType.find_by_name(params[:exam_name])
+    exams = Ort::Exam.where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
+
+    if exams.count == 1
+      @cheque.exam = exams.first
+
       if @cheque.save
-        format.html { redirect_to @cheque, notice: 'Cheque was successfully created.' }
-        format.json { render json: @cheque, status: :created, location: @cheque }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @cheque.errors, status: :unprocessable_entity }
+        if params[:payment_amount]
+          unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount])
+            flash[:error] = "Payment could not be created!!!"
+          end
+        end
+
+        redirect_to @cheque, notice: 'Cheque was successfully created. '
+        return
       end
+    else
+      flash[:error] = "Please select only one of exams!!!"
     end
+
+    @cheque.participant = nil
+    flash[:error] = "Could not be saved"
+    render action: "new"
   end
 
-  # PUT /ort/cheques/1
-  # PUT /ort/cheques/1.json
   def update
     @cheque = Ort::Cheque.find(params[:id])
 
@@ -69,8 +73,6 @@ class Ort::ChequesController < ApplicationController
     end
   end
 
-  # DELETE /ort/cheques/1
-  # DELETE /ort/cheques/1.json
   def destroy
     @cheque = Ort::Cheque.find(params[:id])
     @cheque.destroy

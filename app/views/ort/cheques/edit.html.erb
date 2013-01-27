@@ -1,6 +1,32 @@
 <%- model_class = Ort::Cheque -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-                                   :default => "Edit #{model_class.model_name.human}") %></h1>
+  <h1><%= t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
+                                    :default => "Edit #{model_class.model_name.human}") %></h1>
 </div>
-<%= render :partial => 'form' %>
+
+<dl class="dl-horizontal">
+  <dt><strong>Participant:</strong></dt>
+  <dd><%= @cheque.participant.name %></dd>
+  <dt><strong>Exam:</strong></dt>
+  <dd><%= "#{@cheque.exam.name} (#{@cheque.exam.start_date})" %></dd>
+</dl>
+
+
+<%= form_for @cheque, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="control-group">
+      <%= f.label :mark, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :mark, :class => 'text_field' %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  @cheque, :class => 'btn' %>
+      &nbsp;
+      <%= link_to "Add Payment", new_ort_exam_payment_path(@cheque.exam), :class => 'btn' %>
+    </div>
+<% end %>
+

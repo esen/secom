@@ -2,7 +2,17 @@ Secom::Application.routes.draw do
   root :to => "ort::exam_types#index"
 
   namespace :ort do
-    resources :exam_types, :exams, :participants, :payments, :cheques
+    resources :exam_types, :payments, :cheques
+
+    resources :participants do
+      get 'exams', :on => :member
+
+      resources :cheques
+    end
+
+    resources :exams do
+      resources :payments
+    end
   end
 
   # The priority is based upon order of creation:

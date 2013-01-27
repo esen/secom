@@ -8,6 +8,9 @@
   <dd><%= @participant.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:password) %>:</strong></dt>
   <dd><%= @participant.password %></dd>
+  <br/>
+  <dt><strong>More:</strong></dt>
+  <dd><%= link_to "Exams", exams_ort_participant_path(@participant), :class => "btn btn-small" %></dd>
 </dl>
 
 <div class="form-actions">

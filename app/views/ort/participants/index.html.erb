@@ -15,8 +15,8 @@
   <tbody>
     <% @participants.each do |participant| %>
       <tr>
-        <td><%= link_to participant.id, ort_participant_path(participant) %></td>
-        <td><%= participant.name %></td>
+        <td><%= participant.id %></td>
+        <td><%= link_to participant.name, ort_participant_path(participant) %></td>
         <td><%= participant.password %></td>
         <td><%=l participant.created_at %></td>
         <td>

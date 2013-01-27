@@ -1,36 +1,36 @@
-<%- model_class = Ort::Exam -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%= "Exams of #{@participant.name}" %></h1>
 </div>
+
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Cost</th>
-      <th>Start Date</th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Mark</th>
+    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+  </tr>
   </thead>
   <tbody>
-    <% @exams.each do |exam| %>
+  <% @cheques.each do |cheque| %>
       <tr>
-        <td><%= link_to exam.name, ort_exam_path(exam) %></td>
-        <td><%= exam.cost %></td>
-        <td><%=l exam.start_date %></td>
+        <td><%= link_to cheque.exam.name, ort_exam_path(cheque.exam) %></td>
+        <td><%= l cheque.exam.start_date %></td>
+        <td><%= cheque.mark %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_ort_exam_path(exam), :class => 'btn btn-mini' %>
+                      edit_ort_cheque_path(cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      ort_exam_path(exam),
+                      ort_cheque_path(cheque),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
         </td>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_ort_exam_path,
+            new_ort_participant_cheque_path(@participant),
             :class => 'btn btn-primary' %>

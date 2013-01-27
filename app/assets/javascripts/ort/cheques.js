@@ -53,6 +53,10 @@ $('#ort_cheque_participant').typeahead().on('keyup', function (ev) {
     keyup_function(ev, $(this), "/ort/participants")
 });
 
-$('#ort_cheque_exam').typeahead().on('keyup', function (ev) {
-    keyup_function(ev, $(this), "/ort/exams")
+$('#exam_name').typeahead().on('keyup', function (ev) {
+    keyup_function(ev, $(this), "/ort/exams?parameter=name")
+});
+
+$('#exam_date').typeahead().on('keyup', function (ev) {
+    keyup_function(ev, $(this), "/ort/exams?parameter=date")
 });

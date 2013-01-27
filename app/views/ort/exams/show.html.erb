@@ -8,26 +8,8 @@
   <dd><%= l @exam.start_date %></dd>
   <dt><strong>Cost :</strong></dt>
   <dd><%= @exam.cost %></dd>
-  <% if @exam.exam_type1_id %>
-      <dt><strong>First Exam Type :</strong></dt>
-      <dd><%= @exam.name %></dd>
-  <% end %>
-  <% if @exam.exam_type2_id %>
-      <dt><strong>Second Exam Type :</strong></dt>
-      <dd><%= @exam.exam_type2.name %></dd>
-  <% end %>
-  <% if @exam.exam_type3_id %>
-      <dt><strong>Third Exam Type :</strong></dt>
-      <dd><%= @exam.exam_type3.name %></dd>
-  <% end %>
-  <% if @exam.exam_type4_id %>
-      <dt><strong>Fourth Exam Type :</strong></dt>
-      <dd><%= @exam.exam_type4.name %></dd>
-  <% end %>
-  <% if @exam.exam_type5_id %>
-      <dt><strong>Fifth Exam Type :</strong></dt>
-      <dd><%= @exam.exam_type5.name %></dd>
-  <% end %>
+  <dt><strong>Exam Type :</strong></dt>
+  <dd><%= @exam.name %></dd>
 </dl>
 
 <div class="form-actions">
