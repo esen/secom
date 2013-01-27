@@ -3,4 +3,28 @@
   <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
                                    :default => "Edit #{model_class.model_name.human}") %></h1>
 </div>
-<%= render :partial => 'form' %>
+
+
+<dl class="dl-horizontal">
+  <dt><strong>Participant:</strong></dt>
+  <dd><%= @payment.participant.name %></dd>
+  <dt><strong>Exam:</strong></dt>
+  <dd><%= "#{@payment.exam.name} (#{@payment.exam.start_date})" %></dd>
+</dl>
+
+<%= form_for @payment, :html => {:class => 'form-horizontal'} do |f| %>
+
+    <div class="control-group">
+      <%= f.label :amount, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :amount, :class => 'text_field' %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  ort_payments_path, :class => 'btn' %>
+    </div>
+<% end %>

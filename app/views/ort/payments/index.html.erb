@@ -5,22 +5,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:participant_id) %></th>
-      <th><%= model_class.human_attribute_name(:exam_id) %></th>
-      <th><%= model_class.human_attribute_name(:amount) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th>ID</th>
+      <th>Participant</th>
+      <th>Exam</th>
+      <th>Amount</th>
+      <th>Payed at</th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @payments.each do |payment| %>
       <tr>
-        <td><%= link_to payment.id, ort_payment_path(payment) %></td>
-        <td><%= payment.participant_id %></td>
-        <td><%= payment.exam_id %></td>
+        <td><%= payment.id %></td>
+        <td><%= link_to payment.participant_name, ort_payment_path(payment) %></td>
+        <td><%= "#{payment.exam_name} (#{payment.exam_date})" %></td>
         <td><%= payment.amount %></td>
-        <td><%=l payment.created_at %></td>
+        <td><%=l payment.created_at, :format => :short %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ort_payment_path(payment), :class => 'btn btn-mini' %>

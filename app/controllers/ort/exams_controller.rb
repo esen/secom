@@ -6,6 +6,7 @@ class Ort::ExamsController < ApplicationController
       }
 
       format.json {
+        # TODO: Make join request in order to avoid calling for exam_type.name for each exam
         exams = Ort::Exam.where("ort_exams.start_date > ?", Date.today)
 
         case params[:parameter]

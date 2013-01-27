@@ -1,6 +1,44 @@
 <%- model_class = Ort::Payment -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                                 :default => "New #{model_class.model_name.human}") %></h1>
+  <h1><%= t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+                                    :default => "New #{model_class.model_name.human}") %></h1>
 </div>
-<%= render :partial => 'form' %>
+
+<%= form_for @payment, :html => {:class => 'form-horizontal'} do |f| %>
+    <div class="control-group">
+      <%= label_tag :participant, "Participant", :class => 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <%= label_tag :amount, "Amount", :class => 'control-label' %>
+      <div class="controls">
+        <%= text_field_tag :amount, params[:amount], :class => 'text_field' %>
+      </div>
+    </div>
+
+
+    <div class="form-actions">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  ort_payments_path, :class => 'btn' %>
+      <%= link_to "Enroll this participant", ort_payments_path, :class => 'btn' if @enroll_link %>
+    </div>
+<% end %>

@@ -1,8 +1,10 @@
 class Ort::PaymentsController < ApplicationController
-  # GET /ort/payments
-  # GET /ort/payments.json
   def index
-    @payments = Ort::Payment.all
+    @payments = Ort::Payment.
+        joins(:exam).
+        joins(:participant).
+        joins("LEFT JOIN ort_exam_types AS oets ON oets.id = ort_exams.exam_type_id").
+        select("ort_payments.*, oets.name AS exam_name, ort_exams.start_date AS exam_date, ort_participants.name AS participant_name")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,8 +12,6 @@ class Ort::PaymentsController < ApplicationController
     end
   end
 
-  # GET /ort/payments/1
-  # GET /ort/payments/1.json
   def show
     @payment = Ort::Payment.find(params[:id])
 
@@ -21,8 +21,6 @@ class Ort::PaymentsController < ApplicationController
     end
   end
 
-  # GET /ort/payments/new
-  # GET /ort/payments/new.json
   def new
     @payment = Ort::Payment.new
 
@@ -32,29 +30,40 @@ class Ort::PaymentsController < ApplicationController
     end
   end
 
-  # GET /ort/payments/1/edit
   def edit
     @payment = Ort::Payment.find(params[:id])
   end
 
-  # POST /ort/payments
-  # POST /ort/payments.json
   def create
-    @payment = Ort::Payment.new(params[:ort_payment])
+    msg = []
+    @payment = Ort::Payment.new
+    @payment.participant = Ort::Participant.find_by_name(params[:participant])
+    msg << "Participant not found" if @payment.participant.nil?
 
-    respond_to do |format|
-      if @payment.save
-        format.html { redirect_to @payment, notice: 'Payment was successfully created.' }
-        format.json { render json: @payment, status: :created, location: @payment }
+    exam_type = Ort::ExamType.find_by_name(params[:exam_name])
+    exams = Ort::Exam.where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
+
+    if exams.count == 1
+      @payment.exam = exams.first
+      @payment.amount = params[:amount]
+
+      if Ort::Cheque.where(:exam_id => @payment.exam_id, :participant_id => @payment.participant_id).first.nil?
+        msg << "The participant is not enrolled yet"
+        @enroll_link = true
+      elsif @payment.save
+        redirect_to @payment, notice: 'Payment was successfully created. '
+        return
       else
-        format.html { render action: "new" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
+        msg << "Could not be saved"
       end
+    else
+      msg << "Could not find exam"
     end
+
+    flash[:error] = msg.join(". ")
+    render action: "new"
   end
 
-  # PUT /ort/payments/1
-  # PUT /ort/payments/1.json
   def update
     @payment = Ort::Payment.find(params[:id])
 
@@ -69,8 +78,6 @@ class Ort::PaymentsController < ApplicationController
     end
   end
 
-  # DELETE /ort/payments/1
-  # DELETE /ort/payments/1.json
   def destroy
     @payment = Ort::Payment.find(params[:id])
     @payment.destroy

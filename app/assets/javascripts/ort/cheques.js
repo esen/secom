@@ -49,7 +49,7 @@ var keyup_function = function (ev, obj, url) {
     }
 }
 
-$('#ort_cheque_participant').typeahead().on('keyup', function (ev) {
+$('#participant').typeahead().on('keyup', function (ev) {
     keyup_function(ev, $(this), "/ort/participants")
 });
 

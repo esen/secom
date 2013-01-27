@@ -6,9 +6,9 @@
 
 <%= form_for @cheque, :html => {:class => 'form-horizontal'} do |f| %>
     <div class="control-group">
-      <%= f.label :participant, :class => 'control-label' %>
+      <%= label_tag :participant, "Participant", :class => 'control-label' %>
       <div class="controls">
-        <%= f.text_field :participant, :class => 'text_field' %>
+        <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
       </div>
     </div>
 

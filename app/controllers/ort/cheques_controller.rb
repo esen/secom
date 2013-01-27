@@ -31,8 +31,10 @@ class Ort::ChequesController < ApplicationController
   end
 
   def create
+    msg = []
     @cheque = Ort::Cheque.new
-    @cheque.participant = Ort::Participant.find_or_create_by_name(params[:ort_cheque][:participant])
+    @cheque.participant = Ort::Participant.find_or_create_by_name(params[:participant])
+    msg << "Participant not found and can't be created'" if @payment.participant.nil?
 
     exam_type = Ort::ExamType.find_by_name(params[:exam_name])
     exams = Ort::Exam.where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
@@ -43,19 +45,20 @@ class Ort::ChequesController < ApplicationController
       if @cheque.save
         if params[:payment_amount]
           unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount])
-            flash[:error] = "Payment could not be created!!!"
+            msg << "Payment could not be created!!!"
           end
         end
 
         redirect_to @cheque, notice: 'Cheque was successfully created. '
         return
+      else
+        msg << "Could not be saved"
       end
     else
-      flash[:error] = "Please select only one of exams!!!"
+      msg << "Could not find exam"
     end
 
-    @cheque.participant = nil
-    flash[:error] = "Could not be saved"
+    flash[:error] = msg.join(". ")
     render action: "new"
   end
 
