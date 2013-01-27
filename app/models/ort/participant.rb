@@ -1,5 +1,5 @@
 class Ort::Participant < ActiveRecord::Base
-  attr_accessible :name, :password
+  attr_accessible :name
 
   has_many :cheques, :dependent => :nullify
   has_many :payments, :dependent => :nullify
@@ -8,7 +8,7 @@ class Ort::Participant < ActiveRecord::Base
 
   validates_presence_of :name, :password
 
-  before_create :generate_password
+  before_validation :generate_password
 
   def generate_password
     self.password = SecureRandom.hex(8)
