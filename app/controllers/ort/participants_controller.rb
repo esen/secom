@@ -1,21 +1,17 @@
 class Ort::ParticipantsController < ApplicationController
-  # GET /ort/participants
-  # GET /ort/participants.json
   def index
-    if params[:q].nil?
-      @participants = Ort::Participant.all
-    else
-      @participants = Ort::Participant.where("name LIKE '%#{params[:q]}%'")
-    end
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @participants.collect { |p| p.name } }
+      format.html {
+        @participants = Ort::Participant.all
+      }
+
+      format.json {
+        @participants = Ort::Participant.where("name LIKE ?", "%#{params[:q]}%")
+        render json: @participants.collect { |p| p.name }
+      }
     end
   end
 
-  # GET /ort/participants/1
-  # GET /ort/participants/1.json
   def show
     @participant = Ort::Participant.find(params[:id])
 
@@ -25,8 +21,6 @@ class Ort::ParticipantsController < ApplicationController
     end
   end
 
-  # GET /ort/participants/new
-  # GET /ort/participants/new.json
   def new
     @participant = Ort::Participant.new
 
@@ -36,13 +30,10 @@ class Ort::ParticipantsController < ApplicationController
     end
   end
 
-  # GET /ort/participants/1/edit
   def edit
     @participant = Ort::Participant.find(params[:id])
   end
 
-  # POST /ort/participants
-  # POST /ort/participants.json
   def create
     @participant = Ort::Participant.new(params[:ort_participant])
 
@@ -57,8 +48,6 @@ class Ort::ParticipantsController < ApplicationController
     end
   end
 
-  # PUT /ort/participants/1
-  # PUT /ort/participants/1.json
   def update
     @participant = Ort::Participant.find(params[:id])
 
@@ -73,8 +62,6 @@ class Ort::ParticipantsController < ApplicationController
     end
   end
 
-  # DELETE /ort/participants/1
-  # DELETE /ort/participants/1.json
   def destroy
     @participant = Ort::Participant.find(params[:id])
     @participant.destroy

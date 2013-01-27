@@ -1,10 +1,21 @@
 class Ort::ExamsController < ApplicationController
   def index
-    @exams = Ort::Exam.all
-
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @exams }
+      format.html {
+        @exams = Ort::Exam.all
+      }
+
+      format.json {
+        qs = params[:q].split(' ')
+        q_date = qs.pop
+        q_name = qs.join(' ')
+
+        @exams = Ort::Exam.joins(:exam_type1).
+            where("ort_exam_types.name LIKE ? OR ort_exams.start_date LIKE ?", "%#{q_name}%", "%#{q_date}%")
+        puts @exams.inspect
+        puts @exams.collect { |e| "#{e.name} #{e.start_date}" }.inspect
+        render json: @exams.collect { |e| "#{e.name} #{e.start_date}" }
+      }
     end
   end
 
