@@ -18,6 +18,7 @@
         <td><%= l cheque.exam.start_date %></td>
         <td><%= cheque.mark %></td>
         <td>
+          <%= link_to "show", ort_participant_cheque_path(@participant, cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ort_participant_cheque_path(@participant, cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

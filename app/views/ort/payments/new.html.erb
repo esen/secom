@@ -5,26 +5,48 @@
 </div>
 
 <%= form_for @payment, :html => {:class => 'form-horizontal'} do |f| %>
-    <div class="control-group">
-      <%= label_tag :participant, "Participant", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
-      </div>
-    </div>
+    <%= hidden_field_tag :participant_id, @participant.id, :class => 'hidden_field' if @participant %>
+    <%= hidden_field_tag :exam_id, @exam.id, :class => 'hidden_field' if @exam %>
+    <%= hidden_field_tag :cheque_id, @cheque.id, :class => 'hidden_field' if @cheque %>
 
+    <% if @participant.nil? && @cheque.nil? %>
+        <div class="control-group">
+          <%= label_tag :participant, "Participant", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
+          </div>
+        </div>
+    <% else %>
+        <dl class="dl-horizontal">
+          <dt><strong>Participant:</strong></dt>
+          <%- participant = @participant || @cheque.participant -%>
+          <dd><%= participant.name %></dd>
+        </dl>
+        <%= hidden_field_tag :participant, participant.name, :class => 'hidden_field' %>
+    <% end %>
 
-    <div class="control-group">
-      <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
-      </div>
-    </div>
-    <div class="control-group">
-      <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
-      </div>
-    </div>
+    <% if @exam.nil? && @cheque.nil? %>
+        <div class="control-group">
+          <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
+          </div>
+        </div>
+    <% else %>
+        <dl class="dl-horizontal">
+          <dt><strong>Exam:</strong></dt>
+          <%- exam = @participant || @cheque.exam -%>
+          <dd><%= "#{exam.name} (#{exam.start_date})" %></dd>
+        </dl>
+        <%= hidden_field_tag :exam_name, exam.name, :class => 'hidden_field' %>
+        <%= hidden_field_tag :exam_date, exam.start_date, :class => 'hidden_field' %>
+    <% end %>
 
 
     <div class="control-group">

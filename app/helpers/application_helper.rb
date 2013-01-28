@@ -7,6 +7,8 @@ module ApplicationHelper
       path_method = "participants/#{@participant.id}/" + path_method
     elsif @exam
       path_method = "exams/#{@exam.id}/" + path_method
+    elsif @cheque && class_name != :cheque
+      path_method = "cheques/#{@cheque.id}/" + path_method
     end
 
     path_method += "/" + object.id.to_s if [:show, :edit, :destroy].include? method

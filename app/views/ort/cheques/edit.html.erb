@@ -28,7 +28,7 @@
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                   get_path(:cheque, :show, @cheque), :class => 'btn' %>
       &nbsp;
-      <%= link_to "Add Payment", new_ort_cheque_payment_path(@cheque), :class => 'btn' %>
+      <%= link_to "Payment", ort_cheque_payments_path(@cheque), :class => 'btn' %>
     </div>
 <% end %>
 

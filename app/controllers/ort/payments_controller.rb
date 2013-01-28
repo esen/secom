@@ -1,5 +1,5 @@
 class Ort::PaymentsController < ApplicationController
-  before_filter :find_participant, :find_exam
+  before_filter :find_participant, :find_exam, :find_cheque
 
   def index
     @payments = Ort::Payment.
@@ -9,6 +9,7 @@ class Ort::PaymentsController < ApplicationController
 
     @payments = @payments.where(:participant_id => @participant.id) if @participant
     @payments = @payments.where(:exam_id => @exam.id) if @exam
+    @payments = @payments.where(:exam_id => @cheque.exam_id, :participant_id => @cheque.participant_id) if @cheque
     @payments = @payments.select("ort_payments.*, oets.name AS exam_name, ort_exams.start_date AS exam_date, ort_participants.name AS participant_name")
 
     respond_to do |format|
@@ -56,7 +57,7 @@ class Ort::PaymentsController < ApplicationController
         msg << "The participant is not enrolled yet"
         @enroll_link = true
       elsif @payment.save
-        redirect_to @payment, notice: 'Payment was successfully created. '
+        redirect_to get_path(:show), notice: 'Payment was successfully created. '
         return
       else
         msg << "Could not be saved"
@@ -93,6 +94,8 @@ class Ort::PaymentsController < ApplicationController
       method == :show ? ort_participant_payment_url(@participant, @payment) : ort_participant_payments_url(@participant)
     elsif @exam
       method == :show ? ort_exam_payment_url(@exam, @payment) : ort_exam_payments_url(@exam)
+    elsif @cheque
+      method == :show ? ort_cheque_payment_url(@cheque, @payment) : ort_cheque_payments_url(@cheque)
     else
       method == :show ? ort_payment_url(@payment) : ort_payments_url
     end
@@ -104,5 +107,9 @@ class Ort::PaymentsController < ApplicationController
 
   def find_exam
     @exam = Ort::Exam.find(params[:exam_id]) if params[:exam_id]
+  end
+
+  def find_cheque
+    @cheque = Ort::Cheque.find(params[:cheque_id]) if params[:cheque_id]
   end
 end

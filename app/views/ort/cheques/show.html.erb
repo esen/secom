@@ -22,4 +22,7 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+  &nbsp;
+  <%= link_to "Payment", ort_cheque_payments_path(@cheque), :class => 'btn' %>
+  <%= link_to "Add Payment", new_ort_cheque_payment_path(@cheque), :class => 'btn' %>
 </div>

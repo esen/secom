@@ -5,7 +5,11 @@
       <h4>Of participant: <%= @participant.name %></h4>
   <% end %>
   <% if @exam %>
-      <h4>Of exam: <%= @exam.name %> (<%= @exam.start_date %>)</h4>
+      <h4>For exam: <%= @exam.name %> (<%= @exam.start_date %>)</h4>
+  <% end %>
+  <% if @cheque %>
+      <h4>Of participant: <%= @cheque.participant.name %></h4>
+      <h4>For exam: <%= @cheque.exam.name %> (<%= @cheque.exam.start_date %>)</h4>
   <% end %>
 </div>
 <table class="table table-striped">

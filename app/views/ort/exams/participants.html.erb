@@ -16,6 +16,7 @@
         <td><%= link_to cheque.participant.name, ort_participant_path(cheque.participant) %></td>
         <td><%= cheque.mark %></td>
         <td>
+          <%= link_to "show", ort_exam_cheque_path(@exam, cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ort_exam_cheque_path(@exam, cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
