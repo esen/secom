@@ -5,11 +5,11 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:cost) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= "ID" %></th>
+      <th><%= "Name" %></th>
+      <th><%= "Cost" %></th>
+      <th><%= "Created At" %></th>
+      <th><%= "Actions" %></th>
     </tr>
   </thead>
   <tbody>
@@ -18,8 +18,9 @@
         <td><%= link_to exam_type.id, ort_exam_type_path(exam_type) %></td>
         <td><%= exam_type.name %></td>
         <td><%= exam_type.cost %></td>
-        <td><%=l exam_type.created_at %></td>
+        <td><%=l exam_type.created_at, :format => :short %></td>
         <td>
+          <%= link_to "show", ort_exam_type_path(exam_type), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ort_exam_type_path(exam_type), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

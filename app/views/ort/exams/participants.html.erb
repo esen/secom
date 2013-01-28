@@ -7,7 +7,8 @@
   <tr>
     <th>Name</th>
     <th>Mark</th>
-    <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    <th>Payed</th>
+    <th><%= t '.actions', :default => t("helpers.actions") %></th>
   </tr>
   </thead>
   <tbody>
@@ -15,6 +16,7 @@
       <tr>
         <td><%= link_to cheque.participant.name, ort_participant_path(cheque.participant) %></td>
         <td><%= cheque.mark %></td>
+        <td style="color: #<%= @payments[cheque.participant_id].to_i >= @exam.cost ?  'green' : 'red' %>"><%= @payments[cheque.participant_id] %></td>
         <td>
           <%= link_to "show", ort_exam_cheque_path(@exam, cheque), :class => 'btn btn-mini' %>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
@@ -22,8 +24,9 @@
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       ort_exam_cheque_path(@exam, cheque),
                       :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :data => {:confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?'))},
                       :class => 'btn btn-mini btn-danger' %>
+          <%= link_to "Add Payment", new_ort_cheque_payment_path(cheque), :class => 'btn btn-mini' if @payments[cheque.participant_id].to_i < @exam.cost %>
         </td>
       </tr>
   <% end %>

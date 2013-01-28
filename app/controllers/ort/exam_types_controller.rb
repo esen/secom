@@ -1,6 +1,4 @@
 class Ort::ExamTypesController < ApplicationController
-  # GET /ort/exam_types
-  # GET /ort/exam_types.json
   def index
     @exam_types = Ort::ExamType.all
 
@@ -10,8 +8,6 @@ class Ort::ExamTypesController < ApplicationController
     end
   end
 
-  # GET /ort/exam_types/1
-  # GET /ort/exam_types/1.json
   def show
     @exam_type = Ort::ExamType.find(params[:id])
 
@@ -21,8 +17,6 @@ class Ort::ExamTypesController < ApplicationController
     end
   end
 
-  # GET /ort/exam_types/new
-  # GET /ort/exam_types/new.json
   def new
     @exam_type = Ort::ExamType.new
 
@@ -32,13 +26,10 @@ class Ort::ExamTypesController < ApplicationController
     end
   end
 
-  # GET /ort/exam_types/1/edit
   def edit
     @exam_type = Ort::ExamType.find(params[:id])
   end
 
-  # POST /ort/exam_types
-  # POST /ort/exam_types.json
   def create
     @exam_type = Ort::ExamType.new(params[:ort_exam_type])
 
@@ -53,8 +44,6 @@ class Ort::ExamTypesController < ApplicationController
     end
   end
 
-  # PUT /ort/exam_types/1
-  # PUT /ort/exam_types/1.json
   def update
     @exam_type = Ort::ExamType.find(params[:id])
 
@@ -69,15 +58,15 @@ class Ort::ExamTypesController < ApplicationController
     end
   end
 
-  # DELETE /ort/exam_types/1
-  # DELETE /ort/exam_types/1.json
   def destroy
     @exam_type = Ort::ExamType.find(params[:id])
-    @exam_type.destroy
 
-    respond_to do |format|
-      format.html { redirect_to ort_exam_types_url }
-      format.json { head :no_content }
+    begin
+      @exam_type.destroy
+    rescue
+      flash[:error] = "Exam Type can not be deleted, because it has associated exams!"
     end
+
+    redirect_to ort_exam_types_url
   end
 end

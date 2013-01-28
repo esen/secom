@@ -90,5 +90,9 @@ class Ort::ExamsController < ApplicationController
   def participants
     @exam = Ort::Exam.find(params[:id])
     @cheques = @exam.cheques
+
+    @payments = {}
+    @exam.payments.group(:participant_id).select("ort_payments.participant_id, SUM(ort_payments.amount) AS amount").
+        each { |e| @payments[e.participant_id] = e.amount }
   end
 end
