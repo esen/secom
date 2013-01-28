@@ -12,7 +12,7 @@ Secom::Application.routes.draw do
       get 'password', :on => :member
       post 'password', :on => :member
 
-      resources :cheques
+      resources :payments, :cheques
     end
 
     resources :exams do

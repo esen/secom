@@ -10,7 +10,10 @@
   <dd><%= @participant.password %></dd>
   <br/>
   <dt><strong>More:</strong></dt>
-  <dd><%= link_to "Exams", exams_ort_participant_path(@participant), :class => "btn btn-small" %></dd>
+  <dd>
+    <%= link_to "Exams", exams_ort_participant_path(@participant), :class => "btn btn-small" %>
+    <%= link_to "Payments", ort_participant_payments_path(@participant), :class => "btn btn-small" %>
+  </dd>
 </dl>
 
 <div class="form-actions">

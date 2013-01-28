@@ -26,7 +26,7 @@
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  @cheque, :class => 'btn' %>
+                  get_path(:cheque, :show, @cheque), :class => 'btn' %>
       &nbsp;
       <%= link_to "Add Payment", new_ort_cheque_payment_path(@cheque), :class => 'btn' %>
     </div>

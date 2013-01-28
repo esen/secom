@@ -13,7 +13,8 @@
 </dl>
 
 <%= form_for @payment, :html => {:class => 'form-horizontal'} do |f| %>
-
+    <%= hidden_field_tag :participant_id, @participant.id, :class => 'hidden_field' if @participant %>
+    <%= hidden_field_tag :exam_id, @exam.id, :class => 'hidden_field' if @exam %>
     <div class="control-group">
       <%= f.label :amount, :class => 'control-label' %>
       <div class="controls">
@@ -25,6 +26,6 @@
     <div class="form-actions">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                  ort_payments_path, :class => 'btn' %>
+                  get_path(:payment, :index), :class => 'btn' %>
     </div>
 <% end %>

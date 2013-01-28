@@ -1,12 +1,15 @@
 class Ort::PaymentsController < ApplicationController
-  before_filter :find_exam
+  before_filter :find_participant, :find_exam
 
   def index
     @payments = Ort::Payment.
         joins(:exam).
         joins(:participant).
-        joins("LEFT JOIN ort_exam_types AS oets ON oets.id = ort_exams.exam_type_id").
-        select("ort_payments.*, oets.name AS exam_name, ort_exams.start_date AS exam_date, ort_participants.name AS participant_name")
+        joins("LEFT JOIN ort_exam_types AS oets ON oets.id = ort_exams.exam_type_id")
+
+    @payments = @payments.where(:participant_id => @participant.id) if @participant
+    @payments = @payments.where(:exam_id => @exam.id) if @exam
+    @payments = @payments.select("ort_payments.*, oets.name AS exam_name, ort_exams.start_date AS exam_date, ort_participants.name AS participant_name")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -69,14 +72,10 @@ class Ort::PaymentsController < ApplicationController
   def update
     @payment = Ort::Payment.find(params[:id])
 
-    respond_to do |format|
-      if @payment.update_attributes(params[:ort_payment])
-        format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @payment.errors, status: :unprocessable_entity }
-      end
+    if @payment.update_attributes(params[:ort_payment])
+      redirect_to get_path(:show), notice: 'Payment was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
@@ -84,10 +83,23 @@ class Ort::PaymentsController < ApplicationController
     @payment = Ort::Payment.find(params[:id])
     @payment.destroy
 
-    respond_to do |format|
-      format.html { redirect_to ort_payments_url }
-      format.json { head :no_content }
+    redirect_to get_path(:index)
+  end
+
+  private
+
+  def get_path(method)
+    if @participant
+      method == :show ? ort_participant_payment_url(@participant, @payment) : ort_participant_payments_url(@participant)
+    elsif @exam
+      method == :show ? ort_exam_payment_url(@exam, @payment) : ort_exam_payments_url(@exam)
+    else
+      method == :show ? ort_payment_url(@payment) : ort_payments_url
     end
+  end
+
+  def find_participant
+    @participant = Ort::Participant.find(params[:participant_id]) if params[:participant_id]
   end
 
   def find_exam
