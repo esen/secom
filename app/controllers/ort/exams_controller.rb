@@ -6,7 +6,7 @@ class Ort::ExamsController < ApplicationController
       }
 
       format.json {
-        exams = Ort::Exam.where("ort_exams.start_date > ?", Date.today)
+        exams = Ort::Exam.where("ort_exams.start_date >= ?", Date.today)
 
         case params[:parameter]
           when "name" then
