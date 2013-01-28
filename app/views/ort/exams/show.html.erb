@@ -10,6 +10,11 @@
   <dd><%= @exam.cost %></dd>
   <dt><strong>Exam Type :</strong></dt>
   <dd><%= @exam.name %></dd>
+  <dt><strong>More :</strong></dt>
+  <dd>
+    <%= link_to "Participants", participants_ort_exam_path(@exam), :class => 'btn btn-small' %>
+    <%= link_to "Payments", ort_exam_payments_path(@exam), :class => 'btn btn-small' %>
+  </dd>
 </dl>
 
 <div class="form-actions">

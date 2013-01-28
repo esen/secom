@@ -1,4 +1,6 @@
 class Ort::PaymentsController < ApplicationController
+  before_filter :find_exam
+
   def index
     @payments = Ort::Payment.
         joins(:exam).
@@ -86,5 +88,9 @@ class Ort::PaymentsController < ApplicationController
       format.html { redirect_to ort_payments_url }
       format.json { head :no_content }
     end
+  end
+
+  def find_exam
+    @exam = Ort::Exam.find(params[:exam_id]) if params[:exam_id]
   end
 end

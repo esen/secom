@@ -14,7 +14,7 @@
 
 <div class="form-actions">
   <%= link_to t('.back', :default => t("helpers.links.back")),
-              exams_ort_participant_path(@cheque.participant), :class => 'btn'  %>
+              get_cheque_path(:index), :class => 'btn'  %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_ort_cheque_path(@cheque), :class => 'btn' %>
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),

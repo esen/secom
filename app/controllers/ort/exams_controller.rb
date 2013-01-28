@@ -86,4 +86,9 @@ class Ort::ExamsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def participants
+    @exam = Ort::Exam.find(params[:id])
+    @cheques = @exam.cheques
+  end
 end

@@ -2,7 +2,10 @@ Secom::Application.routes.draw do
   root :to => "ort::exam_types#index"
 
   namespace :ort do
-    resources :exam_types, :payments, :cheques
+    resources :exam_types, :payments
+    resources :cheques do
+      resources :payments
+    end
 
     resources :participants do
       get 'exams', :on => :member
@@ -13,7 +16,9 @@ Secom::Application.routes.draw do
     end
 
     resources :exams do
-      resources :payments
+      get 'participants', :on => :member
+
+      resources :payments, :cheques
     end
   end
 

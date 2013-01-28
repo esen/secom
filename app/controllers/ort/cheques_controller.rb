@@ -1,5 +1,5 @@
 class Ort::ChequesController < ApplicationController
-  before_filter :find_participant
+  before_filter :find_participant, :find_exam
 
   def index
     @cheques = Ort::Cheque.all
@@ -55,7 +55,7 @@ class Ort::ChequesController < ApplicationController
 
         redirect_to @cheque, notice: 'Cheque was successfully created. '
         return
-      else        payments.where(:exam_id => @cheque.exam_id)
+      else
         msg << "Could not be saved"
       end
     else
@@ -69,14 +69,10 @@ class Ort::ChequesController < ApplicationController
   def update
     @cheque = Ort::Cheque.find(params[:id])
 
-    respond_to do |format|
-      if @cheque.update_attributes(params[:ort_cheque])
-        format.html { redirect_to @cheque, notice: 'Cheque was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @cheque.errors, status: :unprocessable_entity }
-      end
+    if @cheque.update_attributes(params[:ort_cheque])
+      redirect_to get_path(:show), notice: 'Cheque was successfully updated.'
+    else
+      render action: "edit"
     end
   end
 
@@ -88,13 +84,26 @@ class Ort::ChequesController < ApplicationController
       flash[:error] = "You can't delete this cheque, because the participant has paid #{@cheque.participant.paid_for(@cheque.exam)} soms for this exam."
     end
 
-    path = @participant.nil? ? ort_participants_url : exams_ort_participant_url(@participant)
-    redirect_to path
+    redirect_to get_path(:index)
   end
 
   private
 
+  def get_path(method)
+    if @participant
+      method == :show ? ort_participant_cheque_url(@participant, @cheque) : exams_ort_participant_url(@participant)
+    elsif @exam
+      method == :show ? ort_exam_cheque_url(@exam, @cheque) : participants_ort_exam_url(@exam)
+    else
+      method == :show ? ort_cheque_url(@cheque) : ort_participants_url
+    end
+  end
+
   def find_participant
     @participant = Ort::Participant.find(params[:participant_id]) if params[:participant_id]
+  end
+
+  def find_exam
+    @exam = Ort::Exam.find(params[:exam_id]) if params[:exam_id]
   end
 end
