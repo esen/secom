@@ -6,7 +6,7 @@ class Ort::Exam < ActiveRecord::Base
   has_many :cheques, :dependent => :nullify
   has_many :payments, :dependent => :nullify
   has_many :participants, :through => :cheques
-  has_many :payed_participants, :through => :payments, :source => :participant
+  has_many :paid_participants, :through => :payments, :source => :participant
 
   delegate :name, :to => :exam_type
 

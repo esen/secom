@@ -41,13 +41,12 @@
     <% else %>
         <dl class="dl-horizontal">
           <dt><strong>Exam:</strong></dt>
-          <%- exam = @participant || @cheque.exam -%>
+          <%- exam = @exam || @cheque.exam -%>
           <dd><%= "#{exam.name} (#{exam.start_date})" %></dd>
         </dl>
         <%= hidden_field_tag :exam_name, exam.name, :class => 'hidden_field' %>
         <%= hidden_field_tag :exam_date, exam.start_date, :class => 'hidden_field' %>
     <% end %>
-
 
     <div class="control-group">
       <%= label_tag :amount, "Amount", :class => 'control-label' %>

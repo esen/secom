@@ -18,7 +18,7 @@ class Ort::PaymentsControllerTest < ActionController::TestCase
 
   test "should create ort_payment" do
     assert_difference('Ort::Payment.count') do
-      post :create, ort_payment: { amount: @ort_payment.amount, ort_exam_id: @ort_payment.ort_exam_id, ort_participant_id: @ort_payment.ort_participant_id, payed_at: @ort_payment.payed_at }
+      post :create, ort_payment: { amount: @ort_payment.amount, ort_exam_id: @ort_payment.ort_exam_id, ort_participant_id: @ort_payment.ort_participant_id, paid_at: @ort_payment.paid_at }
     end
 
     assert_redirected_to ort_payment_path(assigns(:ort_payment))
@@ -35,7 +35,7 @@ class Ort::PaymentsControllerTest < ActionController::TestCase
   end
 
   test "should update ort_payment" do
-    put :update, id: @ort_payment, ort_payment: { amount: @ort_payment.amount, ort_exam_id: @ort_payment.ort_exam_id, ort_participant_id: @ort_payment.ort_participant_id, payed_at: @ort_payment.payed_at }
+    put :update, id: @ort_payment, ort_payment: { amount: @ort_payment.amount, ort_exam_id: @ort_payment.ort_exam_id, ort_participant_id: @ort_payment.ort_participant_id, paid_at: @ort_payment.paid_at }
     assert_redirected_to ort_payment_path(assigns(:ort_payment))
   end
 

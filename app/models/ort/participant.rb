@@ -4,7 +4,7 @@ class Ort::Participant < ActiveRecord::Base
   has_many :cheques, :dependent => :nullify
   has_many :payments, :dependent => :nullify
   has_many :exams, :through => :cheques
-  has_many :payed_exams, :through => :payments, :source => :exam
+  has_many :paid_exams, :through => :payments, :source => :exam
 
   validates_presence_of :name, :password
   validate :password_valid?

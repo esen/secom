@@ -5,6 +5,9 @@
 </div>
 
 <%= form_for @cheque, :html => {:class => 'form-horizontal'} do |f| %>
+    <%= hidden_field_tag :participant_id, @participant.id, :class => 'hidden_field' if @participant %>
+    <%= hidden_field_tag :exam_id, @exam.id, :class => 'hidden_field' if @exam %>
+
     <% if @participant.nil? %>
         <div class="control-group">
           <%= label_tag :participant, "Participant", :class => 'control-label' %>
@@ -20,23 +23,31 @@
         <%= hidden_field_tag :participant, @participant.name, :class => 'hidden_field' %>
     <% end %>
 
+    <% if @exam.nil? %>
+        <div class="control-group">
+          <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
+          <div class="controls">
+            <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
+          </div>
+        </div>
+    <% else %>
+        <dl class="dl-horizontal">
+          <dt><strong>Exam:</strong></dt>
+          <dd><%= "#{@exam.name} (#{@exam.start_date})" %></dd>
+        </dl>
+        <%= hidden_field_tag :exam_name, @exam.name, :class => 'hidden_field' %>
+        <%= hidden_field_tag :exam_date, @exam.start_date, :class => 'hidden_field' %>
+    <% end %>
+
 
     <div class="control-group">
-      <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
-      </div>
-    </div>
-    <div class="control-group">
-      <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
-      <div class="controls">
-        <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
-      </div>
-    </div>
-
-
-    <div class="control-group">
-      <%= label_tag :payment_amount, "Payed Amount", :class => 'control-label' %>
+      <%= label_tag :payment_amount, "Paid Amount", :class => 'control-label' %>
       <div class="controls">
         <%= text_field_tag :payment_amount, params[:payment_amount], :class => 'text_field' %>
       </div>

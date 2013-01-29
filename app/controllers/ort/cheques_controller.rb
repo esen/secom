@@ -48,14 +48,12 @@ class Ort::ChequesController < ApplicationController
         msg << "This participant is already enrolled to this exam"
       elsif @cheque.save
         if params[:payment_amount]
-          puts @cheque.inspect
-          puts @cheque.participant.inspect
           unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount])
             msg << "Payment could not be created!!!"
           end
         end
 
-        redirect_to @cheque, notice: 'Cheque was successfully created. '
+        redirect_to get_path(:show), notice: 'Cheque was successfully created. '
         return
       else
         msg << "Could not be saved"
