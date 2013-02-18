@@ -1,21 +1,37 @@
 class Ort::Participant < ActiveRecord::Base
-  attr_accessible :name
+  devise :database_authenticatable, :timeoutable
+
+  attr_accessible :name, :login
 
   has_many :cheques, :dependent => :nullify
   has_many :payments, :dependent => :nullify
   has_many :exams, :through => :cheques
   has_many :paid_exams, :through => :payments, :source => :exam
 
-  validates_presence_of :name, :password
+  validates_presence_of :name
   validate :password_valid?
 
   before_validation :generate_password
+  before_save :encrypt_password
+
+  attr_accessor :login, :password, :password_confirmation
+
+  def self.find_first_by_auth_conditions(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).joins(:cheques).where("ort_cheques.id = ?", login.to_i).first
+    else
+      where(conditions).first
+    end
+  end
 
   def generate_password
     self.password = SecureRandom.hex(8) if self.password.nil?
   end
 
-  attr_accessor :password_confirmation
+  def encrypt_password
+    self.encrypted_password = BCrypt::Password.create("#{password}#{self.class.pepper}", :cost => self.class.stretches).to_s
+  end
 
   def password_valid?
     if !password_confirmation.nil?

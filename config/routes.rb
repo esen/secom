@@ -2,7 +2,7 @@ Secom::Application.routes.draw do
   root :to => "ort::exam_types#index"
 
   devise_for :users
-
+  devise_for :participants, :class_name => "Ort::Participant"
 
 
   namespace :ort do
@@ -25,6 +25,8 @@ Secom::Application.routes.draw do
       resources :payments, :cheques
     end
   end
+
+  match "ort_results" => "ort::participants#show_mark"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

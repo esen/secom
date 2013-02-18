@@ -1,5 +1,6 @@
 class Ort::ParticipantsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show_mark]
+  before_filter :authenticate_participant!, :only => [:show_mark]
 
   def index
     respond_to do |format|
@@ -96,5 +97,11 @@ class Ort::ParticipantsController < ApplicationController
         flash[:error] = @participant.errors.full_messages.join(". ")
       end
     end
+  end
+
+  def show_mark
+    cheque_id = params[:login].to_i
+    @cheque = Ort::Cheque.find(cheque_id) if cheque_id > 0
+    @cheques = Ort::Cheque.where(:participant_id => current_participant.id).order("created_at DESC")
   end
 end

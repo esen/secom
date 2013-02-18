@@ -1,0 +1,32 @@
+<%- model_class = Ort::Participant -%>
+<div class="page-header">
+  <h1><%= t '.title', :default => t("exam results") %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= "Name" %>:</strong></dt>
+  <dd><%= current_participant.name %></dd>
+  <%- if @cheque %>
+      <dt><strong><%= "Mark" %>:</strong></dt>
+      <dd><%= @cheque.mark %></dd>
+  <%- end %>
+</dl>
+
+<table class="table table-striped">
+  <tr>
+    <th><%= t("date of exam") %></th>
+    <th><%= t("mark") %></th>
+  </tr>
+  <% @cheques.each do |cheque| %>
+      <tr>
+        <td><%= l cheque.created_at, :format => :short %></td>
+        <td><%= cheque.mark %></td>
+      </tr>
+  <% end %>
+</table>
+
+<div class="form-actions">
+  <%= link_to t("log out"),
+              destroy_session_path(:participant), :method => :delete, :class => "btn btn-mini",
+              :style => "padding-top:0;padding-bottom:0;padding-left:6;padding-right:6;" %>
+</div>
