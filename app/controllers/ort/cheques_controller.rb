@@ -1,4 +1,5 @@
 class Ort::ChequesController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :find_participant, :find_exam
 
   def index

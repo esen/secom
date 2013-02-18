@@ -1,6 +1,10 @@
 Secom::Application.routes.draw do
   root :to => "ort::exam_types#index"
 
+  devise_for :users
+
+
+
   namespace :ort do
     resources :exam_types, :payments
     resources :cheques do

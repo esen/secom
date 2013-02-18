@@ -1,4 +1,6 @@
 class Ort::ExamTypesController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @exam_types = Ort::ExamType.all
 

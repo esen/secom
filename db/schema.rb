@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130218090820) do
+ActiveRecord::Schema.define(:version => 20130218091316) do
 
   create_table "ort_cheques", :force => true do |t|
     t.integer  "participant_id"
@@ -51,8 +51,12 @@ ActiveRecord::Schema.define(:version => 20130218090820) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "role"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.string   "username",            :default => "", :null => false
+    t.string   "email",               :default => "", :null => false
+    t.string   "encrypted_password",  :default => "", :null => false
+    t.datetime "remember_created_at"
   end
 
 end

@@ -6,6 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+User.create! :name => "Admin Adminovich", :role => "admin", :username => "admin", :email => "admin@mail.com", :password => "admin123", :password_confirmation => "admin123"
+
 Ort::ExamType.create(
     [
         {:name => "General", :cost => 1000},
