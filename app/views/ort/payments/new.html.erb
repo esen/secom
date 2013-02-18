@@ -13,7 +13,7 @@
         <div class="control-group">
           <%= label_tag :participant, "Participant", :class => 'control-label' %>
           <div class="controls">
-            <%= text_field_tag :participant, params[:participant], :class => 'text_field' %>
+            <%= text_field_tag :participant, params[:participant], :class => 'text_field', :autocomplete => :off %>
           </div>
         </div>
     <% else %>
@@ -29,13 +29,13 @@
         <div class="control-group">
           <%= label_tag :exam_name, "Exam Name", :class => 'control-label' %>
           <div class="controls">
-            <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field' %>
+            <%= text_field_tag :exam_name, params[:exam_name], :class => 'text_field', :autocomplete => :off %>
           </div>
         </div>
         <div class="control-group">
           <%= label_tag :exam_date, "Exam Date", :class => 'control-label' %>
           <div class="controls">
-            <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field' %>
+            <%= text_field_tag :exam_date, params[:exam_date], :class => 'text_field', :autocomplete => :off %>
           </div>
         </div>
     <% else %>
