@@ -5,11 +5,11 @@ class Ort::ParticipantsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @participants = Ort::Participant.all
+        @participants = Ort::Participant.order(:name)
       }
 
       format.json {
-        @participants = Ort::Participant.where("name LIKE ?", "%#{params[:q]}%")
+        @participants = Ort::Participant.where("name LIKE ?", "%#{params[:q]}%").order(:name)
         render json: @participants.collect { |p| p.name }
       }
     end
