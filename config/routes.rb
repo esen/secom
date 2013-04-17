@@ -1,4 +1,7 @@
 Secom::Application.routes.draw do
+  resources :rooms
+
+
   root :to => "ort::exam_types#index"
 
   devise_for :users

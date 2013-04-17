@@ -1,0 +1,9 @@
+<div id="rooms"></div>
+
+<script type="text/javascript">
+    jQuery(function () {
+        // Secom is the app name
+        window.router = new Secom.Routers.RoomsRouter({rooms: <%= @rooms.to_json.html_safe -%>});
+        Backbone.history.start();
+    });
+</script>

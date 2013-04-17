@@ -29,6 +29,7 @@ group :production do
 end
 
 gem 'jquery-rails'
+gem 'rails-backbone'
 gem 'devise'
 
 # To use ActiveModel has_secure_password
