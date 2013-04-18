@@ -21,5 +21,6 @@
 //= require backbone/secom
 //= require i18n
 //= require i18n/translations
+//= require_tree .
 
 I18n.defaultLocale = "en";
