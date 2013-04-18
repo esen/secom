@@ -20,6 +20,9 @@ group :assets do
   gem 'less-rails'
   gem 'twitter-bootstrap-rails'
   gem 'bootstrap-datepicker-rails'
+  gem 'jquery-rails'
+  gem 'rails-backbone'
+  gem 'i18n-js'
 end
 
 group :production do
@@ -28,8 +31,6 @@ group :production do
   gem 'thin'
 end
 
-gem 'jquery-rails'
-gem 'rails-backbone'
 gem 'devise'
 
 # To use ActiveModel has_secure_password

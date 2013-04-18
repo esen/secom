@@ -19,3 +19,7 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/secom
+//= require i18n
+//= require i18n/translations
+
+I18n.defaultLocale = "en";

@@ -36,8 +36,6 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.save
         format.html { redirect_to @room, notice: 'Room was successfully created.' }
-        puts @room.to_json
-        puts @room.attributes.inspect
         format.json { render json: @room, status: :created, location: @room }
       else
         format.html { render action: "new" }
@@ -48,8 +46,6 @@ class RoomsController < ApplicationController
 
   def update
     @room = Room.find(params[:id])
-
-    puts params[:room].except(:created_at, :updated_at).inspect
 
     respond_to do |format|
       if @room.update_attributes(params[:room].except(:created_at, :updated_at))
