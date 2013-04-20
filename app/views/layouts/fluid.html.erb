@@ -17,7 +17,6 @@
 <body>
 
 <%- if current_user %>
-
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -29,10 +28,17 @@
 
           <div class="container nav-collapse">
             <ul class="nav">
-              <li><%= link_to "Exam Types", "/ort/exam_types" %></li>
-              <li><%= link_to "Exams", "/ort/exams" %></li>
-              <li><%= link_to "Participants", "/ort/participants" %></li>
-              <li><%= link_to "Payments", "/ort/payments" %></li>
+
+              <%- if is_ort? %>
+                  <li><%= link_to "Exam Types", "/ort/exam_types" %></li>
+                  <li><%= link_to "Exams", "/ort/exams" %></li>
+                  <li><%= link_to "Participants", "/ort/participants" %></li>
+                  <li><%= link_to "Payments", "/ort/payments" %></li>
+              <%- else %>
+                  <li><%= link_to "Lessons", lessons_path %></li>
+                  <li><%= link_to "Rooms", rooms_path %></li>
+            <%- end %>
+
             </ul>
             <ul class="nav" style="float:right;">
               <li style="float: right;">
@@ -46,7 +52,6 @@
         </div>
       </div>
     </div>
-
 <%- end %>
 
 <div class="container">
@@ -54,24 +59,28 @@
     <div class="span3">
       <%= image_tag "secom-logo.png", :style => "padding:10px;" %>
 
-      <%- if current_user %>
-          <div class="well sidebar-nav">
-            <h3>Quick links</h3>
-            <ul class="nav nav-list">
-              <li class="nav-header">Exams</li>
-              <li><%= link_to "Start new exam", "/ort/exams/new" %></li>
-              <li><%= link_to "Enroll participant for an exam", "/ort/cheques/new" %></li>
-              <li class="nav-header">Payments</li>
-              <li><%= link_to "New payment", "/ort/payments/new" %></li>
-              <li><%= link_to "Payment history", "/ort/payments" %></li>
-            </ul>
-          </div>
-          <!--/.well -->
-      <%- else %>
-          <br/>
-          <ul class="nav nav-list">
-            <li><%= link_to t("ORT Results"), "/ort_results" %></li>
+      <!-- Menus -->
+      <%- if is_ort? %>
+          <ul class="nav nav-tabs nav-stacked affix">
+            <%- if current_user %>
+                <li class="nav-header">Exams</li>
+                <li><%= link_to "Start new exam", "/ort/exams/new" %></li>
+                <li><%= link_to "Enroll participant for an exam", "/ort/cheques/new" %></li>
+                <li class="nav-header">Payments</li>
+                <li><%= link_to "New payment", "/ort/payments/new" %></li>
+                <li><%= link_to "Payment history", "/ort/payments" %></li>
+                <!--/.well -->
+            <%- else %>
+                <li><%= link_to t("ORT Results"), "/ort_results" %></li>
+            <%- end %>
           </ul>
+      <%- else %>
+          <%- if current_user %>
+              <ul class="nav nav-tabs nav-stacked affix">
+                <li class="nav-header">Quick access</li>
+                <li><%= link_to "Rooms", rooms_path %></li>
+              </ul>
+          <%- end %>
       <%- end %>
     </div>
     <!--/span-->
@@ -83,10 +92,6 @@
   <!--/row-->
 
   <br/><br/>
-  <footer>
-    <p>&copy; SECOM 2013</p>
-  </footer>
-
 </div>
 <!-- /container -->
 

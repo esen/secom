@@ -17,4 +17,8 @@ module ApplicationHelper
     path_method = "/ort/" + path_method
     path_method
   end
+
+  def is_ort?
+    params[:controller].split("/").first == "ort"
+  end
 end
