@@ -26,6 +26,7 @@ class Secom.Views.CourseTimes.NewView extends Backbone.View
         window.location.hash = "/#{@model.id}"
 
       error: (course_time, jqXHR) =>
+        course_time.collection.remove(course_time)
         alert($.parseJSON(jqXHR.responseText).join(", "))
     )
 
