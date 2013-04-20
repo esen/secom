@@ -1,0 +1,9 @@
+<div id="course_times"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // Secom is the app name
+        window.router = new Secom.Routers.CourseTimesRouter({course_times: <%= @course_times.to_json.html_safe -%>});
+        Backbone.history.start();
+    };
+</script>

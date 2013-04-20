@@ -1,9 +1,7 @@
 Secom::Application.routes.draw do
+  resources :course_times
   resources :lessons
-
-
   resources :rooms
-
 
   root :to => "ort::exam_types#index"
 

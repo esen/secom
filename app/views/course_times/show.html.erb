@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Starts at:</b>
+  <%= @course_time.starts_at %>
+</p>
+
+<p>
+  <b>Ends at:</b>
+  <%= @course_time.ends_at %>
+</p>
+
+
+<%= link_to 'Edit', edit_course_time_path(@course_time) %> |
+<%= link_to 'Back', course_times_path %>
