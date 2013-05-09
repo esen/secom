@@ -1,0 +1,9 @@
+<div id="levels"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // Secom is the app name
+        window.router = new Secom.Routers.LevelsRouter({levels: <%= @levels.to_json.html_safe -%>});
+        Backbone.history.start();
+    };
+</script>
