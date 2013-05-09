@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130420145238) do
+ActiveRecord::Schema.define(:version => 20130509081254) do
 
   create_table "course_times", :force => true do |t|
     t.string   "starts_at"
@@ -64,6 +64,16 @@ ActiveRecord::Schema.define(:version => 20130420145238) do
   create_table "rooms", :force => true do |t|
     t.string   "title"
     t.integer  "capacity"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "teachers", :force => true do |t|
+    t.string   "name"
+    t.string   "surname"
+    t.string   "phone"
+    t.string   "address"
+    t.integer  "lesson_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

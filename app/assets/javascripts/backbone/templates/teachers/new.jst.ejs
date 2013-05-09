@@ -1,0 +1,47 @@
+<div class="page-header">
+  <h1>New Teacher</h1>
+</div>
+
+
+<form id="new-teacher" name="teacher" class='form-horizontal'>
+    <div class="control-group">
+        <label for="name" class="control-label"> name:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="name" id="name" value="<%= name %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="surname" class="control-label"> surname:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="surname" id="surname" value="<%= surname %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="phone" class="control-label"> phone:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="phone" id="phone" value="<%= phone %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="address" class="control-label"> address:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="address" id="address" value="<%= address %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="lesson_id" class="control-label"> lesson:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="lesson_id" id="lesson_id" value="<%= lesson_id %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="#/index" class="btn btn-small">Back</a>
+        <input type="submit" value="Add Teacher" class="btn btn-small btn-primary"/>
+    </div>
+
+</form>

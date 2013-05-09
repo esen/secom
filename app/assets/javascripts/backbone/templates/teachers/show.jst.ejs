@@ -1,0 +1,22 @@
+<div class="page-header">
+  <h1>Teacher</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>Name:</strong></dt>
+  <dd><%= name %></dd>
+  <dt><strong>Surname:</strong></dt>
+  <dd><%= surname %></dd>
+  <dt><strong>Phone:</strong></dt>
+  <dd><%= phone %></dd>
+  <dt><strong>Address:</strong></dt>
+  <dd><%= address %></dd>
+  <dt><strong>Lesson:</strong></dt>
+  <dd><%= lesson_id %></dd>
+</dl>
+
+<div class="form-actions">
+    <a href="#/index" class="btn btn-small">All Teachers</a>
+    <a href="#/<%= id %>/edit" class="btn btn-small">Edit</a>
+    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+</div>

@@ -1,4 +1,5 @@
 Secom::Application.routes.draw do
+  resources :teachers
   resources :course_times
   resources :lessons
   resources :rooms
