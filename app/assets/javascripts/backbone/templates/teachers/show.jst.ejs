@@ -4,15 +4,15 @@
 
 <dl class="dl-horizontal">
   <dt><strong>Name:</strong></dt>
-  <dd><%= name %></dd>
+  <dd><%= name || '-' %></dd>
   <dt><strong>Surname:</strong></dt>
-  <dd><%= surname %></dd>
+  <dd><%= surname || '-' %></dd>
   <dt><strong>Phone:</strong></dt>
-  <dd><%= phone %></dd>
+  <dd><%= phone || '-' %></dd>
   <dt><strong>Address:</strong></dt>
-  <dd><%= address %></dd>
+  <dd><%= address || '-' %></dd>
   <dt><strong>Lesson:</strong></dt>
-  <dd><%= lesson_id %></dd>
+  <dd><%= lesson %></dd>
 </dl>
 
 <div class="form-actions">

@@ -16,5 +16,13 @@ class Secom.Views.Teachers.TeacherView extends Backbone.View
     return false
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
+    lesson = @options.lessons.get(@model.get('lesson_id'))
+    lesson = unless lesson
+      '-'
+    else
+      lesson.get('title')
+
+    attribs = $.extend(@model.toJSON(),{lesson: lesson})
+
+    $(@el).html(@template(attribs))
     return this

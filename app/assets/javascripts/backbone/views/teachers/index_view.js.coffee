@@ -10,7 +10,7 @@ class Secom.Views.Teachers.IndexView extends Backbone.View
     @options.teachers.each(@addOne)
 
   addOne: (teacher) =>
-    view = new Secom.Views.Teachers.TeacherView({model : teacher})
+    view = new Secom.Views.Teachers.TeacherView({model : teacher, lessons : @options.lessons})
     @$("tbody").append(view.render().el)
 
   render: =>

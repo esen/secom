@@ -16,8 +16,13 @@ class Secom.Views.Teachers.EditView extends Backbone.View
         window.location.hash = "/#{@model.id}"
     )
 
+  addLesson: (lesson) =>
+    view = new Secom.Views.Lessons.OptionListView({model: lesson, selected_model_id: @model.get('lesson_id')})
+    @$("#lesson_id").append(view.render().el)
+
   render : ->
     $(@el).html(@template(@model.toJSON() ))
+    @options.lessons.each(@addLesson)
 
     this.$("form").backboneLink(@model)
 

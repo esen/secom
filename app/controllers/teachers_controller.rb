@@ -3,6 +3,7 @@ class TeachersController < ApplicationController
 
   def index
     @teachers = Teacher.all
+    @lessons = Lesson.all
 
     respond_to do |format|
       format.html # index.html.erb
