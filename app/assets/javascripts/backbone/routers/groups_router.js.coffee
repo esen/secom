@@ -6,6 +6,8 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     @levels.reset options.levels
 
   routes:
+    "index/:id" : "showStudents"
+    "index/grouped" : "indexGrouped"
     "new"      : "newGroup"
     "index"    : "index"
     ":id/edit" : "edit"
@@ -19,6 +21,14 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
   index: ->
     @view = new Secom.Views.Groups.IndexView(groups: @groups, levels: @levels)
     $("#groups").html(@view.render().el)
+
+  indexGrouped: ->
+    @view = new Secom.Views.Groups.IndexGroupedView(groups: @groups, levels: @levels)
+    $("#groups").html(@view.render().el)
+
+  showStudents: ->
+#    @view = new Secom.Views.Students.Students(groups: @groups, levels: @levels)
+#    $("#students").html(@view.render().el)
 
   show: (id) ->
     group = @groups.get(id)
