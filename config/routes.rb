@@ -1,4 +1,5 @@
 Secom::Application.routes.draw do
+  resources :groups
   resources :levels
   resources :teachers
   resources :course_times
