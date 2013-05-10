@@ -8,7 +8,7 @@ class Secom.Views.Students.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model({group_id: @options.group_id})
+    @model = new @collection.model({group_id: @options.group.get('id')})
 
     @model.bind("change:errors", () =>
       this.render()
@@ -23,7 +23,7 @@ class Secom.Views.Students.NewView extends Backbone.View
     @collection.create(@model.toJSON(),
       success: (student) =>
         @model = student
-        window.location.hash = "/#{@options.group_id}/students/#{@model.id}"
+        window.location.hash = "/#{@options.group.get('id')}/students/#{@model.id}"
 
       error: (student, jqXHR) =>
         alert("Please refresh the page! An error occured!")
@@ -31,7 +31,7 @@ class Secom.Views.Students.NewView extends Backbone.View
     )
 
   render: ->
-    $(@el).html(@template($.extend(@model.toJSON(), {group_id: @options.group_id})))
+    $(@el).html(@template($.extend(@model.toJSON(), {group: @options.group})))
 
     this.$("form").backboneLink(@model)
 

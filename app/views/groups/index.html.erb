@@ -4,7 +4,6 @@
 
 <script type="text/javascript">
     window.onload = function () {
-        ur = "ad"
         window.router = new Secom.Routers.GroupsRouter({
             groups: <%= @groups.to_json.html_safe -%>,
             levels: <%= @levels.to_json.html_safe -%>

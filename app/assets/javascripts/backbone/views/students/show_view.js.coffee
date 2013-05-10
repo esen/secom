@@ -2,24 +2,32 @@ Secom.Views.Students ||= {}
 
 class Secom.Views.Students.ShowView extends Backbone.View
   template: JST["backbone/templates/students/show"]
+  ac_template: JST["backbone/templates/students/show_ac"]
 
   events:
     "click .destroy" : "destroy"
 
   destroy: () ->
-    if (confirm('Are you sure?'))
+    if ur == 'ad' && (confirm('Are you sure?'))
       @model.destroy()
       this.remove()
       router.index()
 
   render: ->
     group = @options.groups.get(@model.get('group_id'))
-    group = unless group
+    group_name = unless group
       '-'
     else
       group.get('name')
 
-    attribs = $.extend(@model.toJSON(),{group: group})
+    switch ur
+      when 'ac'
+        attribs = $.extend(@model.toJSON(),{group: group})
 
-    $(@el).html(@template(attribs))
+        $(@el).html(@ac_template(attribs))
+      else
+        attribs = $.extend(@model.toJSON(),{group_name: group_name, group: @options.group || null})
+
+        $(@el).html(@template(attribs))
+
     return this

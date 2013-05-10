@@ -13,7 +13,7 @@ class Secom.Views.Students.EditView extends Backbone.View
     @model.save(null,
       success : (student) =>
         @model = student
-        window.location.hash = "/#{@options.group_id}/students/#{@model.id}"
+        window.location.hash = "/#{@options.group.get('id')}/students/#{@model.id}"
     )
 
   render : ->

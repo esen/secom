@@ -12,13 +12,13 @@
   <dt><strong>Address:</strong></dt>
   <dd><%= address || '-' %></dd>
   <dt><strong>Group:</strong></dt>
-  <dd><%= group %></dd>
+  <dd><%= group_name %></dd>
 </dl>
 
-<% if (ur == "ad") { %>
+<% if (group && ur == 'ad') { %>
 <div class="form-actions">
-    <a href="#/<%= group_id %>/students/index" class="btn btn-small">All Students</a>
-    <a href="#/<%= group_id %>/students/<%= id %>/edit" class="btn btn-small">Edit</a>
-    <a href="#/<%= group_id %>/students/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+    <a href="#/<%= group.get('id') %>/students/index" class="btn btn-small">All Students</a>
+    <a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-small">Edit</a>
+    <a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
 </div>
 <% } %>

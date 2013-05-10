@@ -1,0 +1,37 @@
+<div class="page-header">
+  <h1><%= name || '-' %> <%= surname || '-' %></h1>
+</div>
+
+<div class="row">
+    <div class="span3">
+        <dl class="dl-horizontal">
+          <dt><strong>Туулган Күнү:</strong></dt>
+          <dd><%= birth_date || '-' %></dd>
+          <dt><strong>Мектеби:</strong></dt>
+          <dd><%= school || '-' %></dd>
+          <dt><strong>Телефону:</strong></dt>
+          <dd><%= phone || '-' %></dd>
+          <dt><strong>Адреси:</strong></dt>
+          <dd><%= address || '-' %></dd>
+          <dt><strong>Группасы:</strong></dt>
+          <dd><%= group.get('name') %></dd>
+        </dl>
+    </div>
+    <div class="span3 offset2">
+        <dl class="dl-horizontal">
+          <dt><strong>Акыбалы:</strong></dt>
+          <dd><%= active ? "актив" : "пассив" %></dd>
+          <dt><strong>Курстун наркы:</strong></dt>
+          <dd><%= group.get('price') || '-' %></dd>
+          <dt><strong>Учурдагы ай:</strong></dt>
+          <dd><%= today_month %></dd>
+          <dt><strong>Учурда төлөөгө:</strong></dt>
+          <dd><%= group.get('price') || '-' %></dd>
+          <dt><strong>Жеңилдетүү:</strong></dt>
+          <dd><%= discount %></dd>
+          <dt><strong>Төлөмү:</strong></dt>
+          <dd><%= 0 %></dd>
+        </dl>
+    </div>
+</div>
+

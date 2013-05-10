@@ -11,7 +11,7 @@ class Secom.Routers.StudentsRouter extends Backbone.Router
     ".*"        : "index"
 
   index: ->
-    @view = new Secom.Views.Students.IndexView(students: @students, show_groups: true, groups: @groups)
+    @view = new Secom.Views.Students.IndexView(students: @students, groups: @groups)
     $("#students").html(@view.render().el)
 
   show: (id) ->

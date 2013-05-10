@@ -16,16 +16,10 @@ class Secom.Views.Students.StudentView extends Backbone.View
     return false
 
   render: ->
-    if @options.show_groups
-      group = @options.groups.get(@model.get('group_id'))
-      group = unless group
-        '-'
-      else
-        group.get('name')
+    unless @options.group
+      group_name = @options.groups.get(@model.get('group_id')).get('name')
 
-      attribs = $.extend(@model.toJSON(),{show_group: true, group: group})
-    else
-      attribs = $.extend(@model.toJSON(),{show_group: null})
+    attribs = $.extend(@model.toJSON(),{show_group: true, group_name: group_name, group: @options.group || null})
 
     $(@el).html(@template(attribs))
     return this

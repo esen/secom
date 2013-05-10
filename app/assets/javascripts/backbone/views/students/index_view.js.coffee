@@ -10,11 +10,11 @@ class Secom.Views.Students.IndexView extends Backbone.View
     @options.students.each(@addOne)
 
   addOne: (student) =>
-    view = new Secom.Views.Students.StudentView({model : student, groups: @options.groups, show_groups: @options.show_groups})
+    view = new Secom.Views.Students.StudentView({model : student, groups: @options.groups, group: @options.group})
     @$("tbody").append(view.render().el)
 
   render: =>
-    $(@el).html(@template(show_group: @options.show_groups, group: @options.group))
+    $(@el).html(@template(group: @options.group || null))
     @addAll()
 
     return this

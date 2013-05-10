@@ -9,7 +9,7 @@ Secom::Application.routes.draw do
   resources :lessons
   resources :rooms
 
-  root :to => "ort::exam_types#index"
+  root :to => "lessons#index"
 
   devise_for :users
   devise_for :participants, :class_name => "Ort::Participant"

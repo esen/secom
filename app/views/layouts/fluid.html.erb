@@ -17,6 +17,14 @@
 <body>
 
 <%- if current_user %>
+    <script type="text/javascript">
+      ur = "<%= current_user.role %>"
+      today = "<%= Date.today %>"
+      today_day = "<%= Date.today.day %>"
+      today_month = "<%= Date.today.month %>"
+      today_year = "<%= Date.today.year %>"
+    </script>
+
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -35,18 +43,20 @@
                   <li><%= link_to "Participants", "/ort/participants" %></li>
                   <li><%= link_to "Payments", "/ort/payments" %></li>
               <%- else %>
-                  <li><%= link_to "Lessons", lessons_path %></li>
-                  <li><%= link_to "Levels", levels_path %></li>
-                  <li><%= link_to "Groups", groups_path %></li>
-                  <li><%= link_to "Rooms", rooms_path %></li>
-                  <li><%= link_to "Course Times", course_times_path %></li>
-                  <li><%= link_to "Teachers", teachers_path %></li>
-            <%- end %>
+                  <li><%= link_to "Предметтер", lessons_path %></li>
+                  <li><%= link_to "Даражалар", levels_path %></li>
+                  <li><%= link_to "Группалар", groups_path %></li>
+                  <li><%= link_to "Окуучулар", students_path %></li>
+                  <li><%= link_to "Кабинеттер", rooms_path %></li>
+                  <li><%= link_to "Сабак убактылары", course_times_path %></li>
+                  <li><%= link_to "Мугалимдер", teachers_path %></li>
+              <%- end %>
 
             </ul>
             <ul class="nav" style="float:right;">
               <li style="float: right;">
-                <%= link_to t("log out"),
+                Колдонуучу:  <%= current_user.name %>
+                <%= link_to "Чыгуу",
                             destroy_session_path(:user), :method => :delete, :class => "btn btn-mini",
                             :style => "padding-top:0;padding-bottom:0;padding-left:6;padding-right:6;" %>
               </li>
@@ -81,13 +91,14 @@
       <%- else %>
           <%- if current_user %>
               <ul class="nav nav-tabs nav-stacked affix">
-                <li class="nav-header">Quick access</li>
-                <li><%= link_to "Rooms", rooms_path %></li>
-                <li><%= link_to "Lessons", lessons_path %></li>
-                <li><%= link_to "Levels", levels_path %></li>
-                <li><%= link_to "Groups", groups_path %></li>
-                <li><%= link_to "Course Times", course_times_path %></li>
-                <li><%= link_to "Teachers", teachers_path %></li>
+                <li class="nav-header">Меню</li>
+                <li><%= link_to "Кабинеттер", rooms_path %></li>
+                <li><%= link_to "Предметтер", lessons_path %></li>
+                <li><%= link_to "Даражалар", levels_path %></li>
+                <li><%= link_to "Группалар", groups_path %></li>
+                <li><%= link_to "Окуучулар", students_path %></li>
+                <li><%= link_to "Сабак убактылары", course_times_path %></li>
+                <li><%= link_to "Мугалимдер", teachers_path %></li>
               </ul>
           <%- end %>
       <%- end %>

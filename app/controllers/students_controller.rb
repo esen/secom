@@ -3,14 +3,13 @@ class StudentsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { @students = Student.all }
+      format.html do
+        @students = Student.all
+        @groups = Group.all
+      end
+
       format.json do
-        if params[:group_id]
-          @students = Student.of_group(params[:group_id])
-        else
-          @students = Student.all
-          @groups = Group.all
-        end
+        @students = (params[:group_id]) ? Student.of_group(params[:group_id]) : Students.all
 
         render json: @students
       end

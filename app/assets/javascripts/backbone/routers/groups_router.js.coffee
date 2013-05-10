@@ -25,7 +25,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     $("#groups").html(@view.render().el)
 
   index: ->
-    if ur == "ad"
+    if ur != "vd"
       @indexGrouped()
     else
       @view = new Secom.Views.Groups.IndexView(groups: @groups, levels: @levels)
@@ -65,7 +65,9 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     unless @index_group_rendered
       @indexGrouped()
     else
-      @view = new Secom.Views.Students.NewView(collection: global_students, group_id: id)
+      group = @groups.get(id)
+
+      @view = new Secom.Views.Students.NewView(collection: global_students, group: group)
       $("#students").html(@view.render().el)
 
   showStudent: (id, student_id) ->
@@ -73,7 +75,9 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
       @indexGrouped()
     else
       student = global_students.get(student_id)
-      @view = new Secom.Views.Students.ShowView(model: student, groups: @groups)
+      group = @groups.get(id)
+
+      @view = new Secom.Views.Students.ShowView(model: student, groups: @groups, group: group)
       $("#students").html(@view.render().el)
 
   editStudent: (id, student_id) ->
@@ -81,6 +85,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
       @indexGrouped()
     else
       student = global_students.get(student_id)
+      group = @groups.get(id)
 
-      @view = new Secom.Views.Students.EditView(model: student, groups: @groups)
+      @view = new Secom.Views.Students.EditView(model: student, groups: @groups, group: group)
       $("#students").html(@view.render().el)

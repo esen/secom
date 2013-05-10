@@ -1,5 +1,5 @@
-<% if (ur == "ad") { %>
-    <td><a href="#/<%= group_id %>/students/<%= id %>"><%= name %></td>
+<% if (group) { %>
+    <td><a href="#/<%= group.get('id') %>/students/<%= id %>"><%= name %></td>
 <% } else { %>
     <td><a href="#/<%= id %>"><%= name %></td>
 <% } %>
@@ -10,10 +10,10 @@
 <td><%= phone %></td>
 <td><%= address %></td>
 
-<%= show_group ? "<td>" + group + "</td>" : "" %>
+<%= (group) ? "" : "<td>" + group_name + "</td>" %>
 
-<% if (ur == "ad") { %>
-    <td><a href="#/<%= group_id %>/students/<%= id %>/edit" class="btn btn-mini">Edit</a></td>
-    <td><a href="#/<%= group_id %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Destroy</a></td>
+<% if (group && ur == 'ad') { %>
+    <td><a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-mini">Edit</a></td>
+    <td><a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Destroy</a></td>
 <% } %>
 
