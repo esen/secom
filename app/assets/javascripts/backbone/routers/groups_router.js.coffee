@@ -25,7 +25,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     $("#groups").html(@view.render().el)
 
   index: ->
-    if ur == "administrator"
+    if ur == "ad"
       @indexGrouped()
     else
       @view = new Secom.Views.Groups.IndexView(groups: @groups, levels: @levels)

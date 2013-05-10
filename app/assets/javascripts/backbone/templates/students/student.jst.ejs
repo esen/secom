@@ -1,4 +1,4 @@
-<% if (ur == "administrator") { %>
+<% if (ur == "ad") { %>
     <td><a href="#/<%= group_id %>/students/<%= id %>"><%= name %></td>
 <% } else { %>
     <td><a href="#/<%= id %>"><%= name %></td>
@@ -12,7 +12,7 @@
 
 <%= show_group ? "<td>" + group + "</td>" : "" %>
 
-<% if (ur == "administrator") { %>
+<% if (ur == "ad") { %>
     <td><a href="#/<%= group_id %>/students/<%= id %>/edit" class="btn btn-mini">Edit</a></td>
     <td><a href="#/<%= group_id %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Destroy</a></td>
 <% } %>

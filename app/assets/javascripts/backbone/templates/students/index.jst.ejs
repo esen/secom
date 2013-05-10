@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Окуучулар <%= (ur == "administrator") ? "(" + group.get('name') + ")" : "" %></h1>
+  <h1>Окуучулар <%= (ur == "ad") ? "(" + group.get('name') + ")" : "" %></h1>
 </div>
 
 
@@ -12,13 +12,13 @@
     <th>Телефон номери</th>
     <th>Адреси</th>
     <%= show_group ? "<th>Группасы</th>" : "" %>
-    <%= ur == "administrator" ? "<th></th><th></th>" : "" %>
+    <%= ur == "ad" ? "<th></th><th></th>" : "" %>
   </tr>
 </table>
 
 <br/>
 
-<% if (ur == "administrator") { %>
+<% if (ur == "ad") { %>
     <a href="#/<%= group.get('id') %>/students/new" class="btn btn-small btn-primary">Жаңы окуучу кошуу</a>
 <% } %>
 
