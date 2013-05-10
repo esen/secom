@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  surname: MyString
+  birth_date: 2013-05-10
+  school: MyString
+  address: MyString
+  phone: MyString
+  group_id: 1
+  discount: 1
+  started_at: 2013-05-10
+  finished_at: 2013-05-10
+  active: false
+
+two:
+  name: MyString
+  surname: MyString
+  birth_date: 2013-05-10
+  school: MyString
+  address: MyString
+  phone: MyString
+  group_id: 1
+  discount: 1
+  started_at: 2013-05-10
+  finished_at: 2013-05-10
+  active: false

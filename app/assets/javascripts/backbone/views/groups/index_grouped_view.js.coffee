@@ -18,7 +18,7 @@ class Secom.Views.Groups.IndexGroupedView extends Backbone.View
 
   addGroup: (group) =>
     a = $(document.createElement('a'))
-    a.attr('href', "#/" + group.get('id'))
+    a.attr('href', "#/" + group.get('id') + "/students/index")
     a.addClass('btn btn-small')
     a.html(group.get('name'))
 

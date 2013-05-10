@@ -1,0 +1,54 @@
+<div class="page-header">
+  <h1>New Student</h1>
+</div>
+
+
+<form id="new-student" name="student" class='form-horizontal'>
+    <div class="control-group">
+        <label for="name" class="control-label"> name:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="name" id="name" value="<%= name %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="surname" class="control-label"> surname:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="surname" id="surname" value="<%= surname %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="birth_date" class="control-label"> birth date:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="birth_date" id="birth_date" value="<%= birth_date %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="school" class="control-label"> school:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="school" id="school" value="<%= school %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="phone" class="control-label"> phone:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="phone" id="phone" value="<%= phone %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="address" class="control-label"> address:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="address" id="address" value="<%= address %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="#/<%= group_id %>/students/index" class="btn btn-small">Back</a>
+        <input type="submit" value="Add Student" class="btn btn-small btn-primary"/>
+    </div>
+
+</form>

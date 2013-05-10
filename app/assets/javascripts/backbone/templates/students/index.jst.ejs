@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1>Окуучулар <%= (ur == "administrator") ? "(" + group.get('name') + ")" : "" %></h1>
+</div>
+
+
+<table id="students-table" class="table table-bordered table-hover">
+  <tr>
+    <th>Аты</th>
+    <th>Фамилиясы</th>
+    <th>Туулган күнү</th>
+    <th>Мектеби</th>
+    <th>Телефон номери</th>
+    <th>Адреси</th>
+    <%= show_group ? "<th>Группасы</th>" : "" %>
+    <%= ur == "administrator" ? "<th></th><th></th>" : "" %>
+  </tr>
+</table>
+
+<br/>
+
+<% if (ur == "administrator") { %>
+    <a href="#/<%= group.get('id') %>/students/new" class="btn btn-small btn-primary">Жаңы окуучу кошуу</a>
+<% } %>
+

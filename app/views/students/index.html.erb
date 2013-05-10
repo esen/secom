@@ -1,0 +1,13 @@
+<div id="students"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // Secom is the app name
+        ur = "zavuch"
+        window.router = new Secom.Routers.StudentsRouter({
+            students: <%= @students.to_json.html_safe -%>,
+            groups: <%= @groups.to_json.html_safe -%>
+        });
+        Backbone.history.start();
+    };
+</script>

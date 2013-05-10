@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h1><%= name || '-' %> <%= surname || '-' %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>Birth Date:</strong></dt>
+  <dd><%= birth_date || '-' %></dd>
+  <dt><strong>School:</strong></dt>
+  <dd><%= school || '-' %></dd>
+  <dt><strong>Phone:</strong></dt>
+  <dd><%= phone || '-' %></dd>
+  <dt><strong>Address:</strong></dt>
+  <dd><%= address || '-' %></dd>
+  <dt><strong>Group:</strong></dt>
+  <dd><%= group %></dd>
+</dl>
+
+<% if (ur == "administrator") { %>
+<div class="form-actions">
+    <a href="#/<%= group_id %>/students/index" class="btn btn-small">All Students</a>
+    <a href="#/<%= group_id %>/students/<%= id %>/edit" class="btn btn-small">Edit</a>
+    <a href="#/<%= group_id %>/students/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+</div>
+<% } %>
