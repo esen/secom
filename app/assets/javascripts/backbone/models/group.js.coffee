@@ -6,6 +6,8 @@ class Secom.Models.Group extends Backbone.Model
     level_id: null
     started_at: null
     finished_at: null
+    active: null
+    price: null
 
 class Secom.Collections.GroupsCollection extends Backbone.Collection
   model: Secom.Models.Group

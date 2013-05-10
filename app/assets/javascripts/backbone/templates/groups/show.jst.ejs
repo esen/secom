@@ -1,16 +1,18 @@
 <div class="page-header">
-  <h1>Group</h1>
+  <h1>Группа</h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong>Name:</strong></dt>
+  <dt><strong>Аталышы:</strong></dt>
   <dd><%= name || '-' %></dd>
-  <dt><strong>Level:</strong></dt>
+  <dt><strong>Даражасы:</strong></dt>
   <dd><%= level %></dd>
+  <dt><strong>Наркы:</strong></dt>
+  <dd><%= price %></dd>
 </dl>
 
 <div class="form-actions">
-    <a href="#/index" class="btn btn-small">All Groups</a>
-    <a href="#/<%= id %>/edit" class="btn btn-small">Edit</a>
-    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+    <a href="#/index" class="btn btn-small">Группалар</a>
+    <a href="#/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
+    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
 </div>
