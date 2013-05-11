@@ -52,7 +52,7 @@ class GroupsController < ApplicationController
             end
 
             if @group.save
-              render json: @group.payment_dates
+              render json: {group: @group, payment_dates: @group.payment_dates}
             else
               render json: {error: true}, status: :unprocessable_entity
             end

@@ -29,7 +29,9 @@ class Secom.Views.PaymentDates.GenerateDatesView extends Backbone.View
 
   handle_response: (resp, status, xhr) =>
     if status == "success"
-      @payment_dates.reset(@payment_dates.parse(resp))
+      console.log(resp)
+      @payment_dates.reset(@payment_dates.parse(resp["payment_dates"]))
+      @group.set('started_at', resp["group"]["started_at"])
       router.show(@group.get('id'))
 
   render: =>
