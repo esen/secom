@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h1>Кирешени өзгөртүү</h1>
+</div>
+
+
+<form id="edit-payment" name="payment" class='form-horizontal'>
+    <div class="control-group">
+        <label for="amount" class="control-label"> Сумма:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="amount" id="amount" value="<%= amount %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="source_id" class="control-label"> Киреше Булагы:</label>
+            <div class="controls">
+                <select name="source_id" id="source_id">
+                    <option>Киреше булагын танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="note" class="control-label"> Башка киреше:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="note" id="note" value="<%= note %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="#/index" class="btn btn-small">Артка</a>
+        <input type="submit" value="Кирешени сакта" class="btn btn-small btn-primary"/>
+    </div>
+</form>

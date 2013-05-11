@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  student_id: 1
+  ort_participant_id: 1
+  source_id: 1
+  note: MyString
+  amount: 1
+
+two:
+  student_id: 1
+  ort_participant_id: 1
+  source_id: 1
+  note: MyString
+  amount: 1

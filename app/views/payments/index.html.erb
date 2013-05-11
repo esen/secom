@@ -1,0 +1,11 @@
+<div id="payments"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        window.router = new Secom.Routers.PaymentsRouter({
+            payments: <%= @payments.to_json.html_safe -%>,
+            sources: <%= @sources.to_json.html_safe -%>
+        });
+        Backbone.history.start();
+    };
+</script>
