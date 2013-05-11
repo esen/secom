@@ -5,6 +5,7 @@ class PaymentsController < ApplicationController
     respond_to do |format|
       format.html do
         @payments = Payment.all
+        @sources = Source.all
       end
 
       format.json do
