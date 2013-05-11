@@ -1,6 +1,7 @@
 class Payment < ActiveRecord::Base
   belongs_to :student
   belongs_to :ort_participant, :class_name => 'Ort::Participant'
+  belongs_to :source
 
   attr_accessible :amount, :note, :ort_participant_id, :source_id, :student_id
 

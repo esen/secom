@@ -1,0 +1,26 @@
+<div class="page-header">
+  <h1>Жаңы киреше булагы</h1>
+</div>
+
+
+<form id="new-source" name="source" class='form-horizontal'>
+    <div class="control-group">
+        <label for="name" class="control-label"> Аталышы:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="name" id="name" value="<%= name %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="note" class="control-label"> Комментарий:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="note" id="note" value="<%= note %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="#/index" class="btn btn-small">Атка</a>
+        <input type="submit" value="Киреше булагын кош" class="btn btn-small btn-primary"/>
+    </div>
+
+</form>
