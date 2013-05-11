@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h3>Төлөө Даталары (<%= group.get('name') %>)</h3>
+  Курстун башталышы: <strong><%= group.get('started_at') %></strong><br/>
+  Курстун наркы: <strong><%= group.get('price') %></strong><br/>
+  Бардык суммасы: <strong><span id="total_amount"></span></strong><br/>
+  <% if (group.get('active') != true) { %>
+    <span id="check_total_amount" class="btn btn-small">Төлөө даталарын текшер</span>
+  <% } %>
+</div>
+
+
+<table id="payment_dates-table" class="table table-bordered table-hover">
+  <tr>
+    <th>Дата</th>
+    <th>Сумма</th>
+    <%= (group.get('active') == true) ? '' : '<th></th>' %>
+  </tr>
+</table>

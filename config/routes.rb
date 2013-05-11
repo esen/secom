@@ -1,4 +1,7 @@
 Secom::Application.routes.draw do
+  resources :payment_dates
+
+
   resources :students
   resources :groups do
     resources :students

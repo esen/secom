@@ -1,0 +1,38 @@
+<div class="page-header">
+  <h3>Группаны активдештирүү үчүн төлөө даталарын тууралаңыз (<%= group.get('name') %>)</h3>
+  Курстун наркы: <strong><%= group.get('price') %></strong><br/>
+  Курстун башталышы: <strong><%= group.get('started_at') %></strong><br/>
+</div>
+
+<h5>Курстун башталыш датасын тандаңыз</h5>
+<div class="control-group">
+    <input type="text" class="number_field input-small" name="started_at" id="started_at"/>
+</div>
+
+<br/>
+
+<h5>Төлөө даталарын көрсөтүңүз</h5>
+<div class="control-group">
+    <input type="radio" name="ptype" value="each_month" id="each_month" checked>
+        Ар айдын
+        <input type="number" class="number_field input-mini" name="monthday" id="monthday"/>
+        күнү
+        <input type="number" class="number_field input-mini" name="monthsum" id="monthsum"/>
+        сомдон
+    </input>
+</div>
+
+<div class="control-group">
+    <input type="radio" name="ptype" value="days" id="days">
+        Ар бир
+        <input type="number" class="number_field input-mini" name="daysday" id="daysday"/>
+        күн сайын
+        <input type="number" class="number_field input-mini" name="daysday" id="dayssum"/>
+        сомдон
+    </input>
+
+</div>
+
+<div class="form-actions">
+    <span class="btn btn-small btn-primary" id="generate">Аткар</span>
+</div>

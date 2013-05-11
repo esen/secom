@@ -19,7 +19,7 @@ class Secom.Views.Students.StudentView extends Backbone.View
     unless @options.group
       group_name = @options.groups.get(@model.get('group_id')).get('name')
 
-    attribs = $.extend(@model.toJSON(),{show_group: true, group_name: group_name, group: @options.group || null})
+    attribs = $.extend(@model.toJSON(),{group_name: group_name, group: @options.group || null})
 
     $(@el).html(@template(attribs))
     return this

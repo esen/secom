@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  group_id: 1
+  payment_date: 2013-05-10
+  amount: 1
+
+two:
+  group_id: 1
+  payment_date: 2013-05-10
+  amount: 1

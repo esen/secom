@@ -1,0 +1,6 @@
+<td><%= payment_date %></td>
+<td><%= amount %></td>
+
+<% if (group.get('active') != true) { %>
+    <td><a href="javascript:void" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+<% } %>

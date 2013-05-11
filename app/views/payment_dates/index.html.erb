@@ -1,0 +1,27 @@
+<h1>Listing payment_dates</h1>
+
+<table>
+  <tr>
+    <th>Group</th>
+    <th>Payment date</th>
+    <th>Amount</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @payment_dates.each do |payment_date| %>
+  <tr>
+    <td><%= payment_date.group_id %></td>
+    <td><%= payment_date.payment_date %></td>
+    <td><%= payment_date.amount %></td>
+    <td><%= link_to 'Show', payment_date %></td>
+    <td><%= link_to 'Edit', edit_payment_date_path(payment_date) %></td>
+    <td><%= link_to 'Destroy', payment_date, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Payment date', new_payment_date_path %>

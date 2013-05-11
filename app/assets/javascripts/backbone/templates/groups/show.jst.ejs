@@ -14,5 +14,10 @@
 <div class="form-actions">
     <a href="#/index" class="btn btn-small">Группалар</a>
     <a href="#/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
+    <% if (active) { %>
+        <span id="deactivate_group" class="btn btn-small btn-danger">Пассив кылуу</span>
+    <% } else { %>
+        <span id="activate_group" class="btn btn-small btn-primary">Активдерштирүү</span>
+    <% } %>
     <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
 </div>

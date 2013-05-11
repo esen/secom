@@ -9,6 +9,19 @@ class Secom.Models.Group extends Backbone.Model
     active: null
     price: null
 
+  is_valid: (payment_dates) ->
+    valid = true
+    total = 0
+
+    payment_dates.forEach (pd) =>
+      if pd.get('payment_date') < @get('started_at')
+        valid = false
+      total += pd.get('amount')
+
+    valid = false unless total == @get('price')
+
+    return valid
+
 class Secom.Collections.GroupsCollection extends Backbone.Collection
   model: Secom.Models.Group
   url: '/groups'
