@@ -5,31 +5,31 @@
 <div class="row">
     <div class="span3">
         <dl class="dl-horizontal">
-          <dt><strong>Туулган Күнү:</strong></dt>
+          <dt>Туулган Күнү:</dt>
           <dd><%= birth_date || '-' %></dd>
-          <dt><strong>Мектеби:</strong></dt>
+          <dt>Мектеби:</dt>
           <dd><%= school || '-' %></dd>
-          <dt><strong>Телефону:</strong></dt>
+          <dt>Телефону:</dt>
           <dd><%= phone || '-' %></dd>
-          <dt><strong>Адреси:</strong></dt>
+          <dt>Адреси:</dt>
           <dd><%= address || '-' %></dd>
-          <dt><strong>Группасы:</strong></dt>
+          <dt>Группасы:</dt>
           <dd><%= group.get('name') %></dd>
         </dl>
     </div>
     <div class="span3 offset2">
         <dl class="dl-horizontal">
-          <dt><strong>Акыбалы:</strong></dt>
+          <dt>Акыбалы:</dt>
           <dd><%= active ? "актив" : "пассив" %></dd>
-          <dt><strong>Курстун наркы:</strong></dt>
+          <dt>Курстун наркы:</dt>
           <dd><%= group.get('price') || '-' %></dd>
-          <dt><strong>Учурдагы ай:</strong></dt>
-          <dd><%= today_month %></dd>
-          <dt><strong>Учурда төлөөгө:</strong></dt>
-          <dd><%= group.get('price') || '-' %></dd>
-          <dt><strong>Жеңилдетүү:</strong></dt>
+          <dt>Учурдагы ай:</dt>
+          <dd><%= ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"][today_month-1] %></dd>
+          <dt>Учурда төлөөгө:</dt>
+          <dd><%= to_pay %></dd>
+          <dt>Жеңилдетүү:</dt>
           <dd><%= discount %></dd>
-          <dt><strong>Төлөмү:</strong></dt>
+          <dt>Төлөмү:</dt>
           <dd><%= 0 %></dd>
         </dl>
     </div>

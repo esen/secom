@@ -14,20 +14,31 @@ class Secom.Views.Students.ShowView extends Backbone.View
       router.index()
 
   render: ->
-    group = @options.groups.get(@model.get('group_id'))
-    group_name = unless group
-      '-'
-    else
-      group.get('name')
+    @group = @options.groups.get(@model.get('group_id'))
 
     switch ur
       when 'ac'
-        attribs = $.extend(@model.toJSON(),{group: group})
+        @payment_dates = new Secom.Collections.PaymentDatesCollection()
 
-        $(@el).html(@ac_template(attribs))
+        $.get(@payment_dates.url, "group_id=#{@group.get('id')}", @handle_payment_dates_response, 'json')
       else
-        attribs = $.extend(@model.toJSON(),{group_name: group_name, group: @options.group || null})
+        group_name = unless @group
+          '-'
+        else
+          @group.get('name')
 
+        attribs = $.extend(@model.toJSON(),{group_name: group_name, group: @options.group || null})
         $(@el).html(@template(attribs))
 
     return this
+
+  handle_payment_dates_response: (resp, status, xhr) =>
+    @payment_dates.reset(@payment_dates.parse(resp))
+    to_pay = 0
+    @payment_dates.forEach (pd) =>
+      if pd.get('payment_date') <= today
+        to_pay += pd.get('amount')
+
+    attribs = $.extend(@model.toJSON(),{group: @group, to_pay: to_pay})
+
+    $(@el).html(@ac_template(attribs))
