@@ -15,27 +15,26 @@ class Secom.Views.Groups.ShowView extends Backbone.View
       this.remove()
       router.index()
 
+  handle_response: (resp, status, xhr) =>
+    status = resp["status"]
+    group = resp["group"]
+    error = resp["error"]
+    if status == "success"
+      @model.set(group)
+      this.remove()
+      router.show(@model.get('id'))
+    else
+      alert(error)
+
   activate: () ->
     if @model.is_valid(router.payment_dates)
-      @model.set('active', true)
-      @model.save(null,
-        success : (group) =>
-          @model = group
-          this.remove()
-          router.show(@model.get('id'))
-      )
+      $.get(@model.collection.url + "/#{@model.get('id')}/activate", "", @handle_response, 'json')
     else
       router.pd_view.remove() if router.pd_view
       router.showPaymentDatesGenerate(@model.get('id'))
 
   deactivate: () ->
-    @model.set('active', false)
-    @model.save(null,
-      success : (group) =>
-        @model = group
-        this.remove()
-        router.show(@model.get('id'))
-    )
+    $.get(@model.collection.url + "/#{@model.get('id')}/deactivate", "", @handle_response, 'json')
 
   render: ->
     level = @options.levels.get(@model.get('level_id'))

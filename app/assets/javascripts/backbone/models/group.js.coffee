@@ -13,10 +13,13 @@ class Secom.Models.Group extends Backbone.Model
     valid = true
     total = 0
 
-    payment_dates.forEach (pd) =>
-      if pd.get('payment_date') < @get('started_at')
-        valid = false
-      total += pd.get('amount')
+    if @get('started_at')
+      payment_dates.forEach (pd) =>
+        if pd.get('payment_date') < @get('started_at')
+          valid = false
+        total += pd.get('amount')
+    else
+      valid = false
 
     valid = false unless total == @get('price')
 

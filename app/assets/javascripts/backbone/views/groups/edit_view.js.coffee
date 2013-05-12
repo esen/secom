@@ -14,6 +14,9 @@ class Secom.Views.Groups.EditView extends Backbone.View
       success : (group) =>
         @model = group
         window.location.hash = "/#{@model.id}"
+
+      error: (group, jqXHR) =>
+        alert($.parseJSON(jqXHR.responseText))
     )
 
   addLevel: (level) =>

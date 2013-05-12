@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
@@ -16,53 +18,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json do
-        if params[:period]
-          if params_valid
-            @group.payment_dates.destroy_all
-            @group.started_at = Date.parse(params[:started_at])
-
-            price = @group.price
-            sum = params[:period]=="month" ? params[:monthsum].to_i : params[:dayssum].to_i
-
-            if params[:period]=="month"
-              date = @group.started_at
-              month_day = params[:monthday].to_i
-
-              date = (date.mday <= month_day) ?
-                  Date.new(date.year, date.month, month_day) :
-                  Date.new(date.year, date.month, month_day) + 1.months
-
-              while price > 0
-                sum = (price > sum) ? sum : price
-                @group.payment_dates.new :amount => sum, :payment_date => date
-                price -= sum
-                date = date + 1.months
-              end
-            else
-              date = @group.started_at
-              month_day = params[:daysday].to_i
-
-              while price > 0
-                sum = (price > sum) ? sum : price
-                @group.payment_dates.new :amount => sum, :payment_date => date
-                price -= sum
-                date = date + month_day.days
-              end
-            end
-
-            if @group.save
-              render json: {group: @group, payment_dates: @group.payment_dates}
-            else
-              render json: {error: true}, status: :unprocessable_entity
-            end
-          else
-            render json: {error: true}, status: :unprocessable_entity
-          end
-        else
-          render json: @group
-        end
-      end
+      format.json { render json: @group }
     end
   end
 
@@ -102,7 +58,7 @@ class GroupsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render json: @group.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -117,6 +73,83 @@ class GroupsController < ApplicationController
     end
   end
 
+  def activate
+    @group = Group.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        @group.active = true
+        if @group.valid?
+          if @group.save
+            render json: {status: "success", group: @group}
+          else
+            render json: {status: "error", error: @group.errors.full_messages}
+          end
+        else
+          @group.active = false
+          if params_valid
+            @group.payment_dates.destroy_all
+            @group.started_at = Date.parse(params[:started_at])
+
+            price = @group.price
+            sum = params[:period]=="month" ? params[:monthsum].to_i : params[:dayssum].to_i
+
+            if params[:period]=="month"
+              date = @group.started_at
+              month_day = params[:monthday].to_i
+
+              if month_day > 0
+                date = (date.mday <= month_day) ?
+                    Date.new(date.year, date.month, month_day) :
+                    Date.new(date.year, date.month, month_day) + 1.months
+              end
+
+              while price > 0
+                sum = (price > sum) ? sum : price
+                @group.payment_dates.new :amount => sum, :payment_date => date
+                price -= sum
+                date = date + 1.months
+              end
+            else
+              date = @group.started_at
+              month_day = params[:daysday].to_i
+
+              while price > 0
+                sum = (price > sum) ? sum : price
+                @group.payment_dates.new :amount => sum, :payment_date => date
+                price -= sum
+                date = date + month_day.days
+              end
+            end
+
+            if @group.save
+              render json: {status: "success", group: @group, payment_dates: @group.payment_dates}
+            else
+              render json: {status: "error", error: @group.errors.full_messages}
+            end
+          else
+            render json: {status: "error", error: "Параметрлер туура эмес берилди!"}
+          end
+        end
+      end
+    end
+  end
+
+  def deactivate
+    @group = Group.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        @group.active = false
+        if @group.save
+          render json: {status: "success", group: @group}
+        else
+          render json: {status: "error", error: @group.errors.full_messages}
+        end
+      end
+    end
+  end
+
   private
 
   def params_valid
@@ -124,7 +157,7 @@ class GroupsController < ApplicationController
     valid = false unless (Date.parse(params[:started_at]) rescue false)
     valid = false unless ["month", "days"].include? params[:period]
 
-    if valid
+    if valid && @group.price > 0
       if params[:period] == "month"
         valid = false unless params[:monthday].to_i > 0 && params[:monthday].to_i < 31
         valid = false unless params[:monthsum].to_i > 0 && params[:monthsum].to_i < @group.price

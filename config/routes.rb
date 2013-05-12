@@ -1,15 +1,21 @@
 Secom::Application.routes.draw do
   resources :sources
-
-
   resources :payments
   resources :payment_dates
+
   resources :students do
     resources :payments
   end
+
   resources :groups do
     resources :students
+
+    member do
+      get 'activate'
+      get 'deactivate'
+    end
   end
+
   resources :levels
   resources :teachers
   resources :course_times
