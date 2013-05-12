@@ -1,0 +1,7 @@
+<td><a href="#/<%= group.get('id') %>/students/<%= id %>"><%= name %></a></td>
+<td><%= surname %></td>
+<td><%= discount %></td>
+<td><%= total_payment %></td>
+<td><%= Math.max(to_pay - total_payment, 0) %></td>
+<td><%= Math.max(total_payment - to_pay, 0) %></td>
+

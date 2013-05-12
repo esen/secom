@@ -30,8 +30,8 @@ class Secom.Views.Payments.PaymentView extends Backbone.View
         this.render()
         router.student_view.update_amounts()
 
-      error: (payment, jr) =>
-        console.log(jr)
+      error: (payment, jqXHR) =>
+        alert($.parseJSON(jqXHR.responseText).join(", "))
     )
 
   edit: () ->

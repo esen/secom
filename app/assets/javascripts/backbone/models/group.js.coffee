@@ -8,6 +8,7 @@ class Secom.Models.Group extends Backbone.Model
     finished_at: null
     active: null
     price: null
+    to_pay: null
 
   is_valid: (payment_dates) ->
     valid = true

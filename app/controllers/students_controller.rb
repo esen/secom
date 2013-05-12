@@ -9,9 +9,24 @@ class StudentsController < ApplicationController
       end
 
       format.json do
-        @students = (params[:group_id]) ? Student.of_group(params[:group_id]) : Students.all
+        if params[:group_id]
+          @group = Group.
+              joins(:payment_dates).
+              where("groups.id = ? AND payment_dates.payment_date <= ?", params[:group_id], Date.today).
+              group(:id).
+              select("groups.*, SUM(payment_dates.amount) AS to_pay").first
 
-        render json: @students
+          @students = Student.
+              of_group(params[:group_id]).
+              joins("LEFT JOIN payments ON payments.student_id=students.id").
+              group(:id).
+              select("students.*, SUM(payments.amount) AS total_payment")
+
+          render json: {group: @group, students: @students}
+        else
+          @students = Student.all
+          render json: @students
+        end
       end
     end
   end

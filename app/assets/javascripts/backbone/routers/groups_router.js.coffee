@@ -60,8 +60,10 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     $.get(@students.url, "group_id=#{id}", @handle_students_response, 'json')
 
   handle_students_response: (resp, status, xhr) =>
-    @students.reset(@students.parse(resp))
-    view = new Secom.Views.Students.IndexView(students: @students, group: @group)
+    @students.reset(@students.parse(resp["students"]))
+    @group.set(resp["group"])
+
+    view = new Secom.Views.Students.IndexView(students: @students, group: @group, with_payments: true)
     $("#students").html(view.render().el)
 
   newStudent: (id) ->

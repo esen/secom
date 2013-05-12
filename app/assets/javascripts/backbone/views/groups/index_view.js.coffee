@@ -6,15 +6,18 @@ class Secom.Views.Groups.IndexView extends Backbone.View
   initialize: () ->
     @options.groups.bind('reset', @addAll)
 
+  sort: (g) ->
+    return g.get('level_id')
+
   addAll: () =>
-    @options.groups.each(@addOne)
+    @options.groups.sortBy(@sort).forEach(@addOne)
 
   addOne: (group) =>
-    view = new Secom.Views.Groups.GroupView({model : group, levels: @options.levels})
+    view = new Secom.Views.Groups.GroupView({model: group, levels: @options.levels})
     @$("tbody").append(view.render().el)
 
   render: =>
-    $(@el).html(@template(groups: @options.groups.toJSON() ))
+    $(@el).html(@template(groups: @options.groups.toJSON()))
     @addAll()
 
     return this

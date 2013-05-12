@@ -54,7 +54,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:group].except(:created_at, :updated_at))
+      if @group.update_attributes(params[:group].except(:created_at, :updated_at, :to_pay))
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
@@ -66,11 +66,17 @@ class GroupsController < ApplicationController
 
   def destroy
     @group = Group.find(params[:id])
-    @group.destroy
 
     respond_to do |format|
       format.html { redirect_to groups_url }
-      format.json { head :no_content }
+      format.json do
+        begin
+          @group.destroy
+          render json: {status: "success"}
+        rescue
+          render json: {status: "error", error: 'Бул группаны өчүрүүгө болбойт'}
+        end
+      end
     end
   end
 

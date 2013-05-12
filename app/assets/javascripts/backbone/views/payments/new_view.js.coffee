@@ -8,7 +8,7 @@ class Secom.Views.Payments.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model()
+    @model = new @collection.model({payed_at: today})
 
     @model.bind("change:errors", () =>
       this.render()
