@@ -1,0 +1,9 @@
+<div id="holes"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // Secom is the app name
+        window.router = new Secom.Routers.HolesRouter({holes: <%= @holes.to_json.html_safe -%>});
+        Backbone.history.start();
+    };
+</script>

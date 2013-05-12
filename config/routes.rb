@@ -1,4 +1,7 @@
 Secom::Application.routes.draw do
+  resources :holes
+
+
   resources :sources
   resources :payments
   resources :payment_dates

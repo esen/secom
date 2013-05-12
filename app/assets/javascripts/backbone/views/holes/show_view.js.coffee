@@ -1,13 +1,13 @@
-Secom.Views.Sources ||= {}
+Secom.Views.Holes ||= {}
 
-class Secom.Views.Sources.ShowView extends Backbone.View
-  template: JST["backbone/templates/sources/show"]
+class Secom.Views.Holes.ShowView extends Backbone.View
+  template: JST["backbone/templates/holes/show"]
 
   events:
     "click .destroy" : "destroy"
 
   destroy: () ->
-    if (confirm('Киреше булагы өчсүнбү?'))
+    if (confirm('Чыгаша булагы өчсүнбү?'))
       @model.destroy()
       this.remove()
       router.index()

@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @hole.name %>
+</p>
+
+<p>
+  <b>Note:</b>
+  <%= @hole.note %>
+</p>
+
+
+<%= link_to 'Edit', edit_hole_path(@hole) %> |
+<%= link_to 'Back', holes_path %>

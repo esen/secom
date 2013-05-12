@@ -1,10 +1,10 @@
-Secom.Views.Sources ||= {}
+Secom.Views.Holes ||= {}
 
-class Secom.Views.Sources.NewView extends Backbone.View
-  template: JST["backbone/templates/sources/new"]
+class Secom.Views.Holes.NewView extends Backbone.View
+  template: JST["backbone/templates/holes/new"]
 
   events:
-    "submit #new-source": "save"
+    "submit #new-hole": "save"
 
   constructor: (options) ->
     super(options)
@@ -21,11 +21,11 @@ class Secom.Views.Sources.NewView extends Backbone.View
     @model.unset("errors")
 
     @collection.create(@model.toJSON(),
-      success: (source) =>
-        @model = source
+      success: (hole) =>
+        @model = hole
         window.location.hash = "/#{@model.id}"
 
-      error: (source, jqXHR) =>
+      error: (hole, jqXHR) =>
         alert({errors: $.parseJSON(jqXHR.responseText)})
     )
 
