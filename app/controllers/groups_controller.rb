@@ -6,6 +6,7 @@ class GroupsController < ApplicationController
   def index
     @groups = Group.all
     @levels = Level.all
+    @student = Student.find(params[:student_id]) if params[:student_id]
 
     respond_to do |format|
       format.html # index.html.erb

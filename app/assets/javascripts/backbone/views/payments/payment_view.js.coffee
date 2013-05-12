@@ -5,25 +5,51 @@ class Secom.Views.Payments.PaymentView extends Backbone.View
 
   events:
     "click .destroy" : "destroy"
+    "click .edit"    : "edit"
+    "submit #edit-payment" : "update"
 
   tagName: "tr"
 
   destroy: () ->
-    if (confirm('Are you sure?'))
-      @model.destroy()
+    if (confirm('Төлөм өчүрүлсүнбү?'))
       this.remove()
+      @model.destroy()
+      if router.student_view
+        router.student_view.update_amounts()
 
     return false
 
+  update : (e) ->
+    e.preventDefault()
+    e.stopPropagation()
+
+    @model.save(null,
+      success : (payment) =>
+        @model = payment
+        @edit_view.remove()
+        this.render()
+        router.student_view.update_amounts()
+
+      error: (payment, jr) =>
+        console.log(jr)
+    )
+
+  edit: () ->
+    @edit_view = new Secom.Views.Payments.EditACView({model: @model})
+    $(@el).html(@edit_view.render().el)
+
   render: ->
-    source = @options.sources.get(@model.get('source_id'))
-    source = unless source
-      '-'
+    if @options.sources
+      source = @options.sources.get(@model.get('source_id'))
+      source = unless source
+        '-'
+      else
+        source.get('name')
+
     else
-      source.get('name')
+      source = null
 
     attribs = $.extend(@model.toJSON(),{source: source})
-
     $(@el).html(@template(attribs))
 
     return this

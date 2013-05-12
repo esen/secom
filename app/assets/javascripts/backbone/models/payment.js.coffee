@@ -7,6 +7,7 @@ class Secom.Models.Payment extends Backbone.Model
     source_id: null
     note: null
     amount: null
+    payed_at: null
 
 class Secom.Collections.PaymentsCollection extends Backbone.Collection
   model: Secom.Models.Payment

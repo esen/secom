@@ -13,7 +13,7 @@ class PaymentsController < ApplicationController
             Payment.of_student(params[:student_id]).order("payments.updated_at DESC") :
             Payment.order("updated_at DESC")
 
-        render json: @payment_dates
+        render json: @payments
       end
     end
   end

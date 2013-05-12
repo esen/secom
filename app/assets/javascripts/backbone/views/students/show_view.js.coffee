@@ -13,14 +13,43 @@ class Secom.Views.Students.ShowView extends Backbone.View
       this.remove()
       router.index()
 
+  update_amounts: () ->
+    if @payed != null && @to_pay != null
+      @payed = 0
+
+      @payments.forEach (payment) =>
+        @payed += parseInt(payment.get('amount'))
+
+      debt = Math.max(@to_pay - @payed, 0)
+      loan = Math.max(@payed - @to_pay, 0)
+
+      @$("#loan").attr("style", "color: green;") if loan > 0
+      @$("#debt").attr("style", "color: red;") if debt > 0
+
+      @$("#payed").html(@payed)
+      @$("#debt").html(debt)
+      @$("#loan").html(loan)
+
   render: ->
     @group = @options.groups.get(@model.get('group_id'))
 
     switch ur
       when 'ac'
         @payment_dates = new Secom.Collections.PaymentDatesCollection()
+        @payments = new Secom.Collections.PaymentsCollection()
+
+        @to_pay = null
+        @payed = null
 
         $.get(@payment_dates.url, "group_id=#{@group.get('id')}", @handle_payment_dates_response, 'json')
+        $.get(@payments.url, "student_id=#{@model.get('id')}", @handle_payments_response, 'json')
+
+        attribs = $.extend(@model.toJSON(),{group: @group})
+        $(@el).html(@ac_template(attribs))
+
+        router.student_view = this
+        @view = new Secom.Views.Payments.IndexView(payments: @payments, sources: null)
+        $("#payments").html(@view.render().el)
       else
         group_name = unless @group
           '-'
@@ -34,11 +63,17 @@ class Secom.Views.Students.ShowView extends Backbone.View
 
   handle_payment_dates_response: (resp, status, xhr) =>
     @payment_dates.reset(@payment_dates.parse(resp))
-    to_pay = 0
+
+    @to_pay = 0
     @payment_dates.forEach (pd) =>
       if pd.get('payment_date') <= today
-        to_pay += pd.get('amount')
+        @to_pay += pd.get('amount')
 
-    attribs = $.extend(@model.toJSON(),{group: @group, to_pay: to_pay})
+    @$("#to_pay").html(@to_pay)
+    @to_pay -= parseInt(@model.get('discount'))
+    @update_amounts()
 
-    $(@el).html(@ac_template(attribs))
+  handle_payments_response: (resp, status, xhr) =>
+    @payments.reset(@payments.parse(resp))
+    @payed = 0
+    @update_amounts()

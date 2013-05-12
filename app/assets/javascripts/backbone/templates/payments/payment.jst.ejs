@@ -1,6 +1,14 @@
-<td><a href="#/<%= id %>"><%= amount %></td>
-<td><%= source %></td>
-<td><%= note %></td>
+<td><a href="#/<%= id %>"><%= amount %></a></td>
+<td><%= payed_at %></td>
+<% if (source) { %>
+    <td><%= source %></td>
+    <td><%= note %></td>
+<% } %>
 
-<td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
-<td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+<% if (source) { %>
+    <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
+    <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+<% } else { %>
+    <td><span class="btn btn-mini edit">Өзгөртүү</span></td>
+    <td><span class="btn btn-mini btn-danger destroy">Өчүр</span></td>
+<% } %>

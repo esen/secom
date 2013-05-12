@@ -1,13 +1,19 @@
 <div class="page-header">
-  <h1>Кирешелер</h1>
+  <%= (sources) ? "<h1>Кирешелер</h1>" : "<h3>Төлөмдөр</h3>" %>
 </div>
 
+<% if (!sources) { %>
+    <div id="new_payment"></div>
+<% } %>
 
 <table id="payment-table" class="table table-bordered table-hover">
   <tr>
-    <th>Аталышы</th>
-    <th>Киреше Булагы</th>
-    <th>Башка Булак</th>
+    <th>Сумма</th>
+    <th>Дата</th>
+     <% if (sources) { %>
+        <th>Киреше Булагы</th>
+        <th>Башка Булак</th>
+    <% } %>
     <th></th>
     <th></th>
   </tr>
@@ -15,4 +21,6 @@
 
 <br/>
 
-<a href="#/new" class="btn btn-small btn-primary">Жаңы киреше</a>
+<% if (sources) { %>
+    <a href="#/new" class="btn btn-small btn-primary">Жаңы киреше</a>
+<% } %>

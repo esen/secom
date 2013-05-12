@@ -55,6 +55,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
 
     @students = new Secom.Collections.StudentsCollection()
     @group = @groups.get(id)
+    $("#payments").children().remove()
 
     $.get(@students.url, "group_id=#{id}", @handle_students_response, 'json')
 
@@ -75,12 +76,22 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
   showStudent: (id, student_id) ->
     unless @index_group_rendered
       @indexGrouped()
+
+      if ur == 'ac'
+        @students = new Secom.Collections.StudentsCollection()
+        @group = @groups.get(id)
+        $.get(@students.url + "/#{student_id}", "", @handle_student_response, 'json')
     else
       student = @students.get(student_id)
       group = @groups.get(id)
 
       @view = new Secom.Views.Students.ShowView(model: student, groups: @groups, group: group)
       $("#students").html(@view.render().el)
+
+  handle_student_response: (resp, status, xhr) =>
+    student = new @students.model(resp)
+    @view = new Secom.Views.Students.ShowView(model: student, groups: @groups, group: @group)
+    $("#students").html(@view.render().el)
 
   editStudent: (id, student_id) ->
     unless @index_group_rendered

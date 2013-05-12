@@ -16,6 +16,8 @@ Secom::Application.routes.draw do
     end
   end
 
+  match 'groups/show_student/:student_id' => 'groups#index'
+
   resources :levels
   resources :teachers
   resources :course_times

@@ -26,7 +26,7 @@ class Secom.Views.Payments.NewView extends Backbone.View
         window.location.hash = "/#{@model.id}"
 
       error: (payment, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
+        alert("Төлөм кошууда ката чыкты!")
     )
 
   addSource: (source) =>
