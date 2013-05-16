@@ -1,62 +1,69 @@
 <div class="page-header">
-  <h1>Edit Student</h1>
+  <h1>Окуучуну өзгөртүү</h1>
 </div>
 
 
 <form id="edit-student" name="student" class='form-horizontal'>
     <div class="control-group">
-        <label for="name" class="control-label"> Name:</label>
+        <label for="name" class="control-label"> Аты:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="name" id="name" value="<%= name %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="surname" class="control-label"> Surname:</label>
+        <label for="surname" class="control-label"> Фамилиясы:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="surname" id="surname" value="<%= surname %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="birth_date" class="control-label"> Birth Date:</label>
+        <label for="birth_date" class="control-label"> Туулган күнү:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="birth_date" id="birth_date" value="<%= birth_date %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="school" class="control-label"> School:</label>
+        <label for="school" class="control-label"> Мектеби:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="school" id="school" value="<%= school %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="phone" class="control-label"> Phone:</label>
+        <label for="phone" class="control-label"> Телефон номери:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="phone" id="phone" value="<%= phone %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="address" class="control-label"> Address:</label>
+        <label for="address" class="control-label"> Адреси:</label>
             <div class="controls">
                 <input type="text" class="text_field" name="address" id="address" value="<%= address %>" >
             </div>
     </div>
 
     <div class="control-group">
-        <label for="group_id" class="control-label"> Group:</label>
+        <label for="group_id" class="control-label"> Группасы:</label>
             <div class="controls">
                 <select name="group_id" id="group_id">
                 </select>
             </div>
     </div>
 
+    <div class="control-group">
+        <label for="started_at" class="control-label"> Башталышы:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="started_at" id="started_at" value="<%= started_at %>" >
+            </div>
+    </div>
+
     <div class="form-actions">
-        <a href="#/<%= group_id %>/students/index" class="btn btn-small">Cancel</a>
-        <input type="submit" value="Update Student" class="btn btn-small btn-primary"/>
+        <a href="#/<%= group_id %>/students/index" class="btn btn-small">Артка</a>
+        <input type="submit" value="өзгөрт" class="btn btn-small btn-primary"/>
     </div>
 
 </form>

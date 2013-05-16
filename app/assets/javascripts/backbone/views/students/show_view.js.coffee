@@ -64,13 +64,28 @@ class Secom.Views.Students.ShowView extends Backbone.View
   handle_payment_dates_response: (resp, status, xhr) =>
     @payment_dates.reset(@payment_dates.parse(resp))
 
-    @to_pay = 0
+    @to_pay = to_pay_group = 0
     @payment_dates.forEach (pd) =>
       if pd.get('payment_date') <= today
-        @to_pay += pd.get('amount')
+        to_pay_group += pd.get('amount')
 
+
+    student_started_at = @model.get('started_at')
+    if student_started_at
+      @payment_dates.forEach (pd) =>
+        if student_started_at <= pd.get('payment_date') <= today
+          @to_pay += pd.get('amount')
+    else
+      @to_pay = to_pay_group
+
+    @$("#to_pay_group").html(to_pay_group)
     @$("#to_pay").html(@to_pay)
-    @to_pay -= parseInt(@model.get('discount'))
+
+    # subtract discount
+    discount = parseInt(@model.get('discount'))
+    discount = 0 unless discount
+
+    @to_pay -= discount
     @update_amounts()
 
   handle_payments_response: (resp, status, xhr) =>

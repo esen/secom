@@ -3,22 +3,24 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong>Birth Date:</strong></dt>
+  <dt><strong>Туулган Күнү:</strong></dt>
   <dd><%= birth_date || '-' %></dd>
-  <dt><strong>School:</strong></dt>
+  <dt><strong>Мектеби:</strong></dt>
   <dd><%= school || '-' %></dd>
-  <dt><strong>Phone:</strong></dt>
+  <dt><strong>Телефон Номери:</strong></dt>
   <dd><%= phone || '-' %></dd>
-  <dt><strong>Address:</strong></dt>
+  <dt><strong>Адреси:</strong></dt>
   <dd><%= address || '-' %></dd>
-  <dt><strong>Group:</strong></dt>
+  <dt><strong>Группасы:</strong></dt>
   <dd><%= group_name %></dd>
+  <dt><strong>Баштаган датасы:</strong></dt>
+  <dd><%= started_at %></dd>
 </dl>
 
 <% if (group && ur == 'ad') { %>
 <div class="form-actions">
-    <a href="#/<%= group.get('id') %>/students/index" class="btn btn-small">All Students</a>
-    <a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-small">Edit</a>
-    <a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+    <a href="#/<%= group.get('id') %>/students/index" class="btn btn-small">Окуучулар</a>
+    <a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-small">өзгөртүү</a>
+    <a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-small btn-danger destroy">өчүр</a>
 </div>
 <% } %>

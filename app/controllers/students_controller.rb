@@ -16,13 +16,15 @@ class StudentsController < ApplicationController
               group(:id).
               select("groups.*, SUM(payment_dates.amount) AS to_pay").first
 
+          @payment_dates = Group.find(params[:group_id]).payment_dates
+
           @students = Student.
               of_group(params[:group_id]).
               joins("LEFT JOIN payments ON payments.student_id=students.id").
               group(:id).
               select("students.*, SUM(payments.amount) AS total_payment")
 
-          render json: {group: @group, students: @students}
+          render json: {group: @group, students: @students, payment_dates: @payment_dates}
         else
           @students = Student.all
           render json: @students
@@ -71,7 +73,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
 
     respond_to do |format|
-      if @student.update_attributes(params[:student].except(:created_at, :updated_at))
+      if @student.update_attributes(params[:student].except(:created_at, :updated_at, :total_payment))
         format.html { redirect_to @student, notice: 'Student was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,6 +90,36 @@ class StudentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to students_url }
       format.json { head :no_content }
+    end
+  end
+
+  def activate
+    @student = Student.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        @student.active = true
+        if @student.save
+          render json: {status: "success", student: @student}
+        else
+          render json: {status: "error", error: @student.errors.full_messages}
+        end
+      end
+    end
+  end
+
+  def deactivate
+    @student = Student.find(params[:id])
+
+    respond_to do |format|
+      format.json do
+        @student.active = false
+        if @student.save
+          render json: {status: "success", student: @student}
+        else
+          render json: {status: "error", error: @student.errors.full_messages}
+        end
+      end
     end
   end
 end

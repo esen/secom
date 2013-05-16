@@ -62,8 +62,11 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
   handle_students_response: (resp, status, xhr) =>
     @students.reset(@students.parse(resp["students"]))
     @group.set(resp["group"])
+    @payment_dates = new Secom.Collections.PaymentDatesCollection()
+    @payment_dates.reset(@payment_dates.parse(resp["payment_dates"]))
 
-    view = new Secom.Views.Students.IndexView(students: @students, group: @group, with_payments: true)
+    with_payments = (ur == 'ac' ? false : true)
+    view = new Secom.Views.Students.IndexView(students: @students, group: @group, payment_dates: @payment_dates, with_payments: with_payments)
     $("#students").html(view.render().el)
 
   newStudent: (id) ->

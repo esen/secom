@@ -1,7 +1,9 @@
 <div class="page-header">
   <h3>Окуучулар (<%= group.get('name') %>)</h3>
+  Курстун акыбалы: <strong><%= group.get('active') ? "актив" : "пассив" %></strong><br/>
   Куртсун наркы: <strong><%= group.get('price') %></strong><br/>
-  Учурда төлөөгө: <strong><%= group.get('to_pay') %></strong>
+  Учурда төлөөгө: <strong><%= group.get('to_pay') %></strong><br/>
+  Башталыш датасы: <strong><%= group.get('started_at') %></strong>
 </div>
 
 <table id="students-table" class="table table-bordered table-hover">
@@ -9,6 +11,7 @@
     <th>Аты</th>
     <th>Фамилиясы</th>
     <th>Жеңилдетүү</th>
+    <th>Баштаган датасы</th>
     <th>Төлөмү</th>
     <th>Карызы</th>
     <th>Ашык төлөм</th>

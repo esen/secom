@@ -15,22 +15,34 @@
           <dd><%= address || '-' %></dd>
           <dt>Группасы:</dt>
           <dd><%= group.get('name') %></dd>
+          <br/>
+          <dt>Акыбалы:</dt>
+          <dd><%= active ? "актив" : "пассив" %></dd>
+          <dt>Учурдагы ай:</dt>
+          <dd><%= ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"][today_month-1] %></dd>
+          <dt><strong>Башталыш(группа):</strong></dt>
+          <dd><%= group.get('started_at') %></dd>
+          <dt><strong>Башталыш(окуучу):</strong></dt>
+          <dd><%= started_at %></dd>
         </dl>
     </div>
     <div class="span3 offset2">
         <dl class="dl-horizontal">
-          <dt>Акыбалы:</dt>
-          <dd><%= active ? "актив" : "пассив" %></dd>
           <dt>Курстун наркы:</dt>
           <dd><%= group.get('price') || '-' %></dd>
-          <dt>Учурдагы ай:</dt>
-          <dd><%= ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"][today_month-1] %></dd>
           <dt>Учурда төлөөгө:</dt>
-          <dd id="to_pay"></dd>
+          <dd id="to_pay_group">0</dd>
           <dt>Жеңилдетүү:</dt>
           <dd><%= discount || 0 %></dd>
+          <br/>
+          <dt>Жеңилдетүүнү жана</dt>
+          <dd>&nbsp;</dd>
+          <dt>баштаган датасын</dt>
+          <dd>&nbsp;</dd>
+          <dt>эске алганда төлөөгө</dt>
+          <dd id="to_pay"></dd>
           <dt>Төлөмү:</dt>
-          <dd id="payed"></dd>
+          <dd id="payed">0</dd>
           <dt>Карызы:</dt>
           <dd id="debt">0</dd>
           <dt>Ашыкча төлөм:</dt>

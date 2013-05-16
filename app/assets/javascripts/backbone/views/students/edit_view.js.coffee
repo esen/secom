@@ -14,6 +14,8 @@ class Secom.Views.Students.EditView extends Backbone.View
       success : (student) =>
         @model = student
         window.location.hash = "/#{@options.group.get('id')}/students/#{@model.id}"
+      error: (student, jqXHR) =>
+        alert($.parseJSON(jqXHR.responseText))
     )
 
   render : ->

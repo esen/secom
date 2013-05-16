@@ -11,7 +11,7 @@ class Secom.Views.Students.IndexView extends Backbone.View
     @options.students.each(@addOne)
 
   addOne: (student) =>
-    view = new Secom.Views.Students.StudentView({model : student, groups: @options.groups, group: @options.group, with_payments: @options.with_payments})
+    view = new Secom.Views.Students.StudentView({model : student, groups: @options.groups, group: @options.group, payment_dates: @options.payment_dates, with_payments: @options.with_payments})
     @$("tbody").append(view.render().el)
 
   render: =>
