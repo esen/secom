@@ -37,7 +37,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(params[:group])
+    @group = Group.new(params[:group].except(:created_at, :updated_at, :to_pay))
 
     respond_to do |format|
       if @group.save

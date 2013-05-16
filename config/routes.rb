@@ -1,4 +1,7 @@
 Secom::Application.routes.draw do
+  resources :expenses
+
+
   resources :holes
 
 

@@ -1,0 +1,26 @@
+<div class="page-header">
+  <%= (holes) ? "<h1>Чыгашалар</h1>" : "<h3>Төлөмдөр</h3>" %>
+</div>
+
+<% if (!holes) { %>
+    <div id="new_expense"></div>
+<% } %>
+
+<table id="expense-table" class="table table-bordered table-hover">
+  <tr>
+    <th>Сумма</th>
+    <th>Дата</th>
+     <% if (holes) { %>
+        <th>Чыгаша Булагы</th>
+        <th>Башка Булак</th>
+    <% } %>
+    <th></th>
+    <th></th>
+  </tr>
+</table>
+
+<br/>
+
+<% if (holes) { %>
+    <a href="#/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
+<% } %>

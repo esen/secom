@@ -1,0 +1,42 @@
+<div class="page-header">
+  <h1>Жаңы чыгаша</h1>
+</div>
+
+
+<form id="new-expense" name="expense" class='form-horizontal'>
+    <div class="control-group">
+        <label for="amount" class="control-label"> Сумма:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="amount" id="amount" value="<%= amount %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="expended_at" class="control-label"> Дата:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="expended_at" id="expended_at" value="<%= today %>" >
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="hole_id" class="control-label"> Чыгаша Булагы:</label>
+            <div class="controls">
+                <select name="hole_id" id="hole_id">
+                    <option>Чыгаша булагын танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="note" class="control-label"> Башка чыгаша:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="note" id="note" value="<%= note %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="/index" class="btn btn-small">Артка</a>
+        <input type="submit" value="Чыгашаны кош" class="btn btn-small btn-primary"/>
+    </div>
+
+</form>

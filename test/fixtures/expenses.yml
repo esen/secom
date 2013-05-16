@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  amount: 1
+  teacher_id: 1
+  hole_id: 1
+  note: MyString
+
+two:
+  amount: 1
+  teacher_id: 1
+  hole_id: 1
+  note: MyString

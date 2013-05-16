@@ -7,7 +7,7 @@ class Secom.Views.Levels.ShowView extends Backbone.View
     "click .destroy" : "destroy"
 
   destroy: () ->
-    if (confirm('Are you sure?'))
+    if (confirm('Киреше өчүрүлсүнбү?'))
       @model.destroy()
       this.remove()
       router.index()
