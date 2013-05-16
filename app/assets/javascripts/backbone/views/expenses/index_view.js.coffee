@@ -10,11 +10,11 @@ class Secom.Views.Expenses.IndexView extends Backbone.View
     @options.expenses.each(@addOne)
 
   addOne: (expense) =>
-    view = new Secom.Views.Expenses.ExpenseView({model : expense, holes: @options.holes})
+    view = new Secom.Views.Expenses.ExpenseView({model : expense, teacher : @options.teacher || null})
     @$("tbody").append(view.render().el)
 
   render: =>
-    $(@el).html(@template($.extend(expenses: @options.expenses.toJSON(), {holes: @options.holes})))
+    $(@el).html(@template(expenses: @options.expenses.toJSON(), teacher: @options.teacher || null))
     @addAll()
 
     return this

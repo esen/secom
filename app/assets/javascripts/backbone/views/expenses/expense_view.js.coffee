@@ -16,13 +16,25 @@ class Secom.Views.Expenses.ExpenseView extends Backbone.View
     return false
 
   render: ->
-    hole = @options.holes.get(@model.get('hole_id'))
-    hole = unless hole
-      '-'
+    if router.holes
+      hole = router.holes.get(@model.get('hole_id'))
+      hole = unless hole
+        '-'
+      else
+        hole.get('name')
     else
-      hole.get('name')
+      hole = '-'
 
-    attribs = $.extend(@model.toJSON(),{hole: hole})
+    if router.teachers
+      teacher = router.teachers.get(@model.get('teacher_id'))
+      teacher_name = unless teacher
+        '-'
+      else
+        teacher.get('name')
+    else
+      teacher_name = '-'
+
+    attribs = $.extend(@model.toJSON(),{hole: hole, teacher_name: teacher_name, teacher: @options.teacher})
     $(@el).html(@template(attribs))
 
     return this

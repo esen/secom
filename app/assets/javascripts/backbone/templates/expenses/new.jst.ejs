@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Жаңы чыгаша</h1>
+  <h1>Жаңы <%= (teacher) ? "айлык акысы" : "чыгаша" %></h1>
 </div>
 
 
@@ -18,25 +18,36 @@
             </div>
     </div>
 
-    <div class="control-group">
-        <label for="hole_id" class="control-label"> Чыгаша Булагы:</label>
-            <div class="controls">
-                <select name="hole_id" id="hole_id">
-                    <option>Чыгаша булагын танда</option>
-                </select>
-            </div>
-    </div>
+    <% if (!teacher) { %>
+        <div class="control-group">
+            <label for="teacher_id" class="control-label"> Мугалим:</label>
+                <div class="controls">
+                    <select name="teacher_id" id="teacher_id">
+                        <option>Мугалимди танда</option>
+                    </select>
+                </div>
+        </div>
 
-    <div class="control-group">
-        <label for="note" class="control-label"> Башка чыгаша:</label>
-            <div class="controls">
-                <input type="text" class="text_field" name="note" id="note" value="<%= note %>" >
-            </div>
-    </div>
+        <div class="control-group">
+            <label for="hole_id" class="control-label"> Чыгаша Булагы:</label>
+                <div class="controls">
+                    <select name="hole_id" id="hole_id">
+                        <option>Чыгаша булагын танда</option>
+                    </select>
+                </div>
+        </div>
+
+        <div class="control-group">
+            <label for="note" class="control-label"> Башка чыгаша:</label>
+                <div class="controls">
+                    <input type="text" class="text_field" name="note" id="note" value="<%= note %>" >
+                </div>
+        </div>
+    <% } %>
 
     <div class="form-actions">
-        <a href="/index" class="btn btn-small">Артка</a>
-        <input type="submit" value="Чыгашаны кош" class="btn btn-small btn-primary"/>
+        <a href="/<%= (teacher) ? teacher.get('id') + "/expenses/index" : "/index" %>" class="btn btn-small">Артка</a>
+        <input type="submit" value="<%= (teacher) ? "Айлык акысын" : "Чыгашаны" %> кош" class="btn btn-small btn-primary"/>
     </div>
 
 </form>

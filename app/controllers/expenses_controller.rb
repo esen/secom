@@ -6,6 +6,7 @@ class ExpensesController < ApplicationController
       format.html do
         @expenses = Expense.all
         @holes = Hole.all
+        @teachers = Teacher.all
       end
 
       format.json do

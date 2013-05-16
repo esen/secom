@@ -10,16 +10,29 @@ class Secom.Views.Expenses.ShowView extends Backbone.View
     if (confirm('Чыгаша өчүрүлсүнбү?'))
       @model.destroy()
       this.remove()
-      router.index()
+      if @options.teacher
+        router.indexExpenses(@options.teacher.get('id'))
+      else
+        router.index()
 
   render: ->
-    hole = @options.holes.get(@model.get('hole_id'))
-    hole = unless hole
-      '-'
+    if router.holes
+      hole = router.holes.get(@model.get('hole_id'))
+      hole = unless hole
+        '-'
+      else
+        hole.get('name')
     else
-      hole.get('name')
+      hole = '-'
 
-    console.log(hole)
+    if router.teachers
+      teacher = router.teachers.get(@model.get('teacher_id'))
+      teacher_name = unless teacher
+        '-'
+      else
+        teacher.get('name')
+    else
+      teacher_name = '-'
 
-    $(@el).html(@template($.extend(@model.toJSON(), {hole: hole})))
+    $(@el).html(@template($.extend(@model.toJSON(), {hole: hole, teacher_name: teacher_name, teacher: @options.teacher || null})))
     return this

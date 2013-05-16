@@ -1,14 +1,14 @@
-<td><a href="#/<%= id %>"><%= amount %></a></td>
-<td><%= expended_at %></td>
-<% if (hole) { %>
+<% if (teacher) { %>
+    <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>"><%= amount %></a></td>
+    <td><%= expended_at %></td>
+    <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
+    <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+<% } else { %>
+    <td><a href="#/<%= id %>"><%= amount %></a></td>
+    <td><%= expended_at %></td>
+    <td><%= teacher_name %></td>
     <td><%= hole %></td>
     <td><%= note %></td>
-<% } %>
-
-<% if (hole) { %>
     <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
     <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
-<% } else { %>
-    <td><span class="btn btn-mini edit">Өзгөртүү</span></td>
-    <td><span class="btn btn-mini btn-danger destroy">Өчүр</span></td>
 <% } %>

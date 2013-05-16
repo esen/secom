@@ -1,16 +1,13 @@
 <div class="page-header">
-  <%= (holes) ? "<h1>Чыгашалар</h1>" : "<h3>Төлөмдөр</h3>" %>
+  <%= (teacher) ? "<h3>Айлык акылары</h3>" : "<h1>Чыгашалар</h1>" %>
 </div>
-
-<% if (!holes) { %>
-    <div id="new_expense"></div>
-<% } %>
 
 <table id="expense-table" class="table table-bordered table-hover">
   <tr>
     <th>Сумма</th>
     <th>Дата</th>
-     <% if (holes) { %>
+     <% if (!teacher) { %>
+        <th>Мугалим</th>
         <th>Чыгаша Булагы</th>
         <th>Башка Булак</th>
     <% } %>
@@ -21,6 +18,8 @@
 
 <br/>
 
-<% if (holes) { %>
+<% if (teacher) { %>
+    <a href="#/<%= teacher.get('id') %>/expenses/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
+<% } else { %>
     <a href="#/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
 <% } %>

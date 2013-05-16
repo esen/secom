@@ -4,6 +4,8 @@ class Secom.Routers.ExpensesRouter extends Backbone.Router
     @expenses.reset options.expenses
     @holes = new Secom.Collections.HolesCollection()
     @holes.reset options.holes
+    @teachers = new Secom.Collections.TeachersCollection()
+    @teachers.reset options.teachers
 
   routes:
     "new"      : "newExpense"
@@ -13,21 +15,21 @@ class Secom.Routers.ExpensesRouter extends Backbone.Router
     ".*"        : "index"
 
   newExpense: ->
-    @view = new Secom.Views.Expenses.NewView(collection: @expenses, holes: @holes)
+    @view = new Secom.Views.Expenses.NewView(collection: @expenses)
     $("#expenses").html(@view.render().el)
 
   index: ->
-    @view = new Secom.Views.Expenses.IndexView(expenses: @expenses, holes: @holes)
+    @view = new Secom.Views.Expenses.IndexView(expenses: @expenses)
     $("#expenses").html(@view.render().el)
 
   show: (id) ->
     expense = @expenses.get(id)
 
-    @view = new Secom.Views.Expenses.ShowView(model: expense, holes: @holes)
+    @view = new Secom.Views.Expenses.ShowView(model: expense)
     $("#expenses").html(@view.render().el)
 
   edit: (id) ->
     expense = @expenses.get(id)
 
-    @view = new Secom.Views.Expenses.EditView(model: expense, holes: @holes)
+    @view = new Secom.Views.Expenses.EditView(model: expense)
     $("#expenses").html(@view.render().el)

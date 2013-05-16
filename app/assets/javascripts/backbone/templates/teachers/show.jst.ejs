@@ -1,22 +1,22 @@
 <div class="page-header">
-  <h1>Teacher</h1>
+  <h1><%= name + " " + surname %></h1>
 </div>
 
 <dl class="dl-horizontal">
-  <dt><strong>Name:</strong></dt>
-  <dd><%= name || '-' %></dd>
-  <dt><strong>Surname:</strong></dt>
-  <dd><%= surname || '-' %></dd>
-  <dt><strong>Phone:</strong></dt>
+  <dt><strong>Телефон номери:</strong></dt>
   <dd><%= phone || '-' %></dd>
-  <dt><strong>Address:</strong></dt>
+  <dt><strong>Адреси:</strong></dt>
   <dd><%= address || '-' %></dd>
-  <dt><strong>Lesson:</strong></dt>
+  <dt><strong>Сабагы:</strong></dt>
   <dd><%= lesson %></dd>
 </dl>
 
 <div class="form-actions">
-    <a href="#/index" class="btn btn-small">All Teachers</a>
-    <a href="#/<%= id %>/edit" class="btn btn-small">Edit</a>
-    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Destroy</a>
+    <a href="#/index" class="btn btn-small">Мугалимдер</a>
+    <a href="#/<%= id %>/edit" class="btn btn-small">өзгөртүү</a>
+    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">өчүр</a>
+    &nbsp;
+    <% if (ur=='ac' || ur=='dr' || ur=='gd') { %>
+        <a href="#/<%= id %>/expenses/index" class="btn btn-small btn-primary">айлык төлөмдөрү</a>
+    <% } %>
 </div>

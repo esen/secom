@@ -4,7 +4,8 @@
     window.onload = function () {
         window.router = new Secom.Routers.ExpensesRouter({
             expenses: <%= @expenses.to_json.html_safe -%>,
-            holes: <%= @holes.to_json.html_safe -%>
+            holes: <%= @holes.to_json.html_safe -%>,
+            teachers: <%= @teachers.to_json.html_safe -%>
         });
         Backbone.history.start();
     };

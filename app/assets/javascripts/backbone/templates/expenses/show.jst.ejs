@@ -7,6 +7,8 @@
   <dd><%= amount %></dd>
   <dt><strong>Дата:</strong></dt>
   <dd><%= expended_at %></dd>
+  <dt><strong>Мугалим:</strong></dt>
+  <dd><%= teacher_name %></dd>
   <dt><strong>Чыгаша Булагы:</strong></dt>
   <dd><%= hole %></dd>
   <dt><strong>Башка:</strong></dt>
@@ -14,7 +16,13 @@
 </dl>
 
 <div class="form-actions">
+<% if (teacher) { %>
+    <a href="#/<%= teacher.get('id') %>/expenses/index" class="btn btn-small">Чыгашалар</a>
+    <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
+    <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+<% } else { %>
     <a href="#/index" class="btn btn-small">Чыгашалар</a>
     <a href="#/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
     <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+<% } %>
 </div>
