@@ -1,14 +1,18 @@
 <% if (teacher) { %>
     <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>"><%= amount %></a></td>
     <td><%= expended_at %></td>
-    <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
-    <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+    <% if (ur=='ac') { %>
+        <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
+        <td><a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+    <% } %>
 <% } else { %>
     <td><a href="#/<%= id %>"><%= amount %></a></td>
     <td><%= expended_at %></td>
     <td><%= teacher_name %></td>
     <td><%= hole %></td>
     <td><%= note %></td>
-    <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
-    <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+    <% if (ur=='ac') { %>
+        <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
+        <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+    <% } %>
 <% } %>

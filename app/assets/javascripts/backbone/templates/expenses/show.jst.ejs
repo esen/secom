@@ -15,14 +15,16 @@
   <dd><%= note %></dd>
 </dl>
 
-<div class="form-actions">
-<% if (teacher) { %>
-    <a href="#/<%= teacher.get('id') %>/expenses/index" class="btn btn-small">Чыгашалар</a>
-    <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
-    <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
-<% } else { %>
-    <a href="#/index" class="btn btn-small">Чыгашалар</a>
-    <a href="#/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
-    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+<% if (ur=='ac') { %>
+    <div class="form-actions">
+    <% if (teacher) { %>
+        <a href="#/<%= teacher.get('id') %>/expenses/index" class="btn btn-small">Чыгашалар</a>
+        <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
+        <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+    <% } else { %>
+        <a href="#/index" class="btn btn-small">Чыгашалар</a>
+        <a href="#/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
+        <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+    <% } %>
+    </div>
 <% } %>
-</div>

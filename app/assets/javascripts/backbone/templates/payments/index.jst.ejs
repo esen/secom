@@ -14,13 +14,15 @@
         <th>Киреше Булагы</th>
         <th>Башка Булак</th>
     <% } %>
-    <th></th>
-    <th></th>
+    <% if (ur=='ac') { %>
+        <th></th>
+        <th></th>
+    <% } %>
   </tr>
 </table>
 
 <br/>
 
-<% if (sources) { %>
+<% if (sources && ur=='ac') { %>
     <a href="#/new" class="btn btn-small btn-primary">Жаңы киреше</a>
 <% } %>

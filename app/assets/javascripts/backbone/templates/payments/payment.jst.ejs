@@ -5,10 +5,12 @@
     <td><%= note %></td>
 <% } %>
 
-<% if (source) { %>
-    <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
-    <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
-<% } else { %>
-    <td><span class="btn btn-mini edit">Өзгөртүү</span></td>
-    <td><span class="btn btn-mini btn-danger destroy">Өчүр</span></td>
+<% if (ur=='ac') { %>
+    <% if (source) { %>
+        <td><a href="#/<%= id %>/edit" class="btn btn-mini">Өзгөртүү</td>
+        <td><a href="#/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">Өчүр</a></td>
+    <% } else { %>
+        <td><span class="btn btn-mini edit">Өзгөртүү</span></td>
+        <td><span class="btn btn-mini btn-danger destroy">Өчүр</span></td>
+    <% } %>
 <% } %>

@@ -11,15 +11,19 @@
         <th>Чыгаша Булагы</th>
         <th>Башка Булак</th>
     <% } %>
-    <th></th>
-    <th></th>
+    <% if (ur=='ac') { %>
+        <th></th>
+        <th></th>
+    <% } %>
   </tr>
 </table>
 
 <br/>
 
-<% if (teacher) { %>
-    <a href="#/<%= teacher.get('id') %>/expenses/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
-<% } else { %>
-    <a href="#/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
+<% if (ur=='ac') { %>
+    <% if (teacher) { %>
+        <a href="#/<%= teacher.get('id') %>/expenses/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
+    <% } else { %>
+        <a href="#/new" class="btn btn-small btn-primary">Жаңы чыгаша</a>
+    <% } %>
 <% } %>

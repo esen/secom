@@ -33,9 +33,20 @@ class Secom.Views.Payments.IndexView extends Backbone.View
     )
 
   addAll: () =>
+    @total_amount = 0
     @payments.each(@addOne)
 
+    # add total amount row
+    unless router.student_view
+      tr = $(document.createElement("tr"))
+      td = $(document.createElement("td"))
+      td.attr('colspan', '4')
+      td.html("Бардыгы: <b>#{@total_amount}</b>")
+      tr.html(td)
+      @$("tbody").append(tr)
+
   addOne: (payment) =>
+    @total_amount += payment.get('amount')
     view = new Secom.Views.Payments.PaymentView({model : payment, sources: @options.sources})
     @$("tbody").append(view.render().el)
 
