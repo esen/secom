@@ -6,4 +6,5 @@ class Student < ActiveRecord::Base
   validates_presence_of :name, :group
 
   scope :of_group, lambda { |group_id| where(:group_id => group_id) }
+  scope :not_finished, where(:finished_at => nil)
 end

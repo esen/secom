@@ -9,6 +9,8 @@ class Group < ActiveRecord::Base
 
   attr_accessible :finished_at, :level_id, :name, :started_at, :active, :price
 
+  scope :not_finished, where(:finished_at => nil)
+
   def payment_dates_valid?
     if self.active?
       total = 0

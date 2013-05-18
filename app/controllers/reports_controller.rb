@@ -2,7 +2,45 @@ class ReportsController < ApplicationController
   before_filter :authenticate_user!
 
   def main
-
+    case current_user.role
+      when 'gd' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+            teachers_num: Teacher.count,
+            money: Payment.sum(:amount) - Expense.sum(:amount)
+        }
+      when 'dr' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+            teachers_num: Teacher.count,
+            money: Payment.sum(:amount) - Expense.sum(:amount)
+        }
+      when 'vd' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+            teachers_num: Teacher.count,
+        }
+      when 'ac' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+            teachers_num: Teacher.count,
+            money: Payment.sum(:amount) - Expense.sum(:amount)
+        }
+      when 'ad' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+        }
+      when 'tr' then
+        @data = {
+            students_num: Student.not_finished.count,
+            groups_num: Group.not_finished.count,
+        }
+    end
   end
 
   def funds
