@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>Филиал</h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>Аталышы:</dt>
+  <dd><%= @branch.name %></dd>
+</dl>
+
+<dl class="dl-horizontal">
+  <dt>Адреси:</dt>
+  <dd><%= @branch.address %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to "Артка", branches_path, :class => "btn btn-small" %>
+  <%= link_to "өзгөртүү", edit_branch_path(@branch), :class => "btn btn-small btn-primary" %>
+</div>
