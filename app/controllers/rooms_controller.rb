@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @rooms = Room.all
+    @rooms = Room.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class RoomsController < ApplicationController
 
   def create
     @room = Room.new(params[:room])
+    @room.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @room.save

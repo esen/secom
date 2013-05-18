@@ -1,16 +1,18 @@
 # encoding: utf-8
 
 class PaymentDate < ActiveRecord::Base
+  belongs_to :branch
   belongs_to :group
 
-  attr_accessible :amount, :group_id, :payment_date
-  validates_presence_of :amount, :group
+  attr_accessible :amount, :group_id, :payment_date, :branch_id
+  validates_presence_of :amount, :group, :branch_id
   validate :validate_amount
   validate :validate_group
 
   before_destroy :validate_group
 
   scope :of_group, lambda { |group_id| where(:group_id => group_id) }
+  scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
 
   def validate_amount
     if self.amount <= 0

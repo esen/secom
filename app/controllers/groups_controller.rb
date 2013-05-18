@@ -4,8 +4,8 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @groups = Group.all
-    @levels = Level.all
+    @groups = Group.of_branch(current_user.branch_id).all
+    @levels = Level.of_branch(current_user.branch_id).all
     @student = Student.find(params[:student_id]) if params[:student_id]
 
     respond_to do |format|
@@ -38,6 +38,7 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(params[:group].except(:created_at, :updated_at, :to_pay))
+    @group.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @group.save
@@ -113,7 +114,7 @@ class GroupsController < ApplicationController
 
               while price > 0
                 sum = (price > sum) ? sum : price
-                @group.payment_dates.new :amount => sum, :payment_date => date
+                @group.payment_dates.new :amount => sum, :payment_date => date, :branch_id => current_user.branch_id
                 price -= sum
                 date = date + 1.months
               end
@@ -123,7 +124,7 @@ class GroupsController < ApplicationController
 
               while price > 0
                 sum = (price > sum) ? sum : price
-                @group.payment_dates.new :amount => sum, :payment_date => date
+                @group.payment_dates.new :amount => sum, :payment_date => date, :branch_id => current_user.branch_id
                 price -= sum
                 date = date + month_day.days
               end

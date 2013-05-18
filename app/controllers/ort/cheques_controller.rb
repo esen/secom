@@ -3,7 +3,7 @@ class Ort::ChequesController < ApplicationController
   before_filter :find_participant, :find_exam
 
   def index
-    @cheques = Ort::Cheque.all
+    @cheques = Ort::Cheque.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -37,10 +37,11 @@ class Ort::ChequesController < ApplicationController
     msg = []
     @cheque = Ort::Cheque.new
     @cheque.participant = Ort::Participant.find_or_create_by_name(params[:participant])
+    @cheque.branch_id = current_user.branch_id
     msg << "Participant not found and can't be created'" if @cheque.participant.nil?
 
     exam_type = Ort::ExamType.find_by_name(params[:exam_name])
-    exams = Ort::Exam.where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
+    exams = Ort::Exam.of_branch(current_user.branch_id).where(:exam_type_id => exam_type.id, :start_date => params[:exam_date])
 
     if exams.count == 1
       @cheque.exam = exams.first
@@ -49,7 +50,7 @@ class Ort::ChequesController < ApplicationController
         msg << "This participant is already enrolled to this exam"
       elsif @cheque.save
         if params[:payment_amount]
-          unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount])
+          unless @cheque.exam.payments.create(:participant => @cheque.participant, :amount => params[:payment_amount], :branch_id => current_user.branch_id)
             msg << "Payment could not be created!!!"
           end
         end

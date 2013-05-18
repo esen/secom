@@ -2,7 +2,7 @@ class LevelsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @levels = Level.all
+    @levels = Level.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class LevelsController < ApplicationController
 
   def create
     @level = Level.new(params[:level])
+    @level.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @level.save

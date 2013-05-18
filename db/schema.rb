@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518024711) do
+ActiveRecord::Schema.define(:version => 20130518033314) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.string   "ends_at"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "expenses", :force => true do |t|
@@ -35,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.date     "expended_at"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "branch_id"
   end
 
   create_table "groups", :force => true do |t|
@@ -46,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.datetime "updated_at",                     :null => false
     t.boolean  "active",      :default => false
     t.integer  "price",       :default => 0
+    t.integer  "branch_id"
   end
 
   create_table "holes", :force => true do |t|
@@ -53,18 +56,21 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.string   "note"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "lessons", :force => true do |t|
     t.string   "title"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "levels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "ort_cheques", :force => true do |t|
@@ -72,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.integer  "exam_id"
     t.float    "mark"
     t.datetime "created_at"
+    t.integer  "branch_id"
   end
 
   create_table "ort_exam_types", :force => true do |t|
@@ -79,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.float    "cost"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "ort_exams", :force => true do |t|
@@ -87,12 +95,14 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
     t.date     "start_date"
+    t.integer  "branch_id"
   end
 
   create_table "ort_participants", :force => true do |t|
     t.string   "name"
     t.string   "encrypted_password"
     t.datetime "created_at"
+    t.integer  "branch_id"
   end
 
   create_table "ort_payments", :force => true do |t|
@@ -108,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.integer  "amount"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "branch_id"
   end
 
   create_table "payments", :force => true do |t|
@@ -119,6 +130,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.date     "payed_at"
+    t.integer  "branch_id"
   end
 
   create_table "rooms", :force => true do |t|
@@ -126,6 +138,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.integer  "capacity"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "sources", :force => true do |t|
@@ -133,6 +146,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.string   "note"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "students", :force => true do |t|
@@ -149,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.boolean  "active",      :default => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "branch_id"
   end
 
   create_table "teachers", :force => true do |t|
@@ -159,6 +174,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.integer  "lesson_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "branch_id"
   end
 
   create_table "users", :force => true do |t|
@@ -170,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20130518024711) do
     t.string   "email",               :default => "", :null => false
     t.string   "encrypted_password",  :default => "", :null => false
     t.datetime "remember_created_at"
+    t.integer  "branch_id"
   end
 
 end

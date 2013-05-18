@@ -2,7 +2,7 @@ class Ort::ExamTypesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @exam_types = Ort::ExamType.all
+    @exam_types = Ort::ExamType.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class Ort::ExamTypesController < ApplicationController
 
   def create
     @exam_type = Ort::ExamType.new(params[:ort_exam_type])
+    @exam_type.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @exam_type.save

@@ -5,11 +5,11 @@ class Ort::ParticipantsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @participants = Ort::Participant.order(:name)
+        @participants = Ort::Participant.of_branch(current_user.branch_id).order(:name)
       }
 
       format.json {
-        @participants = Ort::Participant.where("name LIKE ?", "%#{params[:q]}%").order(:name)
+        @participants = Ort::Participant.of_branch(current_user.branch_id).where("name LIKE ?", "%#{params[:q]}%").order(:name)
         render json: @participants.collect { |p| p.name }
       }
     end
@@ -39,6 +39,7 @@ class Ort::ParticipantsController < ApplicationController
 
   def create
     @participant = Ort::Participant.new(params[:ort_participant])
+    @participant.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @participant.save

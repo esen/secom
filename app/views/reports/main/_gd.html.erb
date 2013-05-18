@@ -1,13 +1,70 @@
-<dl class="dl-horizontal">
-  <dt>Окуучулар саны:</dt>
-  <dd><%= @data[:students_num] %></dd>
+<%- students_num = groups_num = teachers_num = money = 0 %>
 
-  <dt>Группалар саны:</dt>
-  <dd><%= @data[:groups_num] %></dd>
 
-  <dt>Мугалимдердин саны:</dt>
-  <dd><%= @data[:teachers_num] %></dd>
-
-  <dt>Баланс:</dt>
-  <dd><%= @data[:money] %> сом</dd>
-</dl>
+<table class="table table-bordered table-hover">
+  <tr>
+    <th></th>
+    <th>Филиал</th>
+    <th>Саны</th>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Окуучулар:</strong></td>
+  </tr>
+  <% @data[:students_nums].each do |s| students_num += s.student_num %>
+      <tr>
+        <td></td>
+        <td><%= @branches[s.branch_id] %></td>
+        <td><%= s.student_num %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td><i>Бардыгы</i></td>
+    <td><%= students_num %></td>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Группалар:</strong></td>
+  </tr>
+  <% @data[:groups_nums].each do |g| groups_num += g.group_num %>
+      <tr>
+        <td></td>
+        <td><%= @branches[g.branch_id] %></td>
+        <td><%= g.group_num %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td><i>Бардыгы</i></td>
+    <td><%= groups_num %></td>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Мугалимдер:</strong></td>
+  </tr>
+  <% @data[:teachers_nums].each do |t| teachers_num += t.teacher_num %>
+      <tr>
+        <td></td>
+        <td><%= @branches[t.branch_id] %></td>
+        <td><%= t.teacher_num %></td>
+      </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td><i>Бардыгы</i></td>
+    <td><%= teachers_num %></td>
+  </tr>
+  <tr>
+    <td colspan="3"><strong>Баланс:</strong></td>
+  </tr>
+  <% @data[:moneys].each_pair do |b, m| money += m %>
+      <tr>
+        <td></td>
+        <td><%= @branches[b] %></td>
+        <td><%= m %> сом</td>
+      </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td><i>Бардыгы</i></td>
+    <td><%= money %> сом</td>
+  </tr>
+</table>

@@ -1,20 +1,22 @@
 class Ort::Participant < ActiveRecord::Base
-  devise :database_authenticatable, :timeoutable
-
-  attr_accessible :name, :login
-
+  belongs_to :branch
   has_many :cheques, :dependent => :nullify
   has_many :payments, :dependent => :nullify
   has_many :exams, :through => :cheques
   has_many :paid_exams, :through => :payments, :source => :exam
 
-  validates_presence_of :name
+  devise :database_authenticatable, :timeoutable
+  attr_accessible :name, :login, :branch_id
+
+  validates_presence_of :name, :branch_id
   validate :password_valid?
 
   before_validation :generate_password
   before_save :encrypt_password
 
   attr_accessor :login, :password, :password_confirmation
+
+  scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
 
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup

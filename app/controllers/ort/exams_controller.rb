@@ -4,11 +4,11 @@ class Ort::ExamsController < ApplicationController
   def index
     respond_to do |format|
       format.html {
-        @exams = Ort::Exam.joins(:exam_type).select("ort_exams.*, ort_exam_types.name AS exam_name")
+        @exams = Ort::Exam.of_branch(current_user.branch_id).joins(:exam_type).select("ort_exams.*, ort_exam_types.name AS exam_name")
       }
 
       format.json {
-        exams = Ort::Exam.where("ort_exams.start_date >= ?", Date.today)
+        exams = Ort::Exam.of_branch(current_user.branch_id).where("ort_exams.start_date >= ?", Date.today)
 
         case params[:parameter]
           when "name" then
@@ -45,11 +45,12 @@ class Ort::ExamsController < ApplicationController
 
   def edit
     @exam = Ort::Exam.find(params[:id])
-    @exam_types = Ort::ExamType.all
+    @exam_types = Ort::ExamType.of_branch(current_user.branch_id).all
   end
 
   def create
     @exam = Ort::Exam.new(params[:ort_exam])
+    @exam.branch_id = current_user.branch_id
     @exam.cost = @exam.exam_type.cost unless params[:set_cost].to_i == 1
 
     respond_to do |format|

@@ -4,13 +4,13 @@ class StudentsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @students = Student.all
-        @groups = Group.all
+        @students = Student.of_branch(current_user.branch_id).all
+        @groups = Group.of_branch(current_user.branch_id).all
       end
 
       format.json do
         if params[:group_id]
-          @group = Group.
+          @group = Group.of_branch(current_user.branch_id).
               joins(:payment_dates).
               where("groups.id = ? AND payment_dates.payment_date <= ?", params[:group_id], Date.today).
               group(:id).
@@ -18,7 +18,7 @@ class StudentsController < ApplicationController
 
           @payment_dates = Group.find(params[:group_id]).payment_dates
 
-          @students = Student.
+          @students = Student.of_branch(current_user.branch_id).
               of_group(params[:group_id]).
               joins("LEFT JOIN payments ON payments.student_id=students.id").
               group(:id).
@@ -26,7 +26,7 @@ class StudentsController < ApplicationController
 
           render json: {group: @group, students: @students, payment_dates: @payment_dates}
         else
-          @students = Student.all
+          @students = Student.of_branch(current_user.branch_id).all
           render json: @students
         end
       end
@@ -57,6 +57,7 @@ class StudentsController < ApplicationController
 
   def create
     @student = Student.new(params[:student])
+    @student.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @student.save

@@ -4,14 +4,14 @@ class PaymentsController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @payments = Payment.all
-        @sources = Source.all
+        @payments = Payment.of_branch(current_user.branch_id).all
+        @sources = Source.of_branch(current_user.branch_id).all
       end
 
       format.json do
         @payments = (params[:student_id]) ?
-            Payment.of_student(params[:student_id]).order("payments.updated_at DESC") :
-            Payment.order("updated_at DESC")
+            Payment.of_branch(current_user.branch_id).of_student(params[:student_id]).order("payments.updated_at DESC") :
+            Payment.of_branch(current_user.branch_id).order("updated_at DESC")
 
         render json: @payments
       end
@@ -42,6 +42,7 @@ class PaymentsController < ApplicationController
 
   def create
     @payment = Payment.new(params[:payment])
+    @payment.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @payment.save

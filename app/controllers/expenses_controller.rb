@@ -4,15 +4,15 @@ class ExpensesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @expenses = Expense.all
-        @holes = Hole.all
-        @teachers = Teacher.all
+        @expenses = Expense.of_branch(current_user.branch_id).all
+        @holes = Hole.of_branch(current_user.branch_id).all
+        @teachers = Teacher.of_branch(current_user.branch_id).all
       end
 
       format.json do
         @expenses = (params[:teacher_id]) ?
-            Expense.of_teacher(params[:teacher_id]).order("expenses.updated_at DESC") :
-            Expense.order("updated_at DESC")
+            Expense.of_branch(current_user.branch_id).of_teacher(params[:teacher_id]).order("expenses.updated_at DESC") :
+            Expense.of_branch(current_user.branch_id).order("updated_at DESC")
 
         render json: @expenses
       end
@@ -43,6 +43,7 @@ class ExpensesController < ApplicationController
 
   def create
     @expense = Expense.new(params[:expense])
+    @expense.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @expense.save

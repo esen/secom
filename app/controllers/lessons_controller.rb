@@ -2,7 +2,7 @@ class LessonsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class LessonsController < ApplicationController
 
   def create
     @lesson = Lesson.new(params[:lesson])
+    @lesson.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @lesson.save

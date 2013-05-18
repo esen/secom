@@ -2,7 +2,7 @@ class SourcesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @sources = Source.all
+    @sources = Source.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class SourcesController < ApplicationController
 
   def create
     @source = Source.new(params[:source])
+    @source.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @source.save

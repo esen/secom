@@ -5,6 +5,7 @@ Secom::Application.routes.draw do
   get "reports/funds"
   post "reports/funds"
 
+  resources :branches
   resources :expenses
   resources :holes
   resources :sources

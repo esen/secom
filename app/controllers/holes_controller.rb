@@ -2,7 +2,7 @@ class HolesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @holes = Hole.all
+    @holes = Hole.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class HolesController < ApplicationController
 
   def create
     @hole = Hole.new(params[:hole])
+    @hole.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @hole.save

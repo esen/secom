@@ -4,41 +4,46 @@ class ReportsController < ApplicationController
   def main
     case current_user.role
       when 'gd' then
+        @branches = {}
+        Branch.all.collect { |b| @branches[b.id] = b.name }
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
-            teachers_num: Teacher.count,
-            money: Payment.sum(:amount) - Expense.sum(:amount)
+            students_nums: Student.not_finished.group(:branch_id).select("branch_id, COUNT(*) AS student_num"),
+            groups_nums: Group.not_finished.group(:branch_id).select("branch_id, COUNT(*) AS group_num"),
+            teachers_nums: Teacher.group(:branch_id).select("branch_id, COUNT(*) AS teacher_num"),
+            moneys: difference(
+                Payment.group(:branch_id).select("branch_id, SUM(amount) AS total_amount"),
+                Expense.group(:branch_id).select("branch_id, SUM(amount) AS total_amount")
+            )
         }
       when 'dr' then
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
-            teachers_num: Teacher.count,
-            money: Payment.sum(:amount) - Expense.sum(:amount)
+            students_num: Student.of_branch(current_user.branch_id).not_finished.count,
+            groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
+            teachers_num: Teacher.of_branch(current_user.branch_id).count,
+            money: Payment.of_branch(current_user.branch_id).sum(:amount) - Expense.of_branch(current_user.branch_id).sum(:amount)
         }
       when 'vd' then
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
-            teachers_num: Teacher.count,
+            students_num: Student.of_branch(current_user.branch_id).not_finished.count,
+            groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
+            teachers_num: Teacher.of_branch(current_user.branch_id).count,
         }
       when 'ac' then
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
-            teachers_num: Teacher.count,
-            money: Payment.sum(:amount) - Expense.sum(:amount)
+            students_num: Student.of_branch(current_user.branch_id).not_finished.count,
+            groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
+            teachers_num: Teacher.of_branch(current_user.branch_id).count,
+            money: Payment.of_branch(current_user.branch_id).sum(:amount) - Expense.of_branch(current_user.branch_id).sum(:amount)
         }
       when 'ad' then
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
+            students_num: Student.of_branch(current_user.branch_id).not_finished.count,
+            groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
         }
       when 'tr' then
         @data = {
-            students_num: Student.not_finished.count,
-            groups_num: Group.not_finished.count,
+            students_num: Student.of_branch(current_user.branch_id).not_finished.count,
+            groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
         }
     end
   end
@@ -93,5 +98,14 @@ class ReportsController < ApplicationController
         where("source_id IS NULL AND student_id IS NULL AND ort_participant_id IS NULL").
         where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
         select("note, SUM(amount) AS amount")
+  end
+
+  private
+
+  def difference(payments, expenses)
+    difference = {}
+    payments.each { |p| difference[p.branch_id] = p.total_amount }
+    expenses.each { |e| difference[e.branch_id] = difference[e.branch_id].to_i - e.total_amount }
+    difference
   end
 end

@@ -8,40 +8,43 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create! :name => "Генеральный Директор", :role => "gd", :username => "gdirector", :email => "gdirector@secom.kg", :password => "gdirector123", :password_confirmation => "gdirector123"
-User.create! :name => "Директор", :role => "dr", :username => "director", :email => "director@secom.kg", :password => "director123", :password_confirmation => "director123"
-User.create! :name => "Завуч", :role => "vd", :username => "vdirector", :email => "vdirector@secom.kg", :password => "vdirector123", :password_confirmation => "vdirector123"
-User.create! :name => "Мугалим", :role => "tr", :username => "teacher", :email => "teacher@secom.kg", :password => "teacher123", :password_confirmation => "teacher123"
-User.create! :name => "Бухгалтер", :role => "ac", :username => "accountant", :email => "accountant@secom.kg", :password => "accountant123", :password_confirmation => "accountant123"
-User.create! :name => "Секретарша", :role => "ad", :username => "admin", :email => "admin@secom.kg", :password => "admin123", :password_confirmation => "admin123"
+branch = Branch.create! :name => "Башкы Филиал", :address => "Бишкек"
+branch = Branch.find_by_address("Нарын")
+
+User.create! :name => "Генеральный Директор", :role => "gd", :username => "gdirectorn", :email => "gdirectorn@secom.kg", :password => "gdirector123", :password_confirmation => "gdirector123", :branch_id => branch.id
+User.create! :name => "Директор", :role => "dr", :username => "directorn", :email => "directorn@secom.kg", :password => "director123", :password_confirmation => "director123", :branch_id => branch.id
+User.create! :name => "Завуч", :role => "vd", :username => "vdirectorn", :email => "vdirectorn@secom.kg", :password => "vdirector123", :password_confirmation => "vdirector123", :branch_id => branch.id
+User.create! :name => "Мугалим", :role => "tr", :username => "teachern", :email => "teachern@secom.kg", :password => "teacher123", :password_confirmation => "teacher123", :branch_id => branch.id
+User.create! :name => "Бухгалтер", :role => "ac", :username => "accountantn", :email => "accountantn@secom.kg", :password => "accountant123", :password_confirmation => "accountant123", :branch_id => branch.id
+User.create! :name => "Секретарша", :role => "ad", :username => "adminn", :email => "adminn@secom.kg", :password => "admin123", :password_confirmation => "admin123", :branch_id => branch.id
 
 Ort::ExamType.create(
     [
-        {:name => "General", :cost => 1000},
-        {:name => "Physics", :cost => 500},
+        {:name => "General", :cost => 1000, :branch_id => branch.id},
+        {:name => "Physics", :cost => 500, :branch_id => branch.id},
     ]
 )
 
 Ort::Participant.create(
     [
-        {:name => "Abraham Lincoln"},
-        {:name => "George Bush"},
-        {:name => "Barak Obama"},
-        {:name => "George Washington"},
-        {:name => "Bill Clinton"},
-        {:name => "Benjamin Harrison"},
-        {:name => "Franklin D. Roosevelt"},
-        {:name => "Harry S. Truman"},
-        {:name => "Dwight D. Eisenhower"},
-        {:name => "John F. Kennedy"},
-        {:name => "Lyndon B. Johnson"},
-        {:name => "Richard Nixon"},
-        {:name => "Gerald Ford"},
-        {:name => "Jimmy Carter"},
-        {:name => "Ronald Reagan"},
-        {:name => "George H. W. Bush"},
-        {:name => "Woodrow Wilson"},
-        {:name => "William McKinley"},
-        {:name => "Rutherford B. Hayes"},
+        {:name => "Abraham Lincoln", :branch_id => branch.id},
+        {:name => "George Bush", :branch_id => branch.id},
+        {:name => "Barak Obama", :branch_id => branch.id},
+        {:name => "George Washington", :branch_id => branch.id},
+        {:name => "Bill Clinton", :branch_id => branch.id},
+        {:name => "Benjamin Harrison", :branch_id => branch.id},
+        {:name => "Franklin D. Roosevelt", :branch_id => branch.id},
+        {:name => "Harry S. Truman", :branch_id => branch.id},
+        {:name => "Dwight D. Eisenhower", :branch_id => branch.id},
+        {:name => "John F. Kennedy", :branch_id => branch.id},
+        {:name => "Lyndon B. Johnson", :branch_id => branch.id},
+        {:name => "Richard Nixon", :branch_id => branch.id},
+        {:name => "Gerald Ford", :branch_id => branch.id},
+        {:name => "Jimmy Carter", :branch_id => branch.id},
+        {:name => "Ronald Reagan", :branch_id => branch.id},
+        {:name => "George H. W. Bush", :branch_id => branch.id},
+        {:name => "Woodrow Wilson", :branch_id => branch.id},
+        {:name => "William McKinley", :branch_id => branch.id},
+        {:name => "Rutherford B. Hayes", :branch_id => branch.id},
     ]
 )

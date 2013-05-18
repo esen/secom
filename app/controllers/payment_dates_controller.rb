@@ -4,8 +4,8 @@ class PaymentDatesController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @payment_dates = PaymentDate.all
-        @groups = Group.all
+        @payment_dates = PaymentDate.of_branch(current_user.branch_id).all
+        @groups = Group.of_branch(current_user.branch_id).all
       end
 
       format.json do
@@ -42,6 +42,7 @@ class PaymentDatesController < ApplicationController
 
   def create
     @payment_date = PaymentDate.new(params[:payment_date])
+    @payment_date.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @payment_date.save

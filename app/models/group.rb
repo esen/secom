@@ -1,15 +1,19 @@
 # encoding: utf-8
 
 class Group < ActiveRecord::Base
+  belongs_to :branch
   belongs_to :level
+
   has_many :students, :dependent => :destroy
   has_many :payment_dates, :dependent => :destroy
 
+  validates_presence_of :branch_id
   validate :payment_dates_valid?
 
-  attr_accessible :finished_at, :level_id, :name, :started_at, :active, :price
+  attr_accessible :finished_at, :level_id, :name, :started_at, :active, :price, :branch_id
 
   scope :not_finished, where(:finished_at => nil)
+  scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
 
   def payment_dates_valid?
     if self.active?

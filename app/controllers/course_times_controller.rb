@@ -2,7 +2,7 @@ class CourseTimesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @course_times = CourseTime.all
+    @course_times = CourseTime.of_branch(current_user.branch_id).all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -34,6 +34,7 @@ class CourseTimesController < ApplicationController
 
   def create
     @course_time = CourseTime.new(params[:course_time])
+    @course_time.branch_id = current_user.branch_id
 
     respond_to do |format|
       if @course_time.save
