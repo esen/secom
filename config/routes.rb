@@ -1,4 +1,10 @@
 Secom::Application.routes.draw do
+  root :to => "reports#main"
+
+  get "reports/main"
+  get "reports/funds"
+  post "reports/funds"
+
   resources :expenses
   resources :holes
   resources :sources
@@ -31,13 +37,13 @@ Secom::Application.routes.draw do
   resources :lessons
   resources :rooms
 
-  root :to => "lessons#index"
-
   devise_for :users
   devise_for :participants, :class_name => "Ort::Participant"
 
 
   namespace :ort do
+    root :to => "exams#index"
+
     resources :exam_types, :payments
     resources :cheques do
       resources :payments

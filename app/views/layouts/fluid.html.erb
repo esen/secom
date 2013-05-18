@@ -43,14 +43,7 @@
                   <li><%= link_to "Participants", "/ort/participants" %></li>
                   <li><%= link_to "Payments", "/ort/payments" %></li>
               <%- else %>
-                  <li><%= link_to "Предметтер", lessons_path %></li>
-                  <li><%= link_to "Даражалар", levels_path %></li>
-                  <li><%= link_to "Группалар", groups_path %></li>
-                  <li><%= link_to "Окуучулар", students_path %></li>
-                  <li><%= link_to "Кабинеттер", rooms_path %></li>
-                  <li><%= link_to "Сабак убактылары", course_times_path %></li>
-                  <li><%= link_to "Мугалимдер", teachers_path %></li>
-                  <li><%= link_to "Төлөмдөр", payments_path %></li>
+                  <li><%= link_to "Финансылык отчет", reports_funds_path %></li>
               <%- end %>
 
             </ul>
@@ -72,7 +65,7 @@
 <div class="container">
   <div class="row">
     <div class="span3">
-      <%= image_tag "secom-logo.png", :style => "padding:10px;" %>
+      <%= link_to image_tag("secom-logo.png", :style => "padding:10px;"), root_path %>
 
       <!-- Menus -->
       <%- if is_ort? %>
