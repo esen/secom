@@ -3,7 +3,7 @@ class Ort::PaymentsController < ApplicationController
   before_filter :find_participant, :find_exam, :find_cheque
 
   def index
-    @payments = Ort::Payment.
+    @payments = Ort::Payment.of_branch(current_user.branch_id).
         joins(:exam).
         joins(:participant).
         joins("LEFT JOIN ort_exam_types AS oets ON oets.id = ort_exams.exam_type_id")
@@ -45,6 +45,7 @@ class Ort::PaymentsController < ApplicationController
     msg = []
     @payment = Ort::Payment.new
     @payment.participant = Ort::Participant.find_by_name(params[:participant])
+    @payment.branch_id = current_user.branch_id
     msg << "Participant not found" if @payment.participant.nil?
 
     exam_type = Ort::ExamType.find_by_name(params[:exam_name])

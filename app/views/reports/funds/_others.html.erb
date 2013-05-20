@@ -54,6 +54,12 @@
   <tr>
     <td colspan="2" style="text-align: center"><strong>ОРТ текшерүү тест</strong></td>
   </tr>
+  <% @payments[:ort_participants].each do |sp| total_in += sp.amount %>
+      <tr>
+        <td><%= sp.participant_name %></td>
+        <td><%= sp.amount %></td>
+      </tr>
+  <% end %>
   <tr>
     <td colspan="2" style="text-align: center"><strong>Киреше Булактары</strong></td>
   </tr>
@@ -64,10 +70,6 @@
       </tr>
   <% end %>
   <tr>
-    <td>Бардыгы</td>
-    <td><strong><%= total_in %></strong></td>
-  </tr>
-  <tr>
     <td colspan="2" style="text-align: center"><strong>Башка Кирешелер</strong></td>
   </tr>
   <% @payments[:others].each do |sp| total_in += sp.amount %>
@@ -76,6 +78,10 @@
         <td><%= sp.amount %></td>
       </tr>
   <% end %>
+  <tr>
+    <td>Бардыгы</td>
+    <td><strong><%= total_in %></strong></td>
+  </tr>
   <tr>
     <td colspan="2"><h3>Чыгашалар</h3></td>
   </tr>

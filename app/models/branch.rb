@@ -9,6 +9,7 @@ class Branch < ActiveRecord::Base
   has_many :ort_exam_types, :class_name => 'Ort::ExamType', :dependent => :restrict
   has_many :ort_exams, :class_name => 'Ort::Exam', :dependent => :restrict
   has_many :ort_participants, :class_name => 'Ort::Participant', :dependent => :restrict
+  has_many :ort_payments, :class_name => 'Ort::Payment', :dependent => :restrict
   has_many :payment_dates, :dependent => :restrict
   has_many :payments, :dependent => :restrict
   has_many :rooms, :dependent => :restrict

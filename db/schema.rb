@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130518033314) do
+ActiveRecord::Schema.define(:version => 20130520172723) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -106,10 +106,11 @@ ActiveRecord::Schema.define(:version => 20130518033314) do
   end
 
   create_table "ort_payments", :force => true do |t|
-    t.integer  "participant_id"
-    t.integer  "exam_id"
-    t.float    "amount"
-    t.datetime "created_at"
+    t.integer "participant_id"
+    t.integer "exam_id"
+    t.float   "amount"
+    t.date    "created_at"
+    t.integer "branch_id"
   end
 
   create_table "payment_dates", :force => true do |t|
@@ -123,12 +124,11 @@ ActiveRecord::Schema.define(:version => 20130518033314) do
 
   create_table "payments", :force => true do |t|
     t.integer  "student_id"
-    t.integer  "ort_participant_id"
     t.integer  "source_id"
     t.string   "note"
     t.integer  "amount"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.date     "payed_at"
     t.integer  "branch_id"
   end

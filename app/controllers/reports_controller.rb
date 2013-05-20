@@ -12,6 +12,7 @@ class ReportsController < ApplicationController
             teachers_nums: Teacher.group(:branch_id).select("branch_id, COUNT(*) AS teacher_num"),
             moneys: difference(
                 Payment.group(:branch_id).select("branch_id, SUM(amount) AS total_amount"),
+                Ort::Payment.group(:branch_id).select("branch_id, SUM(amount) AS total_amount"),
                 Expense.group(:branch_id).select("branch_id, SUM(amount) AS total_amount")
             )
         }
@@ -20,7 +21,9 @@ class ReportsController < ApplicationController
             students_num: Student.of_branch(current_user.branch_id).not_finished.count,
             groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
             teachers_num: Teacher.of_branch(current_user.branch_id).count,
-            money: Payment.of_branch(current_user.branch_id).sum(:amount) - Expense.of_branch(current_user.branch_id).sum(:amount)
+            money: Payment.of_branch(current_user.branch_id).sum(:amount) +
+                Ort::Payment.of_branch(current_user.branch_id).sum(:amount) -
+                Expense.of_branch(current_user.branch_id).sum(:amount)
         }
       when 'vd' then
         @data = {
@@ -33,7 +36,9 @@ class ReportsController < ApplicationController
             students_num: Student.of_branch(current_user.branch_id).not_finished.count,
             groups_num: Group.of_branch(current_user.branch_id).not_finished.count,
             teachers_num: Teacher.of_branch(current_user.branch_id).count,
-            money: Payment.of_branch(current_user.branch_id).sum(:amount) - Expense.of_branch(current_user.branch_id).sum(:amount)
+            money: Payment.of_branch(current_user.branch_id).sum(:amount) +
+                Ort::Payment.of_branch(current_user.branch_id).sum(:amount) -
+                Expense.of_branch(current_user.branch_id).sum(:amount)
         }
       when 'ad' then
         @data = {
@@ -84,12 +89,12 @@ class ReportsController < ApplicationController
       # payments
       @payments[:students] = Payment.joins(:student).
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).sum(:amount)
-      #@payments[:ort_participants] = Payment.
-      #    where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).sum(:amount)
+      @payments[:ort_participants] = Ort::Payment.
+          where("ort_payments.created_at BETWEEN ? AND ?", @start_date, @end_date).sum(:amount)
       @payments[:sources] = Payment.joins(:source).
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).sum(:amount)
       @payments[:others] = Payment.
-          where("source_id IS NULL AND student_id IS NULL AND ort_participant_id IS NULL").
+          where("source_id IS NULL AND student_id IS NULL").
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).sum(:amount)
     else
       # expenses
@@ -109,14 +114,14 @@ class ReportsController < ApplicationController
       @payments[:students] = Payment.of_branch(current_user.branch_id).joins(:student).group(:student_id).
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
           select("CONCAT(students.name,' ',students.surname) AS student_name, SUM(payments.amount) AS amount")
-      #@payments[:ort_participants] = Payment.of_branch(current_user.branch_id).group(:ort_participant_id).
-      #    where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
-      #    select("ort_participants.name AS participant_name, SUM(payments.amount) AS amount")
+      @payments[:ort_participants] = Ort::Payment.of_branch(1).joins(:participant).group(:participant_id).
+          where("ort_payments.created_at BETWEEN ? AND ?", @start_date, @end_date).
+          select("ort_participants.name AS participant_name, SUM(ort_payments.amount) AS amount")
       @payments[:sources] = Payment.of_branch(current_user.branch_id).joins(:source).group(:source_id).
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
           select("sources.name AS source_name, SUM(payments.amount) AS amount")
       @payments[:others] = Payment.of_branch(current_user.branch_id).group(:note).
-          where("source_id IS NULL AND student_id IS NULL AND ort_participant_id IS NULL").
+          where("source_id IS NULL AND student_id IS NULL").
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
           select("note, SUM(amount) AS amount")
     end
@@ -125,9 +130,10 @@ class ReportsController < ApplicationController
 
   private
 
-  def difference(payments, expenses)
+  def difference(payments, ort_payments, expenses)
     difference = {}
     payments.each { |p| difference[p.branch_id] = p.total_amount }
+    ort_payments.each { |p| difference[p.branch_id] = difference[p.branch_id].to_i + p.total_amount }
     expenses.each { |e| difference[e.branch_id] = difference[e.branch_id].to_i - e.total_amount }
     difference
   end
