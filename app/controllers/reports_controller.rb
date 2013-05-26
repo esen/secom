@@ -125,7 +125,14 @@ class ReportsController < ApplicationController
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
           select("note, SUM(amount) AS amount")
     end
+  end
 
+  def timetable
+    @course_times = CourseTime.of_branch(current_user.branch_id)
+    @lessons = Lesson.of_branch(current_user.branch_id)
+    @rooms = Room.of_branch(current_user.branch_id)
+    @teachers = Teacher.of_branch(current_user.branch_id)
+    @courses = Course.of_branch(current_user.branch_id).with_group_name
   end
 
   private

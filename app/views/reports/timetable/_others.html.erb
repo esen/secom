@@ -1,0 +1,17 @@
+<div id="main_table"></div>
+<br/>
+<div id="sub_table"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        // Secom is the app name
+        window.router = new Secom.Routers.TimetableRouter({
+            course_times: <%= @course_times.to_json.html_safe -%>,
+            lessons: <%= @lessons.to_json.html_safe -%>,
+            rooms: <%= @rooms.to_json.html_safe -%>,
+            teachers: <%= @teachers.to_json.html_safe -%>,
+            courses: <%= @courses.to_json.html_safe -%>
+        });
+        Backbone.history.start();
+    };
+</script>

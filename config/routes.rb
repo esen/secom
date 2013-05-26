@@ -3,6 +3,7 @@ Secom::Application.routes.draw do
 
   get "reports/main"
   get "reports/funds"
+  get "reports/timetable"
   post "reports/funds"
 
   resources :courses

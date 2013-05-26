@@ -17,7 +17,7 @@ class Course < ActiveRecord::Base
   scope :of_teacher, lambda { |teacher_id| where(:teacher_id => teacher_id) }
   scope :of_course_time, lambda { |course_time_id| where(:course_time_id => course_time_id) }
   scope :of_room, lambda { |room_id| where(:room_id => room_id) }
-
+  scope :with_group_name, joins(:group).select("courses.*, groups.name AS group_name")
 
   def calculate_capacity_of_group
     g = self.group

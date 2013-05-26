@@ -53,7 +53,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course].except(:created_at, :updated_at))
+      if @course.update_attributes(params[:course].except(:created_at, :updated_at, :group_name))
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else
