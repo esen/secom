@@ -26,6 +26,7 @@ class Secom.Views.PaymentDates.GenerateDatesView extends Backbone.View
     if resp["status"] == "success"
       @payment_dates.reset(@payment_dates.parse(resp["payment_dates"]))
       @group.set(resp["group"])
+      router.show(@group.get('id'))
       router.indexPaymentDates(@group.get('id'))
     else
       alert(resp["error"])

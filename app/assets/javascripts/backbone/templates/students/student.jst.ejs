@@ -12,13 +12,17 @@
 
 <%= (group) ? "" : "<td>" + group_name + "</td>" %>
 
-<% if (group && ur == 'ad') { %>
-    <% if (active) { %>
-        <td><span class="btn btn-mini btn-danger deactivate">пассивдештирүү</span></td>
+<% if (group) { %>
+    <% if (ur == 'ad') { %>
+        <% if (active) { %>
+            <td><span class="btn btn-mini btn-danger deactivate">пассивдештирүү</span></td>
+        <% } else { %>
+            <td><span class="btn btn-mini btn-primary activate">активдештирүү</span></td>
+        <% } %>
+        <td><a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-mini">өзгөртүү</a></td>
+        <td><a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">өчүр</a></td>
     <% } else { %>
-        <td><span class="btn btn-mini btn-primary activate">активдештирүү</span></td>
+        <td><a href="#/<%= group.get('id') %>/students/<%= id %>/discount" class="btn btn-mini">жеңилдетүү</a></td>
     <% } %>
-    <td><a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-mini">өзгөртүү</a></td>
-    <td><a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">өчүр</a></td>
 <% } %>
 

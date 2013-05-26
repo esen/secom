@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h3>Окуучуга жеңилдетүү берүү (<%= name + ' ' + surname %>)</h3>
+</div>
+
+
+<form id="edit-student" name="student" class='form-horizontal'>
+    <div class="control-group">
+        <label for="discount" class="control-label"> Сумма:</label>
+            <div class="controls">
+                <input type="text" class="text_field" name="discount" id="discount" value="<%= discount %>" >
+            </div>
+    </div>
+
+    <div class="form-actions">
+        <a href="#/<%= group_id %>/students/index" class="btn btn-small">Артка</a>
+        <input type="submit" value="аткар" class="btn btn-small btn-primary"/>
+    </div>
+
+</form>

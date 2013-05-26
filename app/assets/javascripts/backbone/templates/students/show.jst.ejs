@@ -15,6 +15,10 @@
   <dd><%= group_name %></dd>
   <dt><strong>Баштаган датасы:</strong></dt>
   <dd><%= started_at %></dd>
+  <% if (ur == 'dr') { %>
+      <dt><strong>Жеңилдетүү:</strong></dt>
+      <dd><%= discount %></dd>
+  <% } %>
 </dl>
 
 <% if (group && ur == 'ad') { %>

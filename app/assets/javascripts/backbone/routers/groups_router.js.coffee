@@ -18,6 +18,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     ":id/students/*": "indexStudents"
     ":id/students/index": "indexStudents"
     ":id/students/:student_id/edit": "editStudent"
+    ":id/students/:student_id/discount": "discounttoStudent"
     ":id/students/:student_id": "showStudent"
 
     "index/grouped": "indexGrouped"
@@ -118,6 +119,17 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
 
       @view = new Secom.Views.Students.EditView(model: student, groups: @groups, group: group)
       $("#students").html(@view.render().el)
+
+  discounttoStudent: (id, student_id) ->
+    unless @index_group_rendered
+      @indexGrouped()
+    else
+      student = @students.get(student_id)
+      group = @groups.get(id)
+
+      @view = new Secom.Views.Students.DiscountView(model: student, groups: @groups, group: group)
+      $("#students").html(@view.render().el)
+
 
   # Payment Dates of the group
   indexPaymentDates: (id) ->
