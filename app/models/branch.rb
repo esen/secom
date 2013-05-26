@@ -1,5 +1,6 @@
 class Branch < ActiveRecord::Base
   has_many :course_times, :dependent => :restrict
+  has_many :courses, :dependent => :restrict
   has_many :expenses, :dependent => :restrict
   has_many :groups, :dependent => :restrict
   has_many :holes, :dependent => :restrict

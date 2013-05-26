@@ -7,7 +7,8 @@ class Secom.Views.Teachers.NewView extends Backbone.View
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model({lesson_id: @options.lessons.first().get('id')})
+    first_lesson_id = @options.lessons.first() && @options.lessons.first().get('id') || null
+    @model = new @collection.model({lesson_id: first_lesson_id})
 
     @model.bind("change:errors", () =>
       this.render()

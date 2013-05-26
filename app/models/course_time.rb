@@ -1,5 +1,6 @@
 class CourseTime < ActiveRecord::Base
   belongs_to :branch
+  has_many :courses, :dependent => :restrict
 
   attr_accessible :ends_at, :starts_at, :branch_id
   validates_presence_of :starts_at, :ends_at, :branch_id

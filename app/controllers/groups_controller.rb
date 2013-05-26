@@ -4,9 +4,16 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @groups = Group.of_branch(current_user.branch_id).all
+    @groups = with_courses(Group.of_branch(current_user.branch_id).all)
     @levels = Level.of_branch(current_user.branch_id).all
     @student = Student.find(params[:student_id]) if params[:student_id]
+
+    if current_user.role == 'vd'
+      @lessons = Lesson.of_branch(current_user.branch_id).all
+      @course_times = CourseTime.of_branch(current_user.branch_id).all
+      @teachers = Teacher.of_branch(current_user.branch_id).all
+      @rooms = Room.of_branch(current_user.branch_id).all
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -15,7 +22,7 @@ class GroupsController < ApplicationController
   end
 
   def show
-    @group = Group.find(params[:id])
+    @group = with_courses([Group.find(params[:id])]).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -55,7 +62,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:group].except(:created_at, :updated_at, :to_pay))
+      if @group.update_attributes(params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names))
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else
@@ -176,5 +183,20 @@ class GroupsController < ApplicationController
     end
 
     valid
+  end
+
+  def with_courses(groups)
+    courses = {}
+    Course.of_branch(current_user.branch_id).joins(:lesson).select("courses.group_id, lessons.title").each do |c|
+      courses[c.group_id] = [] unless courses[c.group_id]
+      courses[c.group_id] << c.title
+    end
+
+    gs = []
+    groups.each do |g|
+      gs << g.attributes.merge(course_names: courses[g.id])
+    end
+
+    gs
   end
 end

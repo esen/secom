@@ -1,0 +1,57 @@
+<div class="page-header">
+  <h3>Предмети өзгөртүү</h3>
+</div>
+
+<form id="edit-course" name="course" class='form-vertical'>
+    <div class="control-group">
+        <label for="lesson_id" class="control-label"> Предмет:</label>
+            <div class="controls">
+                <select name="lesson_id" id="lesson_id">
+                    <option>Предметти танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="teacher_id" class="control-label"> Мугалими:</label>
+            <div class="controls">
+                <select name="teacher_id" id="teacher_id">
+                    <option>Мугалимин танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="course_time_id" class="control-label"> Сабак убактысы:</label>
+            <div class="controls">
+                <select name="course_time_id" id="course_time_id">
+                    <option>Сабак убактысын танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="room_id" class="control-label"> Кабинет:</label>
+            <div class="controls">
+                <select name="room_id" id="room_id">
+                    <option>Кабинетти танда</option>
+                </select>
+            </div>
+    </div>
+
+    <div class="control-group">
+        <label for="monday" class="control-label"> Күндөрү:</label>
+        <input type="checkbox" name="monday" <%= (monday) ? 'checked' : '' %>> Дүйшөмбү</input><br/>
+        <input type="checkbox" name="tuesday" <%= (tuesday) ? 'checked' : '' %>> Шейшемби</input><br/>
+        <input type="checkbox" name="wednesday" <%= (wednesday) ? 'checked' : '' %>> Шаршемби</input><br/>
+        <input type="checkbox" name="thursday" <%= (thursday) ? 'checked' : '' %>> Бейшемби</input><br/>
+        <input type="checkbox" name="friday" <%= (friday) ? 'checked' : '' %>> Жума</input><br/>
+        <input type="checkbox" name="saturday" <%= (saturday) ? 'checked' : '' %>> Ишемби</input><br/>
+        <input type="checkbox" name="sunday" <%= (sunday) ? 'checked' : '' %>> Жекшемби</input>
+    </div>
+
+    <div class="form-actions">
+        <span class="btn btn-small back">Артка</span>
+        <input type="submit" value="Предметти сакта" class="btn btn-small btn-primary"/>
+    </div>
+</form>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520172723) do
+ActiveRecord::Schema.define(:version => 20130525092507) do
 
   create_table "branches", :force => true do |t|
     t.string   "name"
@@ -26,6 +26,24 @@ ActiveRecord::Schema.define(:version => 20130520172723) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.integer  "branch_id"
+  end
+
+  create_table "courses", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "lesson_id"
+    t.integer  "course_time_id"
+    t.integer  "teacher_id"
+    t.integer  "room_id"
+    t.integer  "branch_id"
+    t.boolean  "monday"
+    t.boolean  "tuesday"
+    t.boolean  "wednesday"
+    t.boolean  "thursday"
+    t.boolean  "friday"
+    t.boolean  "saturday"
+    t.boolean  "sunday"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "expenses", :force => true do |t|
@@ -49,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20130520172723) do
     t.boolean  "active",      :default => false
     t.integer  "price",       :default => 0
     t.integer  "branch_id"
+    t.integer  "capacity"
   end
 
   create_table "holes", :force => true do |t|

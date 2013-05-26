@@ -1,0 +1,17 @@
+<div class="page-header">
+  <h3>Предметтер</h3>
+</div>
+
+
+<table id="courses-table" class="table table-bordered table-hover">
+  <tr>
+    <th>Предмет</th>
+    <th>Мугалими</th>
+    <th>Сааты</th>
+    <th>Кабинети</th>
+    <th>Күндөрү</th>
+    <%= (group.get('active') == true) ? '' : '<th></th><th></th>' %>
+  </tr>
+</table>
+
+<span class="btn btn-small btn-primary new-course">Жаңы предмет кош</span>

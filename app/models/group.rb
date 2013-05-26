@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
 
   has_many :students, :dependent => :destroy
   has_many :payment_dates, :dependent => :destroy
+  has_many :courses, :dependent => :destroy
 
   validates_presence_of :branch_id
   validate :payment_dates_valid?

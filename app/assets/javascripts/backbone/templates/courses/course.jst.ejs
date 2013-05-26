@@ -1,0 +1,10 @@
+<td><%= lesson %></td>
+<td><%= teacher %></td>
+<td><%= course_time %></td>
+<td><%= room %></td>
+<td><%= days %></td>
+
+<% if (group.get('active') != true) { %>
+    <td><span class="btn btn-mini edit">өзгөрт</span></td>
+    <td><span class="btn btn-mini btn-danger destroy">өчүр</span></td>
+<% } %>

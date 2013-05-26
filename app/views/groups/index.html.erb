@@ -1,5 +1,6 @@
 <div id="groups"></div>
 <br/>
+<div id="courses"></div>
 <div id="students"></div>
 <div id="payment_dates"></div>
 <div id="payments"></div>
@@ -8,7 +9,11 @@
     window.onload = function () {
         window.router = new Secom.Routers.GroupsRouter({
             groups: <%= @groups.to_json.html_safe -%>,
-            levels: <%= @levels.to_json.html_safe -%>
+            levels: <%= @levels.to_json.html_safe -%>,
+            lessons: <%= @lessons.to_json.html_safe -%>,
+            course_times: <%= @course_times.to_json.html_safe -%>,
+            teachers: <%= @teachers.to_json.html_safe -%>,
+            rooms: <%= @rooms.to_json.html_safe -%>
         });
         Backbone.history.start();
     };

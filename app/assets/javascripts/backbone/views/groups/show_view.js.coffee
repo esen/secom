@@ -27,7 +27,7 @@ class Secom.Views.Groups.ShowView extends Backbone.View
       alert(error)
 
   activate: () ->
-    if @model.is_valid(router.payment_dates)
+    if router.payment_dates && @model.is_valid(router.payment_dates)
       $.get(@model.collection.url + "/#{@model.get('id')}/activate", "", @handle_response, 'json')
     else
       router.pd_view.remove() if router.pd_view

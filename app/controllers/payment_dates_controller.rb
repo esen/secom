@@ -45,7 +45,7 @@ class PaymentDatesController < ApplicationController
     @payment_date.branch_id = current_user.branch_id
 
     respond_to do |format|
-      if @payment_date.save
+      if @payment_date.valid? && @payment_date.save
         format.html { redirect_to @payment_date, notice: 'Payment date was successfully created.' }
         format.json { render json: @payment_date, status: :created, location: @payment_date }
       else

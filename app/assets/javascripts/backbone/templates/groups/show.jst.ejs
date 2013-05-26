@@ -7,8 +7,12 @@
   <dd><%= name || '-' %></dd>
   <dt><strong>Даражасы:</strong></dt>
   <dd><%= level %></dd>
+  <dt><strong>Предметтер:</strong></dt>
+  <dd id="groups_courses"><%= (course_names) ? course_names.join("<br/>") : '-' %></dd>
+  <dt><strong>Сыйымдуулугу:</strong></dt>
+  <dd id="groups_capacity"><%= capacity || '-' %></dd>
   <dt><strong>Наркы:</strong></dt>
-  <dd><%= price %></dd>
+  <dd><%= price || '-' %></dd>
   <dt><strong>Башталышы:</strong></dt>
   <dd><%= started_at %></dd>
 </dl>
@@ -21,5 +25,8 @@
     <% } else { %>
         <span id="activate_group" class="btn btn-small btn-primary">Активдерштирүү</span>
     <% } %>
-    <a href="#/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
+    <span class="btn btn-small btn-danger destroy">Өчүр</span>
+    &nbsp;
+    <a href="#/<%= id %>/courses" class="btn btn-small">Предметтерди тууралоо</a>
+    <a href="#/<%= id %>/payment_dates" class="btn btn-small">Төлөө даталарын тууралоо</a>
 </div>

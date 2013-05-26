@@ -5,7 +5,8 @@ class PaymentDate < ActiveRecord::Base
   belongs_to :group
 
   attr_accessible :amount, :group_id, :payment_date, :branch_id
-  validates_presence_of :amount, :group, :branch_id
+  validates_presence_of :amount, :group, :payment_date, :branch_id
+  validate :validate_payment_date
   validate :validate_amount
   validate :validate_group
 
@@ -13,6 +14,12 @@ class PaymentDate < ActiveRecord::Base
 
   scope :of_group, lambda { |group_id| where(:group_id => group_id) }
   scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
+
+  def validate_payment_date
+    if self.payment_date && self.payment_date.year > 2100
+      self.errors.add(:payment_date, "Дата туура эмес берилди")
+    end
+  end
 
   def validate_amount
     if self.amount <= 0

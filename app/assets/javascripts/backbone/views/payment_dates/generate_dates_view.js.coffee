@@ -6,16 +6,11 @@ class Secom.Views.PaymentDates.GenerateDatesView extends Backbone.View
   events: "click #generate": "generate"
 
   initialize: () ->
-    @payment_dates = @options.payment_dates
     @group = @options.group
-    @payment_dates.bind('reset', @addAll)
 
   generate: () ->
     if $("#each_month").is(":checked") || $("#days").is(":checked")
-      if @payment_dates.length > 0
-        confirmed = confirm("Мурда бул группага көрсөтүлгөн төлөө даталары өчүрүлөт!")
-      else
-        confirmed = true
+      confirmed = confirm("Эгер мурда көрсөтүлгөн төлөө даталары туура эмес болсо өчүрүлөт!")
 
       if confirmed
         @payment_dates = new Secom.Collections.PaymentDatesCollection()
@@ -31,7 +26,7 @@ class Secom.Views.PaymentDates.GenerateDatesView extends Backbone.View
     if resp["status"] == "success"
       @payment_dates.reset(@payment_dates.parse(resp["payment_dates"]))
       @group.set(resp["group"])
-      router.show(@group.get('id'))
+      router.indexPaymentDates(@group.get('id'))
     else
       alert(resp["error"])
 

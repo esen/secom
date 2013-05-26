@@ -1,5 +1,6 @@
 class Room < ActiveRecord::Base
   belongs_to :branch
+  has_many :courses, :dependent => :restrict
 
   attr_accessible :capacity, :title, :branch_id
   validates_presence_of :branch_id
