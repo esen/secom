@@ -17,7 +17,7 @@ class Secom.Routers.TimetableRouter extends Backbone.Router
 
     @teacher_names = {}
     @teachers.each (l) =>
-      @teacher_names[l.get('id')] = l.get('surname').substr(0, 10) + " " + l.get('name').substr(0, 1) + '.'
+      @teacher_names[l.get('id')] = l.get('surname').substr(0, 7) + " " + l.get('name').substr(0, 1) + '.'
 
     @room_names = {}
     @rooms.each (l) =>

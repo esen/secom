@@ -27,6 +27,7 @@ class Secom.Views.Timetables.GeneralView extends Backbone.View
             courses.push c.get('group_name') + ' (' + router.lesson_names[c.get('lesson_id')] + ")<br/>" + router.teacher_names[c.get('teacher_id')]
 
         td = $("<td>")
+        td.attr('style', 'color: #55d;')
         td.html(courses.join("<br/>"))
         @tr.append(td)
 

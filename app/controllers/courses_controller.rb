@@ -35,7 +35,7 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new(params[:course])
+    @course = Course.new(params[:course].except(:created_at, :updated_at, :group_name))
     @course.branch_id = current_user.branch_id
 
     respond_to do |format|
