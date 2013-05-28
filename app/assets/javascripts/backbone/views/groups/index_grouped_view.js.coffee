@@ -19,10 +19,11 @@ class Secom.Views.Groups.IndexGroupedView extends Backbone.View
   addGroup: (group) =>
     a = $(document.createElement('a'))
     a.attr('href', "#/" + group.get('id') + "/students/index")
-    a.addClass('btn btn-small')
-    a.html(group.get('name'))
+    a.attr('style', 'font-size: 1.2em;')
+    a.html(group.get('name') + "&nbsp;&nbsp;&nbsp;<i><b>#{group.get('student_num')}</b> | #{group.get('capacity')}</i>")
 
     @$("#level" + group.get('level_id')).append(a)
+    @$("#level" + group.get('level_id')).append("<br/>")
 
   render: =>
     $(@el).html(@template())

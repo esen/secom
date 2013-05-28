@@ -41,7 +41,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    @payment = Payment.new(params[:payment])
+    @payment = Payment.new(params[:payment].except(:created_at, :updated_at, :ort_participant_id))
     @payment.branch_id = current_user.branch_id
 
     respond_to do |format|
@@ -59,7 +59,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.find(params[:id])
 
     respond_to do |format|
-      if @payment.update_attributes(params[:payment].except(:created_at, :updated_at))
+      if @payment.update_attributes(params[:payment].except(:created_at, :updated_at, :ort_participant_id))
         format.html { redirect_to @payment, notice: 'Payment was successfully updated.' }
         format.json { head :no_content }
       else

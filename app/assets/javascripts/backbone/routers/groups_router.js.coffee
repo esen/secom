@@ -168,5 +168,6 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
   handle_courses_response: (resp, status, xhr) =>
     @courses.reset(@courses.parse(resp))
 
+
     @c_view = new Secom.Views.Courses.IndexView(courses: @courses, group: @group)
     $("#courses").html(@c_view.render().el)

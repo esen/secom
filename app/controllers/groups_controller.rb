@@ -4,7 +4,12 @@ class GroupsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @groups = with_courses(Group.of_branch(current_user.branch_id).all)
+    @groups = with_courses(
+        Group.of_branch(current_user.branch_id).
+            joins("LEFT JOIN students ON groups.id = students.group_id").
+            group("groups.id").
+            select("groups.*, COUNT(students.id) AS student_num")
+    )
     @levels = Level.of_branch(current_user.branch_id).all
     @student = Student.find(params[:student_id]) if params[:student_id]
 
@@ -44,7 +49,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names))
+    @group = Group.new(params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names, :student_num))
     @group.branch_id = current_user.branch_id
 
     respond_to do |format|
@@ -62,7 +67,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
 
     respond_to do |format|
-      if @group.update_attributes(params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names))
+      if @group.update_attributes(params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names, :student_num))
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { head :no_content }
       else

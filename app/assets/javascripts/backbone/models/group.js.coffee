@@ -10,6 +10,7 @@ class Secom.Models.Group extends Backbone.Model
     price: null
     capacity: null
     course_names: null
+    student_num: null
     to_pay: null
 
   is_valid: (payment_dates) ->

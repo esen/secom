@@ -1,5 +1,9 @@
 <div class="page-header">
   <h3>Окуучулар <%= (group) ? "(" + group.get('name') + ")" : "" %></h3>
+  <% if (group) { %>
+  окуучу саны: <b><span id="student_num"><%= student_num %></span></b><br/>
+  сыймдуулугу: <b><%= group.get('capacity') %></b>
+  <% } %>
 </div>
 
 
@@ -12,7 +16,7 @@
     <th>Телефон номери</th>
     <th>Адреси</th>
     <% if (group) { %>
-        <%= (ur == 'ad') ? "<th></th><th></th><th></th>" : (ur == 'dr') ? "<th></th>" : "" %>
+        <%= (ur == 'ad') ? "<th></th><th></th>" : (ur == 'dr') ? "<th></th>" : "" %>
     <% } else { %>
         <th>Группасы</th>
     <% }%>

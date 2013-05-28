@@ -5,4 +5,12 @@
 <td><%= total_payment %></td>
 <td><%= Math.max(to_pay - total_payment, 0) %></td>
 <td><%= Math.max(total_payment - to_pay, 0) %></td>
+<% if (ur == 'ac') { %>
+    <% if (active) { %>
+        <td><span class="btn btn-mini btn-danger deactivate">пассивдештирүү</span></td>
+    <% } else { %>
+        <td><span class="btn btn-mini btn-primary activate">активдештирүү</span></td>
+    <% } %>
+<% } %>
+
 

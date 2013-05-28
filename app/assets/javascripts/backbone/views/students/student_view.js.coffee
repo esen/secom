@@ -29,7 +29,9 @@ class Secom.Views.Students.StudentView extends Backbone.View
 
   destroy: () ->
     if (confirm('Are you sure?'))
+      student_num = @model.collection.length
       @model.destroy()
+      $("#student_num").html(student_num - 1)
       this.remove()
 
     return false

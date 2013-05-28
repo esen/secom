@@ -114,7 +114,7 @@ class ReportsController < ApplicationController
       @payments[:students] = Payment.of_branch(current_user.branch_id).joins(:student).group(:student_id).
           where("payments.payed_at BETWEEN ? AND ?", @start_date, @end_date).
           select("CONCAT(students.name,' ',students.surname) AS student_name, SUM(payments.amount) AS amount")
-      @payments[:ort_participants] = Ort::Payment.of_branch(1).joins(:participant).group(:participant_id).
+      @payments[:ort_participants] = Ort::Payment.of_branch(current_user.branch_id).joins(:participant).group(:participant_id).
           where("ort_payments.created_at BETWEEN ? AND ?", @start_date, @end_date).
           select("ort_participants.name AS participant_name, SUM(ort_payments.amount) AS amount")
       @payments[:sources] = Payment.of_branch(current_user.branch_id).joins(:source).group(:source_id).

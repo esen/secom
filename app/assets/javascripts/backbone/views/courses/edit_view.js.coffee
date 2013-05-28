@@ -54,6 +54,24 @@ class Secom.Views.Courses.EditView extends Backbone.View
     router.course_times.each(@addCourseTime)
     router.rooms.each(@addRoom)
 
-    this.$("form").backboneLink(@model)
+    ((model) =>
+      this.$("form").find(":input").each(() ->
+        el = $(this)
+        name = el.attr("name")
+
+        model.bind("change:#{name}", () ->
+          el.val(model.get(name))
+        )
+
+        $(this).bind("change", () ->
+          el = $(this)
+          attrs = {}
+          value = if el.is ':checkbox' then el.is(":checked") else el.val()
+          attrs[el.attr("name")] = value
+
+          model.set(attrs)
+        )
+      )
+    )(@model)
 
     return this

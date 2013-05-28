@@ -33,7 +33,7 @@ class Secom.Views.Courses.CourseView extends Backbone.View
     room = router.rooms.get(@model.get('room_id'))
 
     lesson = if lesson then lesson.get('title') else '-'
-    course_time = if course_time then (course_time.get('starts_at') + " - " + course_time.get('starts_at')) else '-'
+    course_time = if course_time then (course_time.get('starts_at') + " - " + course_time.get('ends_at')) else '-'
     teacher = if teacher then teacher.get('name') + " " + teacher.get('surname') else '-'
     room = if room then room.get('title') else '-'
 

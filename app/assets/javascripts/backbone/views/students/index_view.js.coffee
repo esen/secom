@@ -19,7 +19,7 @@ class Secom.Views.Students.IndexView extends Backbone.View
       $(@el).html(@with_payments_template(group: @options.group))
       @addAll()
     else
-      $(@el).html(@template(group: @options.group || null))
+      $(@el).html(@template(group: @options.group || null, student_num: @options.students.length))
       @addAll()
 
     return this
