@@ -1,6 +1,7 @@
 class Ort::ParticipantsController < ApplicationController
   before_filter :authenticate_user!, :except => [:show_mark]
   before_filter :authenticate_participant!, :only => [:show_mark]
+  load_and_authorize_resource
 
   def index
     respond_to do |format|
