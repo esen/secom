@@ -10,24 +10,23 @@ class Ability
       when 'dr'
         can :manage, [Attendance, Course, CourseTime, Expense, Group, Hole, Lesson,
                       Level, Payment, PaymentDate, Room, Source, Student, Teacher,
-                      Ort::Cheque, Ort::Exam, Ort::ExamType, Ort::Participant, Ort::Payment, Report]
+                      Ort::Cheque, Ort::Exam, Ort::ExamType, Ort::Participant, Ort::Payment]
 
       when 'vd'
         can :manage, [Course, Group, Teacher, Room, CourseTime, Lesson, Level]
 
       when 'ad'
         can :manage, Student
-        can :read, Group
 
       when 'ac'
-        can [:activate, :deactivate, :read], Student
+        can [:activate, :deactivate], Student
         can :manage, [Payment, Source, Expense, Hole]
-        can :read, Group
 
       when 'tr'
         can :manage, [Attendance]
-        can :read, [Group, Student]
     end
+
+    can :read, :all
 
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
