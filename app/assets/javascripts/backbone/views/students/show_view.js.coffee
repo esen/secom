@@ -31,7 +31,7 @@ class Secom.Views.Students.ShowView extends Backbone.View
       @$("#loan").html(loan)
 
   render: ->
-    @group = @options.groups.get(@model.get('group_id'))
+    @group = @options.group || @options.groups.get(@model.get('group_id'))
 
     switch ur
       when 'ac'

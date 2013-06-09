@@ -6,6 +6,7 @@ Secom::Application.routes.draw do
   get "reports/timetable"
   post "reports/funds"
 
+  resources :attendances
   resources :courses
   resources :branches
   resources :expenses

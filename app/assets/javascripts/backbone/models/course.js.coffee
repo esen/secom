@@ -15,7 +15,11 @@ class Secom.Models.Course extends Backbone.Model
     friday: null
     saturday: null
     sunday: null
+    dates: null
     group_name: null
+    lesson_name: null
+    room_name: null
+    course_times: null
 
 class Secom.Collections.CoursesCollection extends Backbone.Collection
   model: Secom.Models.Course

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Branch:</b>
+  <%= @attendance.branch_id %>
+</p>
+
+<p>
+  <b>Student:</b>
+  <%= @attendance.student_id %>
+</p>
+
+<p>
+  <b>Course:</b>
+  <%= @attendance.course_id %>
+</p>
+
+<p>
+  <b>Attended:</b>
+  <%= @attendance.attended %>
+</p>
+
+<p>
+  <b>Percentage:</b>
+  <%= @attendance.percentage %>
+</p>
+
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>

@@ -1,47 +1,12 @@
-<h1>Listing courses</h1>
+<div id="courses"></div>
+<br/>
+<div id="sub_block"></div>
 
-<table>
-  <tr>
-    <th>Group</th>
-    <th>Lesson</th>
-    <th>Course time</th>
-    <th>Teacher</th>
-    <th>Room</th>
-    <th>Branch</th>
-    <th>Monday</th>
-    <th>Tuesday</th>
-    <th>Wednesday</th>
-    <th>Thursday</th>
-    <th>Friday</th>
-    <th>Saturday</th>
-    <th>Sunday</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @courses.each do |course| %>
-  <tr>
-    <td><%= course.group_id %></td>
-    <td><%= course.lesson_id %></td>
-    <td><%= course.course_time_id %></td>
-    <td><%= course.teacher_id %></td>
-    <td><%= course.room_id %></td>
-    <td><%= course.branch_id %></td>
-    <td><%= course.monday %></td>
-    <td><%= course.tuesday %></td>
-    <td><%= course.wednesday %></td>
-    <td><%= course.thursday %></td>
-    <td><%= course.friday %></td>
-    <td><%= course.saturday %></td>
-    <td><%= course.sunday %></td>
-    <td><%= link_to 'Show', course %></td>
-    <td><%= link_to 'Edit', edit_course_path(course) %></td>
-    <td><%= link_to 'Destroy', course, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Course', new_course_path %>
+<script type="text/javascript">
+    window.onload = function () {
+        window.router = new Secom.Routers.CoursesRouter({
+            courses: <%= @courses.to_json.html_safe -%>
+        });
+        Backbone.history.start();
+    };
+</script>

@@ -5,11 +5,14 @@ class Course < ActiveRecord::Base
   belongs_to :teacher
   belongs_to :course_time
   belongs_to :room
+  has_many :attendances, :dependent => :destroy
+
+  serialize :dates, Array
 
   after_save :calculate_capacity_of_group
   after_destroy :calculate_capacity_of_group
 
-  attr_accessible :branch_id, :course_time_id, :friday, :group_id, :lesson_id, :monday, :room_id, :saturday, :sunday, :teacher_id, :thursday, :tuesday, :wednesday
+  attr_accessible :branch_id, :course_time_id, :friday, :group_id, :lesson_id, :monday, :room_id, :saturday, :sunday, :teacher_id, :thursday, :tuesday, :wednesday, :dates
 
   scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
   scope :of_group, lambda { |group_id| where(:group_id => group_id) }

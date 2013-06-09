@@ -3,7 +3,15 @@ class CoursesController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html # index.html.erb
+      format.html do
+        if current_user.role = 'tr'
+          @courses = Teacher.first.courses.
+              joins(:group).joins(:lesson).joins(:room).joins(:course_time).
+              select("courses.*, groups.name AS group_name, lessons.title AS lesson_name, rooms.title AS room_name, " +
+                         "CONCAT(course_times.starts_at, ' - ', course_times.ends_at) AS course_times")
+        end
+      end
+
       format.json do
         @courses = (params[:group_id]) ? Course.of_group(params[:group_id]) : []
 
@@ -35,7 +43,7 @@ class CoursesController < ApplicationController
   end
 
   def create
-    @course = Course.new(params[:course].except(:created_at, :updated_at, :group_name))
+    @course = Course.new(params[:course].except(:created_at, :updated_at, :group_name, :lesson_name, :room_name, :course_times))
     @course.branch_id = current_user.branch_id
 
     respond_to do |format|
@@ -53,7 +61,7 @@ class CoursesController < ApplicationController
     @course = Course.find(params[:id])
 
     respond_to do |format|
-      if @course.update_attributes(params[:course].except(:created_at, :updated_at, :group_name))
+      if @course.update_attributes(params[:course].except(:created_at, :updated_at, :group_name, :lesson_name, :room_name, :course_times))
         format.html { redirect_to @course, notice: 'Course was successfully updated.' }
         format.json { head :no_content }
       else

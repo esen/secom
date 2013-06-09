@@ -16,7 +16,7 @@
     <% if (ur == 'ad') { %>
         <td><a href="#/<%= group.get('id') %>/students/<%= id %>/edit" class="btn btn-mini">өзгөртүү</a></td>
         <td><a href="#/<%= group.get('id') %>/students/<%= id %>/destroy" class="btn btn-mini btn-danger destroy">өчүр</a></td>
-    <% } else { %>
+    <% } else if (ur == 'dr') { %>
         <td><a href="#/<%= group.get('id') %>/students/<%= id %>/discount" class="btn btn-mini">жеңилдетүү</a></td>
     <% } %>
 <% } %>

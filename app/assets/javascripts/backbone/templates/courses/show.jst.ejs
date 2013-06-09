@@ -1,67 +1,11 @@
-<p>
-  <b>Group:</b>
-  <%= group_id %>
-</p>
+<div class="page-header">
+  <h1><%= group_name %></h1>
+  <%= lesson_name %>
+</div>
 
-<p>
-  <b>Lesson:</b>
-  <%= lesson_id %>
-</p>
-
-<p>
-  <b>Course time:</b>
-  <%= course_time_id %>
-</p>
-
-<p>
-  <b>Teacher:</b>
-  <%= teacher_id %>
-</p>
-
-<p>
-  <b>Room:</b>
-  <%= room_id %>
-</p>
-
-<p>
-  <b>Branch:</b>
-  <%= branch_id %>
-</p>
-
-<p>
-  <b>Monday:</b>
-  <%= monday %>
-</p>
-
-<p>
-  <b>Tuesday:</b>
-  <%= tuesday %>
-</p>
-
-<p>
-  <b>Wednesday:</b>
-  <%= wednesday %>
-</p>
-
-<p>
-  <b>Thursday:</b>
-  <%= thursday %>
-</p>
-
-<p>
-  <b>Friday:</b>
-  <%= friday %>
-</p>
-
-<p>
-  <b>Saturday:</b>
-  <%= saturday %>
-</p>
-
-<p>
-  <b>Sunday:</b>
-  <%= sunday %>
-</p>
-
-
-<a href="#/index">Back</a>
+<div class="form-actions">
+    <a href="#index" class="btn btn-small">артка</a>
+    <a href="#<%= id %>/attendances/index" class="btn btn-small">жоктомо</a>
+    <a href="#<%= id %>/tests/index" class="btn btn-small">тесттер</a>
+    <a href="#<%= id %>/homeworks/index" class="btn btn-small">үй тапшырмалары</a>
+</div>
