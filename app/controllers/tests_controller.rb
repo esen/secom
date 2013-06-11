@@ -39,6 +39,43 @@ class TestsController < ApplicationController
     end
   end
 
+  def marks
+    respond_to do |format|
+      format.json do
+        status = :success
+
+        marks = params[:marks].split("|")
+        test = Test.find(params[:test_id])
+        test_results = TestResult.of_test(test.id)
+        existing_results = test_results.inject({}) { |h, tr| h[tr.student_id] = tr; h }
+
+        marks.each do |m|
+          id, mark = m.split("=")
+          mark = mark.to_i
+          id = id.to_i
+
+          if existing_results[id].nil?
+            test.test_results.new :student_id => id, :mark => mark
+          elsif existing_results[id].mark != mark
+            existing_results[id].mark = mark
+            existing_results[id].save
+          end
+        end
+
+        begin
+          test.save
+        rescue Exception => e
+          status = :error
+        end
+
+        test_results.reload
+        results = test_results.inject({}) { |h, tr| h[tr.student_id] = tr.mark; h }
+
+        render json: {:status => status, :results => results}
+      end
+    end
+  end
+
   def show
     @test = Test.find(params[:id])
 

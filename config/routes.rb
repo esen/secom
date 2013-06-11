@@ -13,7 +13,13 @@ Secom::Application.routes.draw do
   end
 
   resources :test_results
-  resources :tests
+
+  resources :tests do
+    collection do
+      post 'marks'
+    end
+  end
+
   resources :courses do
     resources :tests
   end

@@ -5,6 +5,7 @@ class Secom.Models.TestResult extends Backbone.Model
     student_id: null
     test_id: null
     mark: null
+    student_name: null
 
 class Secom.Collections.TestResultsCollection extends Backbone.Collection
   model: Secom.Models.TestResult

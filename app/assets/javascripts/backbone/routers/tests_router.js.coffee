@@ -19,6 +19,7 @@ class Secom.Routers.TestsRouter extends Backbone.Router
     $("#tests").html(@view.render().el)
 
   index: ->
+    $("#sub_block").empty()
     @view = new Secom.Views.Tests.IndexView(tests: @tests, homework: @homework)
     $("#tests").html(@view.render().el)
 

@@ -1,17 +1,25 @@
 class TestResultsController < ApplicationController
-  # GET /test_results
-  # GET /test_results.json
+  before_filter :authenticate_user!
+  before_filter :filter_params
+  load_and_authorize_resource
+
   def index
-    @test_results = TestResult.all
+    test = Test.find(params[:test_id])
+    @test_results = TestResult.of_test(test.id)
+    @students = test.course.group.students
+
+    @results = {}
+    @test_results.each do |tr|
+      @results[tr.student_id] = tr.mark
+    end
+
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @test_results }
+      format.json { render json: {"results" => @results, "students" => @students} }
     end
   end
 
-  # GET /test_results/1
-  # GET /test_results/1.json
   def show
     @test_result = TestResult.find(params[:id])
 
@@ -21,8 +29,6 @@ class TestResultsController < ApplicationController
     end
   end
 
-  # GET /test_results/new
-  # GET /test_results/new.json
   def new
     @test_result = TestResult.new
 
@@ -32,13 +38,10 @@ class TestResultsController < ApplicationController
     end
   end
 
-  # GET /test_results/1/edit
   def edit
     @test_result = TestResult.find(params[:id])
   end
 
-  # POST /test_results
-  # POST /test_results.json
   def create
     @test_result = TestResult.new(params[:test_result])
 
@@ -53,8 +56,6 @@ class TestResultsController < ApplicationController
     end
   end
 
-  # PUT /test_results/1
-  # PUT /test_results/1.json
   def update
     @test_result = TestResult.find(params[:id])
 
@@ -69,8 +70,6 @@ class TestResultsController < ApplicationController
     end
   end
 
-  # DELETE /test_results/1
-  # DELETE /test_results/1.json
   def destroy
     @test_result = TestResult.find(params[:id])
     @test_result.destroy
@@ -79,5 +78,11 @@ class TestResultsController < ApplicationController
       format.html { redirect_to test_results_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def filter_params
+    params[:test_result] = params[:test_result].except(:student_name) if params[:test_result]
   end
 end
