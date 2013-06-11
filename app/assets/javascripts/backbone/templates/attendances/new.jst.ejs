@@ -1,35 +1,10 @@
-<h1>New attendance</h1>
+<div class="span4">
+    <h5>Окуучулар</h5>
+    <form id="new-attendance" name="attendance" class='form-horizontal' style="margin: 0px;">
+    </form>
+</div>
 
-<form id="new-attendance" name="attendance">
-  <div class="field">
-    <label for="branch_id"> branch_id:</label>
-    <input type="text" name="branch_id" id="branch_id" value="<%= branch_id %>" >
-  </div>
-
-  <div class="field">
-    <label for="student_id"> student_id:</label>
-    <input type="text" name="student_id" id="student_id" value="<%= student_id %>" >
-  </div>
-
-  <div class="field">
-    <label for="course_id"> course_id:</label>
-    <input type="text" name="course_id" id="course_id" value="<%= course_id %>" >
-  </div>
-
-  <div class="field">
-    <label for="attended"> attended:</label>
-    <input type="text" name="attended" id="attended" value="<%= attended %>" >
-  </div>
-
-  <div class="field">
-    <label for="percentage"> percentage:</label>
-    <input type="text" name="percentage" id="percentage" value="<%= percentage %>" >
-  </div>
-
-  <div class="actions">
-    <input type="submit" value="Create Attendance" />
-  </div>
-
-</form>
-
-<a href="#/index">Back</a>
+<div class="span2">
+    <h5><%= selected_date %></h5>
+    <span id="save" class="btn btn-small btn-primary">Сакта</span>
+</div>

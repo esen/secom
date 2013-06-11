@@ -42,18 +42,39 @@ class Secom.Routers.CoursesRouter extends Backbone.Router
       @view = new Secom.Views.Students.ShowView(model: student, group: @group)
       $("#sub_block").html(@view.render().el)
 
-  indexAttendances: (id) ->
+  indexAttendances: (id, show_all = false) ->
     unless @show_rendered
       @index()
     else
       @course = @courses.get(id)
 
       @attendances = new Secom.Collections.AttendancesCollection()
-      $.get(@attendances.url, "course_id=#{id}", @handle_attendances_response, 'json')
+      data = "course_id=#{id}"
+      data += "&all=true" if show_all
+      $.get(@attendances.url, data, @handle_attendances_response, 'json')
 
   handle_attendances_response: (resp, status, xhr) =>
-    @attendances.reset(@attendances.parse(resp["attendances"]))
-    @dates = resp["course_dates"]
+    @students = new Secom.Collections.StudentsCollection()
 
-    view = new Secom.Views.Attendances.IndexView(attendances: @attendances, dates: @dates)
-    $("#sub_block").html(view.render().el)
+    @attendances.reset(@attendances.parse(resp["attendances"]))
+    @attendances.reset(@attendances.sortBy((a) -> a.get('checked_at')))
+    @students.reset(@students.parse(resp["students"]))
+
+    @a_view = new Secom.Views.Attendances.IndexView(attendances: @attendances, students: @students)
+    $("#sub_block").html(@a_view.render().el)
+
+    disabled_days = []
+    disabled_days.push 0 unless @course.get('monday')
+    disabled_days.push 1 unless @course.get('tuesday')
+    disabled_days.push 2 unless @course.get('wednesday')
+    disabled_days.push 3 unless @course.get('thursday')
+    disabled_days.push 4 unless @course.get('friday')
+    disabled_days.push 5 unless @course.get('saturday')
+    disabled_days.push 6 unless @course.get('sunday')
+
+    @checkout = $('#date_to_check').datepicker({
+      format: "yyyy-mm-dd",
+      daysOfWeekDisabled: disabled_days
+    }).on('changeDate', (ev) =>
+      @checkout.hide()
+    ).data('datepicker')

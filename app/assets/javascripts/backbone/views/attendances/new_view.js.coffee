@@ -4,34 +4,46 @@ class Secom.Views.Attendances.NewView extends Backbone.View
   template: JST["backbone/templates/attendances/new"]
 
   events:
-    "submit #new-attendance": "save"
+    "click #save": "save"
 
   constructor: (options) ->
     super(options)
-    @model = new @collection.model()
-
-    @model.bind("change:errors", () =>
-      this.render()
-    )
+    @selected_date = options.selected_date
+    @students = options.students
+    @attendances = options.attendances
 
   save: (e) ->
-    e.preventDefault()
-    e.stopPropagation()
+    @checked_students = []
 
-    @model.unset("errors")
+    @students.each (student) =>
+      @checked_students.push student.get('id') if $("#student#{student.get('id')}").is(":checked")
 
-    @collection.create(@model.toJSON(),
-      success: (attendance) =>
-        @model = attendance
-        window.location.hash = "/#{@model.id}"
+    data = "course_id=#{router.course.get('id')}&date=#{@selected_date}&students=#{@checked_students.join('|')}"
+    $.post(router.attendances.url + '/check', data, @handle_check_response, 'json')
 
-      error: (attendance, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
-    )
+  handle_check_response: (resp, status, xhr) =>
+    if resp["status"] == "success"
+      router.a_view.remove()
+      router.indexAttendances(router.course.get('id'))
+    else
+      alert("Ката чыкты!")
 
   render: ->
-    $(@el).html(@template(@model.toJSON() ))
+    $(@el).html(@template({selected_date: @selected_date}))
+    $(@el).addClass("row")
 
-    this.$("form").backboneLink(@model)
+    @students.each (student) =>
+      div = $("<div class=\"control-group\">")
+      label = $("<label for=\"student#{student.get('id')}\" class=\"control-label\">#{student.get('name') + ' ' + student.get('surname')}&nbsp;</label>")
+      cdiv = $("<div class=\"controls\" style=\"margin: 0px;\"></div>")
+
+      checked = if @attendances[student.get('id')] then 'checked' else ''
+      input = $("<input type=\"checkbox\" class=\"check_box\" id=\"student#{student.get('id')}\" #{checked}>")
+
+      cdiv.append(input)
+      cdiv.append(label)
+      div.html(cdiv)
+
+      @$("#new-attendance").append(div)
 
     return this

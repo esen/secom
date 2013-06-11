@@ -7,37 +7,58 @@ class AttendancesController < ApplicationController
       format.html # index.html.erb
       format.json do
         if params[:course_id]
-          attendances = Attendance.of_course(params[:course_id])
+          attendances = Attendance.of_course(params[:course_id]).order("checked_at DESC")
+          attendances = attendances.limit(20) unless params[:all] == 'true'
+          course = Course.find(params[:course_id])
+          students = Student.of_group(course.group_id).select([:id, :name, :surname])
 
-          #course = Course.find(params[:course_id])
-          #course_dates = course.dates
-          #if course_dates.count == 0
-          #  group = Group.find(course.group_id)
-          #  last_date = group.started_at
-          #else
-          #  last_date = course_dates.last + 1.days
-          #end
-          #
-          #today = Date.today
-          #weekdays = []
-          #weekdays << 1 if course.monday?
-          #weekdays << 2 if course.tuesday?
-          #weekdays << 3 if course.wednesday?
-          #weekdays << 4 if course.thursday?
-          #weekdays << 5 if course.friday?
-          #weekdays << 6 if course.saturday?
-          #weekdays << 7 if course.sunday?
-          #
-          #while last_date <= today
-          #  course_dates << last_date if weekdays.include? last_date.wday
-          #  last_date += 1.days
-          #  break if course_dates.count > 1000
-          #end
 
-          render json: {:attendances => attendances, :course_dates => course_dates}
+          render json: {:attendances => attendances, :students => students}
         else
           render json: {}
         end
+      end
+    end
+  end
+
+  def check
+    course = Course.find(params[:course_id])
+    date = Date.parse(params[:date])
+    student_ids = params[:students].split('|')
+
+    status = :success
+    attendances = Attendance.of_course(course.id).where(:checked_at => date, :attended => true)
+
+    grouped_by_student = {}
+    attendances.each do |a|
+      grouped_by_student[a.student_id] = a
+    end
+
+    student_ids.each do |id|
+      unless grouped_by_student[id]
+        course.attendances.new :checked_at => date, :student_id => id, :attended => true
+      end
+    end
+
+    begin
+      course.save!
+    rescue Exception => e
+      status = :error
+    end
+
+    grouped_by_student.each_pair do |id, a|
+      unless student_ids.include? id
+        begin
+          a.destroy
+        rescue Exception => e
+          status = :error
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.json do
+        render json: {:status => status}
       end
     end
   end
