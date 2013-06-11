@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  test_date: 2013-06-11
+  homework: false
+  course_id: 1
+
+two:
+  name: MyString
+  test_date: 2013-06-11
+  homework: false
+  course_id: 1

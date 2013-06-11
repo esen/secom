@@ -23,7 +23,7 @@ class Ability
         can :manage, [Payment, Source, Expense, Hole]
 
       when 'tr'
-        can :manage, [Attendance]
+        can :manage, [Attendance, Test, TestResult]
     end
 
     can :read, :all

@@ -1,0 +1,15 @@
+<div id="tests"></div>
+<br/>
+<div id="sub_block"></div>
+
+<script type="text/javascript">
+    window.onload = function () {
+        window.router = new Secom.Routers.TestsRouter({
+            tests: <%= @tests.to_json.html_safe -%>,
+            courses: <%= @courses.to_json.html_safe -%>,
+            course: <%= @course.to_json.html_safe -%>,
+            homework: <%= params[:homework].to_s == 'true' %>
+        });
+        Backbone.history.start();
+    };
+</script>

@@ -11,6 +11,8 @@ class Secom.Views.Levels.OptionListView extends Backbone.View
         @model.get('name') + " " + @model.get('surname')
       when 'time'
         @model.get('starts_at') + ' - ' + @model.get('ends_at')
+      when 'lesson_group'
+        @model.get('lesson_name') + " (" + @model.get('group_name') + ")"
       else
         @model.get('name')
 

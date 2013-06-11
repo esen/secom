@@ -42,7 +42,7 @@ class Secom.Views.Courses.NewView extends Backbone.View
         )
 
       error: (course, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
+        alert("Ката чыкты!")
     )
 
   addLesson: (lesson) =>

@@ -1,0 +1,15 @@
+<div class="page-header">
+  <h1><%= (homework) ? 'Үй тапшырмалары' : 'Тесттер' %></h1>
+</div>
+
+<table id="tests-table" class="table table-bordered table-hover">
+    <tr>
+        <th>Аталышы</th>
+        <th>Предмет</th>
+        <th>Группа</th>
+        <th>Дата</th>
+        <th></th>
+    </tr>
+</table>
+
+<a href="#/new" class="btn btn-small btn-primary new-course">Жаңы <%= (homework) ? 'үй тапшырма' : 'тест' %> кош</a>

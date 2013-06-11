@@ -1,0 +1,34 @@
+<div class="page-header">
+  <h3>Жаңы <%= (homework) ? 'үй тапшырма' : 'тест' %></h3>
+</div>
+
+<form id="new-test" name="test" class='form-vertical'>
+    <div class="control-group">
+        <label for="name" class="control-label"> Аталышы:</label>
+        <div class="controls">
+            <input type="text" class="text_field" name="name" id="name" value="<%= name %>" >
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="course_id" class="control-label"> Сабак:</label>
+        <div class="controls">
+            <select name="course_id" id="course_id">
+            </select>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <label for="test_date" class="control-label"> Дата:</label>
+        <div class="controls">
+            <input type="text" class="text_field" name="test_date" id="test_date" value="" >
+        </div>
+    </div>
+
+    <input type="hidden" name="homework" id="homework" value="<%= homework %>" >
+
+    <div class="form-actions">
+        <a href="#/" class="btn btn-small back">Артка</a>
+        <input type="submit" value="<%= (homework) ? 'үй тапшырманы' : 'Тестти' %> сакта" class="btn btn-small btn-primary"/>
+    </div>
+</form>

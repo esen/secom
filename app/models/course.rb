@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   belongs_to :course_time
   belongs_to :room
   has_many :attendances, :dependent => :destroy
+  has_many :tests, :dependent => :destroy
 
   serialize :dates, Array
 

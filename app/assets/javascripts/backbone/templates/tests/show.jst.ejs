@@ -1,0 +1,20 @@
+<div class="page-header">
+    <h3><%= (homework) ? 'Үй тапшырма' : 'Тест' %></h3>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong>Аталышы:</strong></dt>
+  <dd><%= name || '-' %></dd>
+  <dt><strong>Сабак:</strong></dt>
+  <dd><%= course_name %></dd>
+  <dt><strong>Группа:</strong></dt>
+  <dd><%= group_name %></dd>
+  <dt><strong>Дата:</strong></dt>
+  <dd><%= test_date %></dd>
+</dl>
+
+<div class="form-actions">
+    <a href="#/index" class="btn btn-small"><%= (homework) ? 'Үй тапшырмалары' : 'Тесттер' %></a>
+    <a href="#/<%= id %>/edit" class="btn btn-small">өзгөртүү</a>
+    <span class="btn btn-small btn-danger destroy">өчүр</span>
+</div>

@@ -12,7 +12,11 @@ Secom::Application.routes.draw do
     end
   end
 
-  resources :courses
+  resources :test_results
+  resources :tests
+  resources :courses do
+    resources :tests
+  end
   resources :branches
   resources :expenses
   resources :holes

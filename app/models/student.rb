@@ -4,6 +4,7 @@ class Student < ActiveRecord::Base
 
   has_many :payments, :dependent => :restrict
   has_many :attendances, :dependent => :destroy
+  has_many :test_results, :dependent => :destroy
 
   attr_accessible :active, :address, :birth_date, :discount, :finished_at, :group_id, :name, :phone, :school, :started_at, :surname, :branch_id
   validates_presence_of :name, :group, :branch_id
