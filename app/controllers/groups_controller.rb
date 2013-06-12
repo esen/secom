@@ -97,7 +97,7 @@ class GroupsController < ApplicationController
 
   def activate
     @group = Group.find(params[:id])
-    started_at = Date.parse(params[:started_at]) rescue nil
+    started_at = Date.parse(params[:started_at]) rescue @group.started_at
 
     respond_to do |format|
       format.json do
@@ -110,6 +110,7 @@ class GroupsController < ApplicationController
             render json: {status: "error", error: @group.errors.full_messages}
           end
         else
+          puts @group.errors.inspect
           @group.active = false
           if params_valid
             @group.payment_dates.destroy_all

@@ -13,7 +13,7 @@ class StudentsController < ApplicationController
         if params[:group_id]
           @payment_dates = Group.find(params[:group_id]).payment_dates
 
-          if @payment_dates.count > 0
+          if @payment_dates.where("payment_date <= ?", Date.today).count > 0
             @group = Group.joins(:payment_dates).
                 where("groups.id = ? AND payment_dates.payment_date <= ?", params[:group_id], Date.today).
                 group(:id).

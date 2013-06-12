@@ -73,7 +73,7 @@
       <!-- Menus -->
       <%- if is_ort? || current_user %>
           <%- menu = render :partial => "menus/menu" %>
-          <ul class="nav nav-tabs nav-stacked hidden-phone" width="200px;"><%= menu %></ul>
+          <ul class="nav nav-tabs nav-stacked affix hidden-phone" width="150px;"><%= menu %></ul>
           <ul class="nav nav-tabs nav-stacked visible-phone"><%= menu %></ul>
       <%- end %>
     </div>

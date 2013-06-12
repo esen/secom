@@ -137,6 +137,12 @@ class ReportsController < ApplicationController
     @rooms = Room.of_branch(current_user.branch_id)
     @teachers = Teacher.of_branch(current_user.branch_id)
     @courses = Course.of_branch(current_user.branch_id).with_group_name
+
+    puts @course_times.inspect
+    puts @lessons.inspect
+    puts @rooms.inspect
+    puts @teachers.inspect
+    puts @courses.inspect
   end
 
   private
