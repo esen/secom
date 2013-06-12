@@ -71,27 +71,10 @@
       <%= link_to image_tag("secom-logo.png", :style => "padding:10px;"), root_path %>
 
       <!-- Menus -->
-      <%- if is_ort? %>
-          <ul class="nav nav-tabs nav-stacked affix">
-            <%- if current_user %>
-                <li class="nav-header">Exams</li>
-                <li><%= link_to "Start new exam", "/ort/exams/new" %></li>
-                <li><%= link_to "Enroll participant for an exam", "/ort/cheques/new" %></li>
-                <li class="nav-header">Payments</li>
-                <li><%= link_to "New payment", "/ort/payments/new" %></li>
-                <li><%= link_to "Payment history", "/ort/payments" %></li>
-                <!--/.well -->
-            <%- else %>
-                <li><%= link_to t("ORT Results"), "/ort_results" %></li>
-            <%- end %>
-          </ul>
-      <%- else %>
-          <%- if current_user %>
-              <ul class="nav nav-tabs nav-stacked affix">
-                <li class="nav-header">Меню</li>
-                <%= render :partial => "menus/#{current_user.role}" %>
-              </ul>
-          <%- end %>
+      <%- if is_ort? || current_user %>
+          <%- menu = render :partial => "menus/menu" %>
+          <ul class="nav nav-tabs nav-stacked hidden-phone" width="200px;"><%= menu %></ul>
+          <ul class="nav nav-tabs nav-stacked visible-phone"><%= menu %></ul>
       <%- end %>
     </div>
     <!--/span-->

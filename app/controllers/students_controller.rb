@@ -11,13 +11,16 @@ class StudentsController < ApplicationController
 
       format.json do
         if params[:group_id]
-          @group = Group.of_branch(current_user.branch_id).
-              joins(:payment_dates).
-              where("groups.id = ? AND payment_dates.payment_date <= ?", params[:group_id], Date.today).
-              group(:id).
-              select("groups.*, SUM(payment_dates.amount) AS to_pay").first
-
           @payment_dates = Group.find(params[:group_id]).payment_dates
+
+          if @payment_dates.count > 0
+            @group = Group.joins(:payment_dates).
+                where("groups.id = ? AND payment_dates.payment_date <= ?", params[:group_id], Date.today).
+                group(:id).
+                select("groups.*, SUM(payment_dates.amount) AS to_pay").first
+          else
+            @group = Group.where("groups.id = ?", params[:group_id]).select("groups.*, 0 AS to_pay").first
+          end
 
           @students = Student.of_branch(current_user.branch_id).
               of_group(params[:group_id]).

@@ -5,6 +5,7 @@
 <table class="table table-striped">
   <thead>
   <tr>
+    <th>ID(for loggin in)</th>
     <th>Name</th>
     <th>Mark</th>
     <th>Paid</th>
@@ -14,6 +15,7 @@
   <tbody>
   <% @cheques.each do |cheque| %>
       <tr>
+        <td><%= "%05d" % cheque.id %></td>
         <td><%= link_to cheque.participant.name, ort_participant_path(cheque.participant) %></td>
         <td><%= cheque.mark %></td>
         <td style="color: #<%= @payments[cheque.participant_id].to_i >= @exam.cost ?  'green' : 'red' %>"><%= @payments[cheque.participant_id] %></td>

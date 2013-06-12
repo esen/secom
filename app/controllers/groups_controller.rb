@@ -2,6 +2,7 @@
 
 class GroupsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :filter_params
   load_and_authorize_resource
 
   def index
@@ -96,10 +97,12 @@ class GroupsController < ApplicationController
 
   def activate
     @group = Group.find(params[:id])
+    started_at = Date.parse(params[:started_at]) rescue nil
 
     respond_to do |format|
       format.json do
         @group.active = true
+        @group.started_at = started_at
         if @group.valid?
           if @group.save
             render json: {status: "success", group: @group}
@@ -110,7 +113,7 @@ class GroupsController < ApplicationController
           @group.active = false
           if params_valid
             @group.payment_dates.destroy_all
-            @group.started_at = Date.parse(params[:started_at])
+            @group.started_at = started_at
 
             price = @group.price
             sum = params[:period]=="month" ? params[:monthsum].to_i : params[:dayssum].to_i
@@ -204,5 +207,9 @@ class GroupsController < ApplicationController
     end
 
     gs
+  end
+
+  def filter_params
+    params[:group] = params[:group].except(:created_at, :updated_at, :to_pay, :capacity, :course_names, :student_num) if params[:group]
   end
 end

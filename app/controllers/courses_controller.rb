@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :filter_params
   load_and_authorize_resource
 
   def index
@@ -80,5 +81,9 @@ class CoursesController < ApplicationController
       format.html { redirect_to courses_url }
       format.json { head :no_content }
     end
+  end
+
+  def filter_params
+    params[:course] = params[:course].except(:created_at, :updated_at, :group_name, :lesson_name, :room_name, :course_times) if params[:course]
   end
 end

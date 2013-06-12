@@ -3,7 +3,7 @@
 <script type="text/javascript">
     window.onload = function () {
         // Secom is the app name
-        window.router = new Secom.Routers.SourcesRouter({levels: <%= @sources.to_json.html_safe -%>});
+        window.router = new Secom.Routers.SourcesRouter({sources: <%= @sources.to_json.html_safe -%>});
         Backbone.history.start();
     };
 </script>

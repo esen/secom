@@ -38,6 +38,7 @@ class Secom.Routers.GroupsRouter extends Backbone.Router
     if ur != "vd"
       @indexGrouped()
     else
+      console.log("indexing")
       @pd_view.remove() if @pd_view
       @c_view.remove() if @c_view
       @view = new Secom.Views.Groups.IndexView(groups: @groups, levels: @levels)

@@ -13,7 +13,7 @@ class Ability
                       Ort::Cheque, Ort::Exam, Ort::ExamType, Ort::Participant, Ort::Payment]
 
       when 'vd'
-        can :manage, [Course, Group, Teacher, Room, CourseTime, Lesson, Level]
+        can :manage, [Course, Group, Teacher, Room, CourseTime, Lesson, Level, PaymentDate]
 
       when 'ad'
         can :manage, Student
@@ -26,7 +26,9 @@ class Ability
         can :manage, [Attendance, Test, TestResult]
     end
 
-    can :read, :all
+    can :read, :all if user.role
+    can :show_mark, Ort::Participant
+    can :read, Ort::Cheque
 
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are

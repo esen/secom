@@ -1,11 +1,12 @@
 class PaymentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :filter_params
   load_and_authorize_resource
 
   def index
     respond_to do |format|
       format.html do
-        @payments = Payment.of_branch(current_user.branch_id).all
+        @payments = Payment.of_branch(current_user.branch_id).where(:student_id => nil)
         @sources = Source.of_branch(current_user.branch_id).all
       end
 
@@ -78,5 +79,11 @@ class PaymentsController < ApplicationController
       format.html { redirect_to payments_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def filter_params
+    params[:payment] = params[:payment].except(:created_at, :updated_at, :ort_participant_id) if params[:payment]
   end
 end

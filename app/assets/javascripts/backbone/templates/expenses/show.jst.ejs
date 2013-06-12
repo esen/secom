@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Чыгаша</h1>
+  <%= (teacher) ? "<h3>Айлык акысы</h3>" : "<h1>Чыгаша</h1>" %>
 </div>
 
 <dl class="dl-horizontal">
@@ -18,7 +18,7 @@
 <% if (ur=='ac') { %>
     <div class="form-actions">
     <% if (teacher) { %>
-        <a href="#/<%= teacher.get('id') %>/expenses/index" class="btn btn-small">Чыгашалар</a>
+        <a href="#/<%= teacher.get('id') %>/expenses/index" class="btn btn-small">Айлык акылары</a>
         <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/edit" class="btn btn-small">Өзгөртүү</a>
         <a href="#/<%= teacher.get('id') %>/expenses/<%= id %>/destroy" class="btn btn-small btn-danger destroy">Өчүр</a>
     <% } else { %>

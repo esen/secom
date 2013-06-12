@@ -1,0 +1,16 @@
+<%- if is_ort? %>
+    <%- if current_user %>
+        <li class="nav-header">Exams</li>
+        <li><%= link_to "Start new exam", "/ort/exams/new" %></li>
+        <li><%= link_to "Enroll participant for an exam", "/ort/cheques/new" %></li>
+        <li class="nav-header">Payments</li>
+        <li><%= link_to "New payment", "/ort/payments/new" %></li>
+        <li><%= link_to "Payment history", "/ort/payments" %></li>
+        <!--/.well -->
+    <%- else %>
+        <li><%= link_to t("ORT Results"), "/ort_results" %></li>
+    <%- end %>
+<%- else %>
+    <li class="nav-header">Меню</li>
+    <%= render :partial => "menus/#{current_user.role}" %>
+<%- end %>

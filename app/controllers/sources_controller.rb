@@ -4,6 +4,7 @@ class SourcesController < ApplicationController
 
   def index
     @sources = Source.of_branch(current_user.branch_id).all
+    puts @sources.inspect
 
     respond_to do |format|
       format.html # index.html.erb
