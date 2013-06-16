@@ -7,7 +7,7 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html do
         if current_user.role = 'tr'
-          @courses = Teacher.first.courses.
+          @courses = current_user.teacher.courses.
               joins(:group).joins(:lesson).joins(:room).joins(:course_time).
               select("courses.*, groups.name AS group_name, lessons.title AS lesson_name, rooms.title AS room_name, " +
                          "CONCAT(course_times.starts_at, ' - ', course_times.ends_at) AS course_times")

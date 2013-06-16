@@ -10,11 +10,24 @@ class Secom.Views.Teachers.EditView extends Backbone.View
     e.preventDefault()
     e.stopPropagation()
 
-    @model.save(null,
-      success : (teacher) =>
-        @model = teacher
-        window.location.hash = "/#{@model.id}"
-    )
+    valid = true
+
+    if $("#password").val().length > 0
+      unless $("#password").val() == $("#password_confirmation").val()
+        valid = false
+        alert("Пароль менен парольдун кайталанышы окшош болуусу керек!")
+        $("#password").val("")
+        $("#password_confirmation").val("")
+
+    if valid
+      @model.save(null,
+        success : (teacher) =>
+          @model = teacher
+          window.location.hash = "/#{@model.id}"
+
+        error: (teacher, jqXHR) =>
+          alert($.parseJSON(jqXHR.responseText))
+      )
 
   addLesson: (lesson) =>
     view = new Secom.Views.Lessons.OptionListView({model: lesson, selected_model_id: @model.get('lesson_id')})

@@ -7,7 +7,7 @@ class TestsController < ApplicationController
     respond_to do |format|
       format.html do
         if current_user.role = 'tr'
-          teacher = Teacher.first
+          teacher = current_user.teacher
 
           @course = Course.find(params[:course_id]) if params[:course_id]
           @courses = teacher.courses.joins(:lesson).joins(:group).

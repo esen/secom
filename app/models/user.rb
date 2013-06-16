@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :branch
+  has_one :teacher
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -12,6 +13,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :role, :email
 
   validates_presence_of :name, :role, :email, :username, :encrypted_password, :branch_id
+  validates_uniqueness_of :username
 
   scope :of_branch, lambda { |branch_id| where(:branch_id => branch_id) }
 

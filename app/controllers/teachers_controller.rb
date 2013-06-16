@@ -1,5 +1,6 @@
 class TeachersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :filter_params
   load_and_authorize_resource
 
   def index
@@ -13,7 +14,7 @@ class TeachersController < ApplicationController
   end
 
   def show
-    @teacher = Teacher.find(params[:id])
+    @teacher = Teacher.joins(:user).select("teacher.*, user.username, user.email").where(:id => params[:id]).first
 
     respond_to do |format|
       format.html # show.html.erb
@@ -35,30 +36,66 @@ class TeachersController < ApplicationController
   end
 
   def create
-    @teacher = Teacher.new(params[:teacher])
-    @teacher.branch_id = current_user.branch_id
-
     respond_to do |format|
-      if @teacher.save
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully created.' }
-        format.json { render json: @teacher, status: :created, location: @teacher }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+      format.json do
+        @teacher = Teacher.new(params[:teacher])
+        @teacher.branch_id = current_user.branch_id
+
+        errors = nil
+        if @teacher.valid?
+          user_params = {
+              name: @teacher.name + " " + @teacher.surname,
+              role: "tr",
+              username: @new_user[:username],
+              email: @new_user[:email],
+              password: @new_user[:password],
+              password_confirmation: @new_user[:password],
+              branch_id: current_user.branch_id
+          }
+
+          @user = User.new user_params
+          if @user.save
+            @teacher.user_id = @user.id
+            unless @teacher.save
+              errors = @teacher.errors.full_messages
+              @user.destroy
+            end
+          else
+            errors = @user.errors.full_messages
+          end
+        else
+          errors = @teacher.errors.full_messages
+        end
+
+        if errors.nil?
+          render json: @teacher, status: :created, location: @teacher
+        else
+          render json: errors, status: :unprocessable_entity
+        end
       end
     end
   end
 
   def update
-    @teacher = Teacher.find(params[:id])
-
     respond_to do |format|
-      if @teacher.update_attributes(params[:teacher].except(:created_at, :updated_at))
-        format.html { redirect_to @teacher, notice: 'Teacher was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @teacher.errors, status: :unprocessable_entity }
+      format.json do
+        @teacher = Teacher.find(params[:id])
+
+        if @teacher.update_attributes(params[:teacher].except(:created_at, :updated_at))
+          @user = @teacher.user
+
+          if @new_user[:password].length > 0
+            @user.password = @new_user[:password]
+            @user.password_confirmation = @new_user[:password]
+            if @user.save
+              head :no_content
+            else
+              render json: @user.errors, status: :unprocessable_entity
+            end
+          end
+        else
+          render json: @teacher.errors, status: :unprocessable_entity
+        end
       end
     end
   end
@@ -70,6 +107,19 @@ class TeachersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to teachers_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+
+  def filter_params
+    if params[:teacher]
+      @new_user = {}
+      @new_user[:username] = params[:teacher][:username]
+      @new_user[:email] = params[:teacher][:email]
+      @new_user[:password] = params[:teacher][:password]
+
+      params[:teacher] = params[:teacher].except(:created_at, :updated_at, :username, :email, :password, :password_confirmation, :user_id, :id)
     end
   end
 end

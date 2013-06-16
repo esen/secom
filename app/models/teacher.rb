@@ -1,6 +1,7 @@
 class Teacher < ActiveRecord::Base
   belongs_to :branch
   belongs_to :lesson
+  belongs_to :user, :dependent => :destroy
   has_many :expenses
   has_many :courses, :dependent => :nullify
 

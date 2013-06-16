@@ -20,14 +20,20 @@ class Secom.Views.Teachers.NewView extends Backbone.View
 
     @model.unset("errors")
 
-    @collection.create(@model.toJSON(),
-      success: (teacher) =>
-        @model = teacher
-        window.location.hash = "/#{@model.id}"
+    if $("#password").val() == $("#password_confirmation").val()
+      @collection.create(@model.toJSON(),
+        success: (teacher) =>
+          @model = teacher
+          window.location.hash = "/#{@model.id}"
 
-      error: (teacher, jqXHR) =>
-        @model.set({errors: $.parseJSON(jqXHR.responseText)})
-    )
+        error: (teacher, jqXHR) =>
+          @model.remove()
+          alert($.parseJSON(jqXHR.responseText))
+      )
+    else
+      alert("Пароль менен парольдун кайталанышы окшош болуусу керек!")
+      $("#password").val("")
+      $("#password_confirmation").val("")
 
   addLesson: (lesson) =>
     view = new Secom.Views.Lessons.OptionListView({model: lesson})
