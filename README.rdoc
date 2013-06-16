@@ -6,3 +6,5 @@ they are using papers and Microsoft Excell for all needs of course management. T
 application can be used remotely from everywhere. The application is for managing the
 course lists, schedules, student lists, as well as for making reports like “karne”,
 teacher engagement, course statistics.
+
+== THE FURTHER DEVELOPMENT IS MOVED TO PRIVATE REPOSITORY
